@@ -182,10 +182,9 @@ const Homescreen = (props) => {
 		toggleShowLogin(false);
 		toggleShowDelete(!showDelete)
 	}
-
-	return (
-		<WLayout wLayout="header-lside">
-			<WLHeader>
+	return (//This attaches to the root
+		<WLayout id="fullpage" wLayout="header-lside">
+			<WLHeader id='header'>
 				<WNavbar color="colored">
 					<ul>
 						<WNavItem>
@@ -202,7 +201,7 @@ const Homescreen = (props) => {
 				</WNavbar>
 			</WLHeader>
 
-			<WLSide side="left">
+			<WLSide id='left-sidebar' side="left">
 				<WSidebar>
 					{
 						activeList ?
@@ -217,10 +216,10 @@ const Homescreen = (props) => {
 					}
 				</WSidebar>
 			</WLSide>
-			<WLMain>
+			<WLMain id='mainlist'>
 				{
 					activeList ? 
-							<div className="container-secondary">
+							<div id='workspace' className="container-secondary">
 								<MainContents
 									addItem={addItem} deleteItem={deleteItem}
 									editItem={editItem} reorderItem={reorderItem}
@@ -229,11 +228,11 @@ const Homescreen = (props) => {
 								/>
 							</div>
 						:
-							<div className="container-secondary" />
+							<div id='workspace' className="container-secondary" />
 				}
 
 			</WLMain>
-
+			
 			{
 				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
 			}
@@ -245,7 +244,7 @@ const Homescreen = (props) => {
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} refetchTodos={refetch}setShowLogin={setShowLogin} />)
 			}
-
+			
 		</WLayout>
 	);
 };

@@ -4,7 +4,7 @@ import TableContents    from './TableContents';
 
 const MainContents = (props) => {
     return (
-        <div className='table ' >
+        <div id='Maincontents' className='table ' >
             <TableHeader
                 disabled={!props.activeList._id} addItem={props.addItem}
                 setShowDelete={props.setShowDelete} setActiveList={props.setActiveList}
