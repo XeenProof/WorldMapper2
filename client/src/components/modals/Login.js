@@ -10,6 +10,7 @@ const Login = (props) => {
 	const [showErr, displayErrorMsg] = useState(false);
 	const errorMsg = "Email/Password not found.";
 	const [Login] = useMutation(LOGIN);
+	const [isVisible, setVisible] = useState(true);
 
 	const updateInput = (e) => {
 		const { name, value } = e.target;
@@ -37,34 +38,32 @@ const Login = (props) => {
 	return (
         // Replace div with WModal
 
-		<div className="login-modal">
-			<div className="modal-header" onClose={() => props.setShowLogin(false)}>
+		<WModal visible={isVisible} cover={true} className="login-modal">
+			<WMHeader className="modal-header" onClose={() => props.setShowLogin(false)}>
 				Login
-			</div>
+			</WMHeader>
 
 			{
 				loading ? <div />
-					: <div className="main-login-modal">
-
+					: <WMMain className="main-login-modal">
 						<WInput className="modal-input" onBlur={updateInput} name='email' labelAnimation="up" barAnimation="solid" labelText="Email Address" wType="outlined" inputType='text' />
-						<div className="modal-spacer">&nbsp;</div>
+						<WMMain className="modal-spacer">&nbsp;</WMMain>
 						<WInput className="modal-input" onBlur={updateInput} name='password' labelAnimation="up" barAnimation="solid" labelText="Password" wType="outlined" inputType='password' />
-
 						{
-							showErr ? <div className='modal-error'>
+							showErr ? <WMMain className='modal-error'>
 								{errorMsg}
-							</div>
-								: <div className='modal-error'>&nbsp;</div>
+							</WMMain>
+								: <WMMain className='modal-error'>&nbsp;</WMMain>
 						}
 
-					</div>
+					</WMMain>
 			}
-			<div>
+			<WMFooter>
 				<WButton className="modal-button" onClick={handleLogin} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
 					Login
 				</WButton>
-			</div>
-		</div>
+			</WMFooter>
+		</WModal>
 	);
 }
 

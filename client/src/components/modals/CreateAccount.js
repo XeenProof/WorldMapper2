@@ -8,6 +8,7 @@ const CreateAccount = (props) => {
 	const [input, setInput] = useState({ email: '', password: '', firstName: '', lastName: '' });
 	const [loading, toggleLoading] = useState(false);
 	const [Register] = useMutation(REGISTER);
+	const [isVisible, setVisible] = useState(true);
 
 	
 	const updateInput = (e) => {
@@ -42,14 +43,14 @@ const CreateAccount = (props) => {
 
 	return (
         // Replace div with WModal
-		<div className="signup-modal">
-			<div className="modal-header" onClose={() => props.setShowCreate(false)}>
+		<WModal visible={isVisible} cover={true} className="signup-modal">
+			<WMHeader className="modal-header" onClose={() => props.setShowCreate(false)}>
 				Sign Up
-			</div>
+			</WMHeader>
 
 			{
-				loading ? <div />
-					: <div>
+				loading ? <WMMain />
+					: <WMMain>
 						<WRow className="modal-col-gap signup-modal">
 							<WCol size="6">
 								<WInput 
@@ -65,22 +66,24 @@ const CreateAccount = (props) => {
 							</WCol>
 						</WRow>
 
-						<div className="modal-spacer">&nbsp;</div>
+						<WMMain className="modal-spacer">&nbsp;</WMMain>{/*cosider keeping div*/}
 						<WInput 
 							className="modal-input" onBlur={updateInput} name="email" labelAnimation="up" 
 							barAnimation="solid" labelText="Email Address" wType="outlined" inputType="text" 
 						/>
-						<div className="modal-spacer">&nbsp;</div>
+						<WMMain className="modal-spacer">&nbsp;</WMMain>{/*cosider keeping div*/}
 						<WInput 
 							className="modal-input" onBlur={updateInput} name="password" labelAnimation="up" 
 							barAnimation="solid" labelText="Password" wType="outlined" inputType="password" 
 						/>
-					</div>
+					</WMMain>
 			}
-			<WButton className="modal-button" onClick={handleCreateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
-				Submit
-			</WButton>
-		</div>
+			<WMFooter>
+				<WButton className="modal-button" onClick={handleCreateAccount} span clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="primary">
+					Submit
+				</WButton>
+			</WMFooter>
+		</WModal>
 	);
 }
 
