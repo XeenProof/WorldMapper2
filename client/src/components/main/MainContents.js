@@ -7,8 +7,10 @@ const MainContents = (props) => {
         <div id='Maincontents' className='table ' >
             <TableHeader
                 disabled={!props.activeList._id} addItem={props.addItem}
-                setShowDelete={props.setShowDelete} setActiveList={props.setActiveList}
+                setShowDelete={props.setShowDelete} closeList={props.closeList}
                 undo={props.undo} redo={props.redo} 
+                canUndo={props.canUndo}
+                canRedo={props.canRedo}
             />
             <TableContents
                 key={props.activeList.id} activeList={props.activeList}

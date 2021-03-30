@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const TableEntry = (props) => {
     const { data } = props;
-    const owner = props.owner;
-    console.log(owner);
+    //const owner = props.owner;
+    //console.log(owner);
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
 
@@ -12,15 +13,26 @@ const TableEntry = (props) => {
     const due_date = data.due_date;
     const status = data.completed ? 'complete' : 'incomplete';
     const user = data.assigned_to;
+    //console.log(ObjectId(user));
+
+    
 
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);
     const [editingStatus, toggleStatusEdit] = useState(false);
 
+    //disabling buttons
+    const clickDisabled = () => { };
+    const upStyle = props.canMoveUp? 'table-entry-button' : 'table-entry-button-disabled' 
+    const downStyle = props.canMoveDown? 'table-entry-button' : 'table-entry-button-disabled' 
+
     const handleDateEdit = (e) => {
         toggleDateEdit(false);
         const newDate = e.target.value ? e.target.value : 'No Date';
         const prevDate = due_date;
+        if (newDate == prevDate){
+            return;
+        }
         props.editItem(data._id, 'due_date', newDate, prevDate);
     };
 
@@ -28,6 +40,9 @@ const TableEntry = (props) => {
         toggleDescrEdit(false);
         const newDescr = e.target.value ? e.target.value : 'No Description';
         const prevDescr = description;
+        if (newDescr == prevDescr){
+            return;
+        }
         props.editItem(data._id, 'description', newDescr, prevDescr);
     };
 
@@ -35,6 +50,9 @@ const TableEntry = (props) => {
         toggleStatusEdit(false);
         const newStatus = e.target.value ? e.target.value : false;
         const prevStatus = status;
+        if (newStatus == prevStatus){
+            return;
+        }
         props.editItem(data._id, 'completed', newStatus, prevStatus);
     };
 
@@ -90,13 +108,13 @@ const TableEntry = (props) => {
 
             <WCol size="3">
                 <div className='button-group'>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, -1)} wType="texted">
+                    <WButton className={`${upStyle}`} onClick={props.canMoveUp? () => props.reorderItem(data._id, -1): clickDisabled()} wType="texted">
                         <i className="material-icons">expand_less</i>
                     </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.reorderItem(data._id, 1)} wType="texted">
+                    <WButton className={`${downStyle}`} onClick={props.canMoveDown? () => props.reorderItem(data._id, 1): clickDisabled()} wType="texted">
                         <i className="material-icons">expand_more</i>
                     </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data)} wType="texted">
+                    <WButton className="table-entry-button" onClick={() => props.deleteItem(data)} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
                 </div>

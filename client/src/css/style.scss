@@ -189,6 +189,12 @@ html, body {
     color: $text-color;
 }
 
-.table-entry-buttons {
+.table-entry-button {
+    transition: 0.1s ease-in-out;
     color: $text-color;
+}
+
+.table-entry-button-disabled {
+    transition: 0.1s ease-in-out;
+    color: var(--warm-black);
 }

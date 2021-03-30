@@ -28,7 +28,7 @@ export const LOGOUT = gql`
 		logout 
 	}
 `;
-
+//pulled from resolvers
 export const ADD_ITEM = gql`
 	mutation AddItem($item: ItemInput!, $_id: String!) {
 		addItem(item: $item, _id: $_id)
@@ -48,6 +48,7 @@ export const DELETE_ITEM = gql`
 	}
 `;
 
+//Capitalized = graphql query, lowcase = resolver function
 export const UPDATE_ITEM_FIELD = gql`
 	mutation UpdateItemField($_id: String!, $itemId: String!, $field: String!, $value: String!, $flag: Int!) {
 		updateItemField(_id: $_id, itemId: $itemId, field: $field, value: $value, flag: $flag) {

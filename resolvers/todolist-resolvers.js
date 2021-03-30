@@ -8,6 +8,7 @@ const Todolist = require('../models/todolist-model');
 module.exports = {
 	Query: {
 		/** 
+		 * //gets all the todoLists that belong to the user ID
 		 	@param 	 {object} req - the request object containing a user id
 			@returns {array} an array of todolist objects on success, and an empty array on failure
 		**/
@@ -19,6 +20,7 @@ module.exports = {
 
 		},
 		/** 
+		 * //gets a todoList by id
 		 	@param 	 {object} args - a todolist id
 			@returns {object} a todolist on success and an empty object on failure
 		**/
@@ -117,13 +119,13 @@ module.exports = {
 			const { _id, itemId, field,  flag } = args;
 			let { value } = args
 			const listId = new ObjectId(_id);
-			const found = await Todolist.findOne({_id: listId});
-			let listItems = found.items;
-			if(flag === 1) {
+			const found = await Todolist.findOne({_id: listId});//finds the list the item belongs in
+			let listItems = found.items; // makes a copy of the array in the list
+			if(flag === 1) { //for if we are changing status
 				if(value === 'complete') { value = true; }
 				if(value === 'incomplete') { value = false; }
 			}
-			listItems.map(item => {
+			listItems.map(item => { //makes the value changes to the item we need it to make
 				if(item._id.toString() === itemId) {	
 					
 					item[field] = value;

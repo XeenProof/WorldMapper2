@@ -142,6 +142,7 @@ const Homescreen = (props) => {
 	};
 
 	const deleteList = async (_id) => {
+		props.tps.clearAllTransactions();
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		refetch();
 		setActiveList({});
@@ -155,9 +156,17 @@ const Homescreen = (props) => {
 	};
 
 	const handleSetActive = (id) => {
+		props.tps.clearAllTransactions();
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
 		setActiveList(todo);
+		//console.log(activeList.id);
 	};
+
+	//student made
+	const closeList = () => {
+		props.tps.clearAllTransactions();
+		setActiveList({});
+	}
 
 	
 	/*
@@ -208,7 +217,6 @@ const Homescreen = (props) => {
 							<SidebarContents
 								todolists={todolists} activeid={activeList.id} auth={auth}
 								handleSetActive={handleSetActive} createNewList={createNewList}
-								undo={tpsUndo} redo={tpsRedo}
 								updateListField={updateListField}
 							/>
 							:
@@ -224,8 +232,10 @@ const Homescreen = (props) => {
 									addItem={addItem} deleteItem={deleteItem}
 									editItem={editItem} reorderItem={reorderItem}
 									setShowDelete={setShowDelete}
-									activeList={activeList} setActiveList={setActiveList}
+									activeList={activeList} closeList={closeList}
 									undo={tpsUndo} redo={tpsRedo}
+									canUndo={props.tps.hasTransactionToUndo()}
+									canRedo={props.tps.hasTransactionToRedo()}
 								/>
 							</div>
 						:

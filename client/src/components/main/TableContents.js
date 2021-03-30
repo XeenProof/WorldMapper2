@@ -4,6 +4,7 @@ import TableEntry   from './TableEntry';
 const TableContents = (props) => {
 
     const entries = props.activeList ? props.activeList.items : null;
+    const max = entries? entries.length-1: -1;
     return (
         entries ? <div className=' table-entries container-primary'>
             {
@@ -12,6 +13,8 @@ const TableContents = (props) => {
                         data={entry} key={entry.id}
                         deleteItem={props.deleteItem} reorderItem={props.reorderItem}
                         editItem={props.editItem}
+                        canMoveUp={index != 0}
+                        canMoveDown={index != max}
                     />
                 ))
             }
