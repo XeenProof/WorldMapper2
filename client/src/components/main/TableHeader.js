@@ -9,11 +9,11 @@ const TableHeader = (props) => {
 
     return (
         <WRow className="table-header">
-            <WCol size="4">
+            <WCol size="3">
                 <WButton className='table-header-section' wType="texted" >Task</WButton>
             </WCol>
 
-            <WCol size="3">
+            <WCol size="2">
                 <WButton className='table-header-section' wType="texted">Due Date</WButton>
             </WCol>
 
@@ -21,8 +21,18 @@ const TableHeader = (props) => {
                 <WButton className='table-header-section' wType="texted" >Status</WButton>
             </WCol>
 
+            <WCol size="2">
+                <WButton className='table-header-section' wType="texted" >User</WButton>
+            </WCol>
+
             <WCol size="3">
                 <div className="table-header-buttons">
+                    <WButton className={`${buttonStyle}`} onClick={props.undo} wType="texted" clickAnimation="ripple-light" shape="rounded">
+                            <i className="material-icons">undo</i>
+                    </WButton>
+                    <WButton className={`${buttonStyle}`} onClick={props.redo} wType="texted" clickAnimation="ripple-light" shape="rounded">
+                            <i className="material-icons">redo</i>
+                    </WButton>
                     <WButton onClick={props.disabled ? clickDisabled : props.addItem} wType="texted" className={`${buttonStyle}`}>
                         <i className="material-icons">add_box</i>
                     </WButton>

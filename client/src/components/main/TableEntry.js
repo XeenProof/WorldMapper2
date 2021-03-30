@@ -3,12 +3,16 @@ import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 
 const TableEntry = (props) => {
     const { data } = props;
+    const owner = props.owner;
+    console.log(owner);
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
 
     const description = data.description;
     const due_date = data.due_date;
     const status = data.completed ? 'complete' : 'incomplete';
+    const user = data.assigned_to;
+
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);
     const [editingStatus, toggleStatusEdit] = useState(false);
@@ -36,7 +40,7 @@ const TableEntry = (props) => {
 
     return (
         <WRow className='table-entry'>
-            <WCol size="4">
+            <WCol size="3">
                 {
                     editingDescr || description === ''
                         ? <WInput
@@ -51,7 +55,7 @@ const TableEntry = (props) => {
                 }
             </WCol>
 
-            <WCol size="3">
+            <WCol size="2">
                 {
                     editingDate ? <input
                         className='table-input' onBlur={handleDateEdit}
@@ -78,6 +82,10 @@ const TableEntry = (props) => {
                             {status}
                         </div>
                 }
+            </WCol>
+
+            <WCol size="2">
+                <div className="table-text">{user}</div>
             </WCol>
 
             <WCol size="3">

@@ -225,6 +225,7 @@ const Homescreen = (props) => {
 									editItem={editItem} reorderItem={reorderItem}
 									setShowDelete={setShowDelete}
 									activeList={activeList} setActiveList={setActiveList}
+									undo={tpsUndo} redo={tpsRedo}
 								/>
 							</div>
 						:
