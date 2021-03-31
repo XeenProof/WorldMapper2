@@ -76,7 +76,8 @@ const Homescreen = (props) => {
 	const addItem = async () => {
 		let list = activeList;
 		const items = list.items;
-		const lastID = items.length >= 1 ? items[items.length - 1].id + 1 : 0;
+		const lastID = items.length;
+		console.log(lastID);
 		const newItem = {
 			_id: '',
 			id: lastID,
