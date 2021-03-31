@@ -39,13 +39,15 @@ module.exports = {
 		**/
 		addItem: async(_, args) => {
 			const { _id, item } = args;
+			let { index } = args;
 			const listId = new ObjectId(_id);
 			const objectId = new ObjectId();
 			const found = await Todolist.findOne({_id: listId});
 			if(!found) return ('Todolist not found');
 			item._id = objectId;
 			let listItems = found.items;
-			listItems.push(item);
+			listItems.splice(index, 0, item);
+			//listItems.push(item);
 			
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
 

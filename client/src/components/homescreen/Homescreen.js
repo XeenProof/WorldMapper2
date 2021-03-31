@@ -84,9 +84,11 @@ const Homescreen = (props) => {
 			completed: false
 		};
 		let opcode = 1;
+		let index = items.length;
+		console.log(index);
 		let itemID = newItem._id;
 		let listID = activeList._id;
-		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
+		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, index, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
 	};
@@ -104,7 +106,9 @@ const Homescreen = (props) => {
 			assigned_to: item.assigned_to,
 			completed: item.completed
 		}
-		let transaction = new UpdateListItems_Transaction(listID, itemID, itemToDelete, opcode, AddTodoItem, DeleteTodoItem);
+		let index = activeList.items.indexOf(item);
+		console.log(index);
+		let transaction = new UpdateListItems_Transaction(listID, itemID, itemToDelete, opcode, index, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
 	};
