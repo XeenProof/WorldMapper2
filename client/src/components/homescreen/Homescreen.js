@@ -14,7 +14,8 @@ import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
-	EditItem_Transaction } 				from '../../utils/jsTPS';
+	EditItem_Transaction,
+	UpdateList_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
 
 
@@ -33,6 +34,7 @@ const Homescreen = (props) => {
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
+	const [SortList] 			    = useMutation(mutations.SORT_LIST);
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
@@ -158,6 +160,74 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
+	//
+	const updateSortedList = async (field) => {
+		let listId = activeList._id;
+
+		let todoList = activeList.items;
+		let unsortedIds = todoList.map(x => x._id.toString());
+		let unsortedIds2 = todoList.map(x => x._id.toString());
+
+		let test = todoList.map(x => x.completed);
+		console.log(test);
+		
+		let comparator = makeComparator(field);
+
+		let sortedIds = sortList(unsortedIds2, comparator);
+
+		console.log("Homescreen: " + unsortedIds);
+        console.log("Homescreen: " + sortedIds);
+
+		let transaction = new UpdateList_Transaction(listId, unsortedIds, sortedIds, SortList);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+	}
+
+	const makeComparator = (criteria) => {
+		return function (item1, item2){
+			let value1 = item1[criteria];
+			let value2 = item2[criteria];
+			if (value1 < value2) {
+				return -1;
+			  }
+			  else if (value1 === value2) {
+				return 0;
+			  }
+			  else {
+				return 1;
+			  }
+		}
+	}
+
+	const sortList = (list, comparator) => {
+		let todoList = activeList.items;
+		let items = list;
+		for(let i = 0; i < items.length-1; i++){
+			for(let j = i + 1; j < items.length; j++){
+				let itemi = todoList.find(e => e._id.toString() === items[i]);
+				let itemj = todoList.find(e => e._id.toString() === items[j]);
+				let result = comparator(itemi, itemj)
+				if (result == 1){
+					let temp = items[i];
+					items[i] = items[j];
+					items[j] = temp;
+				}
+			}
+		}
+		return items;
+	}
+
+	const compareList = (list1, list2) => {
+		if (list1.length != list2.length){
+			return false;
+		}
+		for(let i = 0; i < list1.length; i++){
+			if (list1[i].localeCompare(list2[i]) != 0){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	const handleSetActive = (id) => {
 		props.tps.clearAllTransactions();
@@ -240,6 +310,7 @@ const Homescreen = (props) => {
 									undo={tpsUndo} redo={tpsRedo}
 									canUndo={props.tps.hasTransactionToUndo()}
 									canRedo={props.tps.hasTransactionToRedo()}
+									sortList={updateSortedList}
 								/>
 							</div>
 						:

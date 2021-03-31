@@ -119,6 +119,38 @@ export class UpdateListItems_Transaction extends jsTPS_Transaction {
     }
 }
 
+export class UpdateList_Transaction extends jsTPS_Transaction {
+    constructor(listId, unsortedList, sortedList, updateListFunc){
+        super();
+        this.listId = listId;
+        this.unsortedList = unsortedList;
+        this.sortedList = sortedList;
+        this.updateFunction = updateListFunc;
+        console.log("TPS: " + this.unsortedList);
+        console.log("TPS: " + this.sortedList);
+    }
+
+    async doTransaction(){
+        const { data } = await this.updateFunction({
+            variables: {
+                _id: this.listId, 
+                todoIDs: this.sortedList
+            }
+        });
+        //console.log(this.unsortedList);
+    }
+
+    async undoTransaction() {
+        console.log("undoing sort");
+        const { data } = await this.updateFunction({
+            variables: {
+                _id: this.listId, 
+                todoIDs: this.unsortedList
+            }
+        });
+    }
+}
+
 
 
 

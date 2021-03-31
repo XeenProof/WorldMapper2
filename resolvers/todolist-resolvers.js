@@ -162,11 +162,37 @@ module.exports = {
 				listItems[index] = prev;
 			}
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
+			
 			if(updated) return (listItems);
 			// return old ordering if reorder was unsuccessful
 			listItems = found.items;
 			return (found.items);
 
+		},
+
+		/**
+			@param 	 {object} args - contains list id, and the new itemlist to replace it with
+			@returns {array} the reordered item array on success, or initial ordering on failure
+		**/
+		sortTodoList: async (_, args) => {
+			const { _id } = args;
+			let { todoIDs } = args;
+			const listId = new ObjectId(_id);
+			const found = await Todolist.findOne({_id: listId});
+			let currentItems = found.items;
+			//let newList = [];
+			// for(let i = 0; i < itemIDs.length; i++){
+			// 	newList.push();
+			// }
+			let newList = todoIDs.map(id => currentItems.find(e => e._id == id));
+			console.log(newList);
+
+
+			const updated = await Todolist.updateOne({_id: listId}, { items: newList })
+			//const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
+			if(updated) return true;
+			else return false;
+			//return true;
 		}
 
 	}

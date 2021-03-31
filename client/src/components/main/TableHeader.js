@@ -10,22 +10,42 @@ const TableHeader = (props) => {
 
     const clickDisabled = () => { };
 
+    const handleDescriptionSorting = () => {
+        //console.log("text clicked");
+        props.sortList("description");
+    };
+
+    const handleDueDateSorting = () => {
+        //console.log("due date clicked");
+        props.sortList("due_date");
+    };
+
+    const handleCompleteSorting = () => {
+        //console.log("status clicked");
+        props.sortList("completed");
+    };
+
+    const handleUserSorting = () => {
+        //console.log("user clicked");
+        props.sortList("assigned_to");
+    };
+    //{/*onClick={props.disabled ? clickDisabled() : props.sortList("description")}*/}
     return (
         <WRow className="table-header">
-            <WCol size="3">
-                <WButton className='table-header-section' wType="texted" >Task</WButton>
+            <WCol size="3" >
+                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleDescriptionSorting} wType="texted" ><div>Task</div></WButton>
             </WCol>
 
-            <WCol size="2">
-                <WButton className='table-header-section' wType="texted">Due Date</WButton>
+            <WCol size="2" >
+                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleDueDateSorting} wType="texted" ><div>Due Date</div></WButton>
             </WCol>
 
-            <WCol size="2">
-                <WButton className='table-header-section' wType="texted" >Status</WButton>
+            <WCol size="2" >
+                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleCompleteSorting} wType="texted" ><div>Status</div></WButton>
             </WCol>
 
-            <WCol size="2">
-                <WButton className='table-header-section' wType="texted" >User</WButton>
+            <WCol size="2" >
+                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleUserSorting} wType="texted"  ><div>User</div></WButton>
             </WCol>
 
             <WCol size="3">
