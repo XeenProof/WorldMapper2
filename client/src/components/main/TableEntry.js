@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
-const ObjectId = require('mongoose').Types.ObjectId;
+//const ObjectId = require('mongoose').Types.ObjectId;
 
 const TableEntry = (props) => {
     const { data } = props;
@@ -8,11 +8,12 @@ const TableEntry = (props) => {
     //console.log(owner);
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
+    const assignStyle = data.completed ? ' assign-complete' : ' assign-incomplete';
 
     const description = data.description;
     const due_date = data.due_date;
     const status = data.completed ? 'complete' : 'incomplete';
-    const user = data.assigned_to;
+    const assign = data.assigned_to;
     //console.log(ObjectId(user));
 
     
@@ -20,6 +21,7 @@ const TableEntry = (props) => {
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);
     const [editingStatus, toggleStatusEdit] = useState(false);
+    const [editingAssign, toggleAssignEdit] = useState(false);
 
     //disabling buttons
     const clickDisabled = () => { };
@@ -54,6 +56,16 @@ const TableEntry = (props) => {
             return;
         }
         props.editItem(data._id, 'completed', newStatus, prevStatus);
+    };
+
+    const handleAssignEdit = (e) => {
+        toggleAssignEdit(false);
+        const newAssign = e.target.value ? e.target.value : 'No Assigned';
+        const prevAssign = assign;
+        if (newAssign == prevAssign){
+            return;
+        }
+        props.editItem(data._id, 'assigned_to', newAssign, prevAssign);
     };
 
     return (
@@ -103,7 +115,19 @@ const TableEntry = (props) => {
             </WCol>
 
             <WCol size="2">
-                <div className="table-text">{user}</div>
+            {
+                    editingAssign || assign === ''
+                        ? <WInput
+                            className='table-input' onBlur={handleAssignEdit}
+                            autoFocus={true} defaultValue={assign} type='text'
+                            wType="outlined" barAnimation="solid" inputClass="table-input-class"
+                        />
+                        : <div className={`table-text ${assignStyle}`}
+                            onClick={() => toggleAssignEdit(!editingAssign)}
+                        >{assign}
+                        </div>
+                }
+                {/* <div className="table-text">{user}</div> */}
             </WCol>
 
             <WCol size="3">

@@ -45,7 +45,7 @@ const TableHeader = (props) => {
             </WCol>
 
             <WCol size="2" >
-                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleUserSorting} wType="texted"  ><div>User</div></WButton>
+                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleUserSorting} wType="texted"  ><div>Assigned To</div></WButton>
             </WCol>
 
             <WCol size="3">

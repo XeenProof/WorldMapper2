@@ -20,6 +20,7 @@ import WInput from 'wt-frontend/build/components/winput/WInput';
 
 
 const Homescreen = (props) => {
+	
 
 	let todolists 							= [];
 	const [activeList, setActiveList] 		= useState({});
@@ -35,6 +36,26 @@ const Homescreen = (props) => {
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
 	const [SortList] 			    = useMutation(mutations.SORT_LIST);
+
+	//gets the date
+	//const test = new Date().toISOString();
+	//console.log(test);
+
+
+	// const shortcuts = (event) => {
+	// 	//console.log(event);
+	// 	if(event.ctrlKey && event.code == 'KeyZ'){
+	// 	  console.log("Undo: triggered");
+	// 	  tpsUndo();
+	// 	}
+	// 	if(event.ctrlKey && event.code == 'KeyY'){
+	// 	  console.log("Redo: triggered");
+	// 	  tpsRedo();
+	// 	}
+	// }
+
+	// document.removeEventListener('keydown', shortcuts);
+	// document.addEventListener('keydown', shortcuts);
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
@@ -58,15 +79,19 @@ const Homescreen = (props) => {
 	}
 
 	const tpsUndo = async () => {
-		const retVal = await props.tps.undoTransaction();
-		refetchTodos(refetch);
-		return retVal;
+		if (props.tps.hasTransactionToUndo()){
+			const retVal = await props.tps.undoTransaction();
+			refetchTodos(refetch);
+			return retVal;
+		}
 	}
 
 	const tpsRedo = async () => {
-		const retVal = await props.tps.doTransaction();
-		refetchTodos(refetch);
-		return retVal;
+		if (props.tps.hasTransactionToRedo()){
+			const retVal = await props.tps.doTransaction();
+			refetchTodos(refetch);
+			return retVal;
+		}
 	}
 
 
@@ -76,7 +101,8 @@ const Homescreen = (props) => {
 	const addItem = async () => {
 		let list = activeList;
 		const items = list.items;
-		const lastID = items.length;
+		let idList = items.map(x => x.id);
+		const lastID = Math.max(...idList)+1;
 		console.log(lastID);
 		const newItem = {
 			_id: '',
@@ -136,7 +162,9 @@ const Homescreen = (props) => {
 
 	const createNewList = async () => {
 		const length = todolists.length
-		const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
+		//const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
+		let idList = todolists.map(x => x.id);
+		const id = Math.max(...idList) + 1;
 		let list = {
 			_id: '',
 			id: id,
@@ -161,27 +189,40 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
-	//
+	
 	const updateSortedList = async (field) => {
 		let listId = activeList._id;
 
 		let todoList = activeList.items;
 		let unsortedIds = todoList.map(x => x._id.toString());
 		let unsortedIds2 = todoList.map(x => x._id.toString());
-
-		let test = todoList.map(x => x.completed);
-		console.log(test);
 		
 		let comparator = makeComparator(field);
-
 		let sortedIds = sortList(unsortedIds2, comparator);
+		if(compareList(sortedIds, unsortedIds)){
+			sortedIds.reverse();
+		}
 
-		console.log("Homescreen: " + unsortedIds);
-        console.log("Homescreen: " + sortedIds);
+
+		console.log(sortedIds);
+		console.log(unsortedIds);
+		console.log(sortedIds[0] === unsortedIds[0]);
 
 		let transaction = new UpdateList_Transaction(listId, unsortedIds, sortedIds, SortList);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
+	}
+
+	const compareList = (list1, list2) => {
+		if (list1.length != list2.length){
+			return false;
+		}
+		for(let i = 0; i < list1.length; i++){
+			if(list1[i] !== list2[i]){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	const makeComparator = (criteria) => {
@@ -216,18 +257,6 @@ const Homescreen = (props) => {
 			}
 		}
 		return items;
-	}
-
-	const compareList = (list1, list2) => {
-		if (list1.length != list2.length){
-			return false;
-		}
-		for(let i = 0; i < list1.length; i++){
-			if (list1[i].localeCompare(list2[i]) != 0){
-				return false;
-			}
-		}
-		return true;
 	}
 
 	const handleSetActive = (id) => {

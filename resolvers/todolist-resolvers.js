@@ -16,6 +16,7 @@ module.exports = {
 			const _id = new ObjectId(req.userId);
 			if(!_id) { return([])};
 			const todolists = await Todolist.find({owner: _id});
+			//console.log(todolists);
 			if(todolists) return (todolists);
 
 		},
