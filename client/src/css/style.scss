@@ -97,6 +97,14 @@ html, body {
     color: $text-color;
 }
 
+.sidebar-buttons {
+    background-color: var(--yellow-orange);
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 .table-entries {
     scrollbar-width: thin;
 }

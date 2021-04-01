@@ -24,6 +24,7 @@ const Homescreen = (props) => {
 
 	let todolists 							= [];
 	const [activeList, setActiveList] 		= useState({});
+	const [listActive, toggleListActive] 	= useState(false);
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
@@ -72,11 +73,17 @@ const Homescreen = (props) => {
 			if (activeList._id) {
 				let tempID = activeList._id;
 				let list = todolists.find(list => list._id === tempID);
-				setActiveList(list);
 
+				setActiveList(list);
+				toggleListActive(true);
 			}
 		}
 	}
+
+	// console.log(activeList._id);
+	// if(activeList._id){
+	// 	console.log("list loaded");
+	// }
 
 	const tpsUndo = async () => {
 		if (props.tps.hasTransactionToUndo()){
@@ -161,8 +168,6 @@ const Homescreen = (props) => {
 	};
 
 	const createNewList = async () => {
-		const length = todolists.length
-		//const id = length >= 1 ? todolists[length - 1].id + Math.floor((Math.random() * 100) + 1) : 1;
 		let idList = todolists.map(x => x.id);
 		const id = Math.max(...idList) + 1;
 		let list = {
@@ -173,7 +178,11 @@ const Homescreen = (props) => {
 			items: [],
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
-		setActiveList(list)
+		//console.log(data.addTodolist);
+		//handleSetActive(data.addTodolist);
+		//this problem should naturally be fixed as the loaded list on top thing gets fixed
+		//setActiveList(list);
+		//toggleListActive(true);
 	};
 
 	const deleteList = async (_id) => {
@@ -181,6 +190,7 @@ const Homescreen = (props) => {
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		refetch();
 		setActiveList({});
+		toggleListActive(false);
 	};
 
 	const updateListField = async (_id, field, value, prev) => {
@@ -202,11 +212,6 @@ const Homescreen = (props) => {
 		if(compareList(sortedIds, unsortedIds)){
 			sortedIds.reverse();
 		}
-
-
-		console.log(sortedIds);
-		console.log(unsortedIds);
-		console.log(sortedIds[0] === unsortedIds[0]);
 
 		let transaction = new UpdateList_Transaction(listId, unsortedIds, sortedIds, SortList);
 		props.tps.addTransaction(transaction);
@@ -263,6 +268,7 @@ const Homescreen = (props) => {
 		props.tps.clearAllTransactions();
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
 		setActiveList(todo);
+		toggleListActive(true);
 		//console.log(activeList.id);
 	};
 
@@ -270,6 +276,8 @@ const Homescreen = (props) => {
 	const closeList = () => {
 		props.tps.clearAllTransactions();
 		setActiveList({});
+		toggleListActive(false);
+		//console.log(activeList);
 	}
 
 	
@@ -322,6 +330,7 @@ const Homescreen = (props) => {
 								todolists={todolists} activeid={activeList.id} auth={auth}
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								updateListField={updateListField}
+								listActive={listActive}
 							/>
 							:
 							<></>

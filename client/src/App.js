@@ -6,6 +6,7 @@ import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
  
 const App = () => {
+	
 	let user = null;
     let transactionStack = new jsTPS();
 	
