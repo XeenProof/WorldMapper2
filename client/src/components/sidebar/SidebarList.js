@@ -5,11 +5,14 @@ const SidebarList = (props) => {
     return (
         <>
             {
-                props.todolists &&
-                props.todolists.map(todo => (
+                props.listorder &&
+                props.listorder.map(todo => (
                     <SidebarEntry
                         handleSetActive={props.handleSetActive} activeid={props.activeid}
-                        id={todo.id} key={todo.id} name={todo.name} _id={todo._id}
+                        id={props.todolists.find(e => e._id.toString() === todo).id} 
+                        key={props.todolists.find(e => e._id.toString() === todo).id} 
+                        name={props.todolists.find(e => e._id.toString() === todo).name} 
+                        _id={props.todolists.find(e => e._id.toString() === todo)._id}
                         updateListField={props.updateListField}
                     />
                 ))

@@ -19,6 +19,10 @@ const todolistSchema = new Schema(
 			type: String,
 			required: true
 		},
+		last_opened: {
+			type: String,
+			required: true
+		},
 		items: [Item],
 	},
 	{ timestamps: true }

@@ -68,7 +68,8 @@ module.exports = {
 				id: id,
 				name: name,
 				owner: owner,
-				items: items
+				last_opened: new Date().toISOString(),
+				items: items,
 			});
 			const updated = newList.save();
 			if(updated) return objectId;
@@ -109,6 +110,10 @@ module.exports = {
 			const { field, value, _id } = args;
 			const objectId = new ObjectId(_id);
 			const updated = await Todolist.updateOne({_id: objectId}, {[field]: value});
+			// console.log(field === 'last_opened');
+			// if(field == 'last_opened'){
+			// 	const reorder = await Todolist.find({owner: _id}).sort({'last_opened', -1});
+			// }
 			if(updated) return value;
 			else return "";
 		},
@@ -181,20 +186,16 @@ module.exports = {
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
 			let currentItems = found.items;
-			//let newList = [];
-			// for(let i = 0; i < itemIDs.length; i++){
-			// 	newList.push();
-			// }
 			let newList = todoIDs.map(id => currentItems.find(e => e._id == id));
-			console.log(newList);
-
-
+			//console.log(newList);
 			const updated = await Todolist.updateOne({_id: listId}, { items: newList })
 			//const updated = await Todolist.updateOne({_id: listId}, { items: listItems })
 			if(updated) return true;
 			else return false;
 			//return true;
+			//await Todolist.find({}).sort({'last_opened', -1});
 		}
+
 
 	}
 }

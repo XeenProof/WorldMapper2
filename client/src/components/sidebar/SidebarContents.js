@@ -3,6 +3,7 @@ import SidebarHeader    from './SidebarHeader';
 import SidebarList      from './SidebarList';
 
 const SidebarContents = (props) => {
+    console.log("Side bar refreshed");
     return (
         <>
             <SidebarHeader 
@@ -11,7 +12,8 @@ const SidebarContents = (props) => {
             />
             <SidebarList
                 activeid={props.activeid} handleSetActive={props.handleSetActive}
-                todolists={props.todolists} createNewList={props.createNewList}
+                todolists={props.todolists} listorder={props.listorder}
+                createNewList={props.createNewList}
                 updateListField={props.updateListField}
             />
         </>

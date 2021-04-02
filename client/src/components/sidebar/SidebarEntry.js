@@ -14,6 +14,8 @@ const SidebarEntry = (props) => {
     const handleSubmit = (e) => {
         handleEditing(e);
         const { name, value } = e.target;
+        console.log(name);
+        console.log(name instanceof String);
         props.updateListField(props._id, name, value, preEdit);
     };
 

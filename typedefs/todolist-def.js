@@ -7,6 +7,7 @@ const typeDefs = gql `
 		id: Int!
 		name: String!
 		owner: String!
+		last_opened: String!
 		items: [Item]
 	}
 	type Item {
@@ -41,6 +42,7 @@ const typeDefs = gql `
 		id: Int
 		name: String
 		owner: String
+		last_opened: String
 		items: [ItemInput]
 	}
 	input ItemInput {

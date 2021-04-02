@@ -23,6 +23,8 @@ const Homescreen = (props) => {
 	
 
 	let todolists 							= [];
+	let todolistsIds                        = [];
+	let todolistsIdsSorted                  = [];
 	const [activeList, setActiveList] 		= useState({});
 	const [listActive, toggleListActive] 	= useState(false);
 	const [showDelete, toggleShowDelete] 	= useState(false);
@@ -58,14 +60,53 @@ const Homescreen = (props) => {
 	// document.removeEventListener('keydown', shortcuts);
 	// document.addEventListener('keydown', shortcuts);
 
+	const makeComparator = (criteria, invert) => {
+		let multi = invert? -1:1;
+		return function (item1, item2){
+			let value1 = item1[criteria];
+			let value2 = item2[criteria];
+			if (value1 < value2) {
+				return -1*multi;
+			  }
+			  else if (value1 === value2) {
+				return 0;
+			  }
+			  else {
+				return 1*multi;
+			  }
+		}
+	}
+
+	const sortList = (ids, source, comparator) => {
+		let info = source;
+		let idSet = ids;
+		for(let i = 0; i < ids.length-1; i++){
+			for(let j = i + 1; j < ids.length; j++){
+				let itemi = info.find(e => e._id.toString() === idSet[i]);
+				let itemj = info.find(e => e._id.toString() === idSet[j]);
+				let result = comparator(itemi, itemj)
+				if (result == 1){
+					let temp = idSet[i];
+					idSet[i] = idSet[j];
+					idSet[j] = temp;
+				}
+			}
+		}
+		return idSet;
+	}
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
-	if(data) { todolists = data.getAllTodos; }
+	if(data) { 
+		todolists = data.getAllTodos; 
+		todolistsIds = todolists.map(x => x._id.toString());
+		const listComparator = makeComparator('last_opened', true);
+		todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
+	}
 
 	const auth = props.user === null ? false : true;
-
+	//getting active list
 	const refetchTodos = async (refetch) => {
 		const { loading, error, data } = await refetch();
 		if (data) {
@@ -80,10 +121,6 @@ const Homescreen = (props) => {
 		}
 	}
 
-	// console.log(activeList._id);
-	// if(activeList._id){
-	// 	console.log("list loaded");
-	// }
 
 	const tpsUndo = async () => {
 		if (props.tps.hasTransactionToUndo()){
@@ -109,7 +146,7 @@ const Homescreen = (props) => {
 		let list = activeList;
 		const items = list.items;
 		let idList = items.map(x => x.id);
-		const lastID = Math.max(...idList)+1;
+		const lastID = (idList.length == 0)? 0: Math.max(...idList)+1;
 		console.log(lastID);
 		const newItem = {
 			_id: '',
@@ -169,20 +206,20 @@ const Homescreen = (props) => {
 
 	const createNewList = async () => {
 		let idList = todolists.map(x => x.id);
-		const id = Math.max(...idList) + 1;
+		const id = (idList.length == 0)? 0: Math.max(...idList) + 1;
 		let list = {
-			_id: '',
+			_id: 'temp',
 			id: id,
 			name: 'Untitled',
 			owner: props.user._id,
-			items: [],
+			last_opened: '',
+			items: []
+			
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
-		//console.log(data.addTodolist);
-		//handleSetActive(data.addTodolist);
-		//this problem should naturally be fixed as the loaded list on top thing gets fixed
-		//setActiveList(list);
-		//toggleListActive(true);
+		setActiveList(list);
+		toggleListActive(true);
+		refetch();
 	};
 
 	const deleteList = async (_id) => {
@@ -207,8 +244,8 @@ const Homescreen = (props) => {
 		let unsortedIds = todoList.map(x => x._id.toString());
 		let unsortedIds2 = todoList.map(x => x._id.toString());
 		
-		let comparator = makeComparator(field);
-		let sortedIds = sortList(unsortedIds2, comparator);
+		let comparator = makeComparator(field, false);
+		let sortedIds = sortList(unsortedIds2, activeList.items, comparator);
 		if(compareList(sortedIds, unsortedIds)){
 			sortedIds.reverse();
 		}
@@ -230,45 +267,14 @@ const Homescreen = (props) => {
 		return true;
 	}
 
-	const makeComparator = (criteria) => {
-		return function (item1, item2){
-			let value1 = item1[criteria];
-			let value2 = item2[criteria];
-			if (value1 < value2) {
-				return -1;
-			  }
-			  else if (value1 === value2) {
-				return 0;
-			  }
-			  else {
-				return 1;
-			  }
-		}
-	}
-
-	const sortList = (list, comparator) => {
-		let todoList = activeList.items;
-		let items = list;
-		for(let i = 0; i < items.length-1; i++){
-			for(let j = i + 1; j < items.length; j++){
-				let itemi = todoList.find(e => e._id.toString() === items[i]);
-				let itemj = todoList.find(e => e._id.toString() === items[j]);
-				let result = comparator(itemi, itemj)
-				if (result == 1){
-					let temp = items[i];
-					items[i] = items[j];
-					items[j] = temp;
-				}
-			}
-		}
-		return items;
-	}
-
-	const handleSetActive = (id) => {
+	const handleSetActive = async (id) => {
 		props.tps.clearAllTransactions();
 		const todo = todolists.find(todo => todo.id === id || todo._id === id);
+		let _id = todo._id;
+		const { data } = await UpdateTodolistField({ variables: { _id: _id, field: 'last_opened', value: new Date().toISOString() }});
 		setActiveList(todo);
 		toggleListActive(true);
+		refetch();
 		//console.log(activeList.id);
 	};
 
@@ -327,7 +333,7 @@ const Homescreen = (props) => {
 					{
 						activeList ?
 							<SidebarContents
-								todolists={todolists} activeid={activeList.id} auth={auth}
+								todolists={todolists} activeid={activeList.id} auth={auth} listorder={todolistsIdsSorted}
 								handleSetActive={handleSetActive} createNewList={createNewList}
 								updateListField={updateListField}
 								listActive={listActive}

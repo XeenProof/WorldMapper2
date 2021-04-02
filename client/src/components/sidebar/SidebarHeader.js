@@ -17,7 +17,7 @@ const SidebarHeader = (props) => {
             <WCol size="5">
                 {
                     props.auth && <div className="sidebar-options">
-                        <WButton className={`sidebar-buttons ${visable}` } onClick={props.listActive ? clickDisabled: props.createNewList} clickAnimation="ripple-light" shape="rounded">
+                        <WButton className={`sidebar-buttons ${visable}` } onClick={props.listActive ? clickDisabled: props.createNewList} clickAnimation="ripple-light" shape="rounded" color="primary">
                             <i className="material-icons">add</i>
                         </WButton>
                     </div>
