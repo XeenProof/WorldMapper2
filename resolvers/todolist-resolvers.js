@@ -39,12 +39,19 @@ module.exports = {
 			@returns {string} the objectID of the item or an error message
 		**/
 		addItem: async(_, args) => {
+			console.log("adding item");
 			const { _id, item } = args;
 			let { index } = args;
+			console.log("adding item search");
 			const listId = new ObjectId(_id);
+			console.log("adding item end");
 			const objectId = new ObjectId();
+			
 			const found = await Todolist.findOne({_id: listId});
-			if(!found) return ('Todolist not found');
+			//console.log("adding item end");
+			if(!found) {
+				return ('Todolist not found');
+			}
 			item._id = objectId;
 			let listItems = found.items;
 			listItems.splice(index, 0, item);

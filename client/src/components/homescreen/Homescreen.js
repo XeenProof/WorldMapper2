@@ -17,10 +17,21 @@ import { UpdateListField_Transaction,
 	EditItem_Transaction,
 	UpdateList_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 const Homescreen = (props) => {
-	
+	//let shortcuts;
+	//useEffect(document.addEventListener('keypress', shortcuts));
+	// useEffect(() => {
+	// 	document.addEventListener('keydown', shortcuts);
+	// 	return () => {document.removeEventListener('keydown', shortcuts)}
+	// });
+
+	useEffect(() => {
+		document.addEventListener('keydown', shortcuts);
+		return () => {document.removeEventListener('keydown', shortcuts)}
+	});
 
 	let todolists 							= [];
 	let todolistsIds                        = [];
@@ -40,25 +51,22 @@ const Homescreen = (props) => {
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
 	const [SortList] 			    = useMutation(mutations.SORT_LIST);
 
+	
+
+	
+
 	//gets the date
 	//const test = new Date().toISOString();
 	//console.log(test);
 
 
-	// const shortcuts = (event) => {
-	// 	//console.log(event);
-	// 	if(event.ctrlKey && event.code == 'KeyZ'){
-	// 	  console.log("Undo: triggered");
-	// 	  tpsUndo();
-	// 	}
-	// 	if(event.ctrlKey && event.code == 'KeyY'){
-	// 	  console.log("Redo: triggered");
-	// 	  tpsRedo();
-	// 	}
-	// }
+	
 
+	// useEffect function
 	// document.removeEventListener('keydown', shortcuts);
-	// document.addEventListener('keydown', shortcuts);
+	
+
+	//shortcuts came from here
 
 	const makeComparator = (criteria, invert) => {
 		let multi = invert? -1:1;
@@ -121,6 +129,21 @@ const Homescreen = (props) => {
 		}
 	}
 
+	let shortcuts = (event) => {
+		//console.log(event);
+		if(showCreate || showDelete || showLogin){
+			return;
+		}
+		if(event.ctrlKey && event.code == 'KeyZ'){
+		  console.log("Undo: triggered");
+		  tpsUndo();
+		}
+		if(event.ctrlKey && event.code == 'KeyY'){
+		  console.log("Redo: triggered");
+		  tpsRedo();
+		}
+	}
+
 
 	const tpsUndo = async () => {
 		if (props.tps.hasTransactionToUndo()){
@@ -149,7 +172,7 @@ const Homescreen = (props) => {
 		const lastID = (idList.length == 0)? 0: Math.max(...idList)+1;
 		console.log(lastID);
 		const newItem = {
-			_id: '',
+			_id: 'temp',
 			id: lastID,
 			description: 'No Description',
 			due_date: 'No Date',
@@ -217,9 +240,13 @@ const Homescreen = (props) => {
 			
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
-		setActiveList(list);
-		toggleListActive(true);
-		refetch();
+		if (data){
+			const { addTodolist } = data;
+			list._id = addTodolist;
+			setActiveList(list);
+			toggleListActive(true);
+			refetch();
+		}
 	};
 
 	const deleteList = async (_id) => {
@@ -268,8 +295,11 @@ const Homescreen = (props) => {
 	}
 
 	const handleSetActive = async (id) => {
+		console.log(id);
 		props.tps.clearAllTransactions();
-		const todo = todolists.find(todo => todo.id === id || todo._id === id);
+		const todo = todolists.find(todo => todo.id == id || todo._id == id);
+
+		//console.log(todo._id);
 		let _id = todo._id;
 		const { data } = await UpdateTodolistField({ variables: { _id: _id, field: 'last_opened', value: new Date().toISOString() }});
 		setActiveList(todo);
@@ -309,6 +339,14 @@ const Homescreen = (props) => {
 		toggleShowLogin(false);
 		toggleShowDelete(!showDelete)
 	}
+
+	
+
+	
+	//useEffect(document.removeEventListener('keypress', shortcuts), []);
+
+	
+
 	return (//This attaches to the root
 		<WLayout id="fullpage" wLayout="header-lside">
 			<WLHeader id='header'>
