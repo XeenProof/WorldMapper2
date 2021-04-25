@@ -1,4 +1,5 @@
 import React, { useState, useEffect } 	from 'react';
+import Navbar 							from '../navbar/Navbar';
 import Logo 							from '../navbar/Logo';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import MainContents 					from '../main/MainContents';
@@ -342,28 +343,13 @@ const Homescreen = (props) => {
 
 	
 
-	
-	//useEffect(document.removeEventListener('keypress', shortcuts), []);
-
-	
-
 	return (//This attaches to the root
 		<WLayout id="fullpage" wLayout="header-lside">
 			<WLHeader id='header'>
-				<WNavbar color="colored">
-					<ul>
-						<WNavItem>
-							<Logo className='logo' />
-						</WNavItem>
-					</ul>
-					<ul>
-						<NavbarOptions
-							fetchUser={props.fetchUser} auth={auth} 
-							setShowCreate={setShowCreate} setShowLogin={setShowLogin}
-							refetchTodos={refetch} setActiveList={setActiveList}
-						/>
-					</ul>
-				</WNavbar>
+				<Navbar 
+					fetchUser={props.fetchUser} auth={auth} 
+					setShowCreate={setShowCreate} setShowLogin={setShowLogin}
+					refetchTodos={refetch} setActiveList={setActiveList}/>
 			</WLHeader>
 
 			<WLSide id='left-sidebar' side="left">
@@ -419,3 +405,18 @@ const Homescreen = (props) => {
 };
 
 export default Homescreen;
+
+{/* <WNavbar color="colored">
+<ul>
+	<WNavItem>
+		<Logo className='logo' />
+	</WNavItem>
+</ul>
+<ul>
+	<NavbarOptions
+		fetchUser={props.fetchUser} auth={auth} 
+		setShowCreate={setShowCreate} setShowLogin={setShowLogin}
+		refetchTodos={refetch} setActiveList={setActiveList}
+	/>
+</ul>
+</WNavbar> */}

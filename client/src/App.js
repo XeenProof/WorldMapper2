@@ -31,6 +31,30 @@ const App = () => {
 					} 
 				/>
 				<Route/>
+				<Route 
+					path="/maps" 
+					name="maps" 
+					render={() => 
+						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route/>
+				<Route 
+					path="/spreadsheet" 
+					name="spreadsheet" 
+					render={() => 
+						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route/>
+				<Route 
+					path="/region" 
+					name="region" 
+					render={() => 
+						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+					} 
+				/>
+				<Route/>
 			</Switch>
 		</BrowserRouter>
 	);
