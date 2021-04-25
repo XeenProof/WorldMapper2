@@ -1,5 +1,8 @@
 import React 			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
+import Mapscreen 		from './components/mapscreen/Mapscreen';
+import Spreadsheet 		from './components/spreadsheet/Spreadsheet';
+import Region           from './components/region/Region';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
@@ -22,7 +25,7 @@ const App = () => {
 	return(
 		<BrowserRouter>
 			<Switch>
-				<Redirect exact from="/" to={ {pathname: "/home"} } />
+				<Redirect exact from="/" to={ {pathname: "/mapscreen"} } />
 				<Route 
 					path="/home" 
 					name="home" 
@@ -30,31 +33,27 @@ const App = () => {
 						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
-				<Route/>
 				<Route 
-					path="/maps" 
-					name="maps" 
+					path="/mapscreen" 
+					name="mapscreen" 
 					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+						<Mapscreen tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
-				<Route/>
 				<Route 
 					path="/spreadsheet" 
 					name="spreadsheet" 
 					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+						<Spreadsheet tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
-				<Route/>
 				<Route 
 					path="/region" 
 					name="region" 
 					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+						<Region tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
-				<Route/>
 			</Switch>
 		</BrowserRouter>
 	);

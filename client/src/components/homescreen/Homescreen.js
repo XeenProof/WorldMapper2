@@ -349,7 +349,8 @@ const Homescreen = (props) => {
 				<Navbar 
 					fetchUser={props.fetchUser} auth={auth} 
 					setShowCreate={setShowCreate} setShowLogin={setShowLogin}
-					refetchTodos={refetch} setActiveList={setActiveList}/>
+					refetchTodos={refetch} setActiveList={setActiveList}
+					directory={""}/>
 			</WLHeader>
 
 			<WLSide id='left-sidebar' side="left">

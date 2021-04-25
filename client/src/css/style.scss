@@ -74,9 +74,9 @@ html, body {
     font-size: 1.125rem !important;
 }
 
-.logo {
+.logo {//keep
 	color: $primary-color;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     font-family: "Roboto Mono", monospace;
     text-transform: uppercase;
     font-weight: bold;
@@ -214,4 +214,8 @@ html, body {
 
 .assign-incomplete {
     color: red;
+}
+
+.route-text{
+    text-align: left;
 }

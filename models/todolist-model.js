@@ -28,5 +28,5 @@ const todolistSchema = new Schema(
 	{ timestamps: true }
 );
 
-const Todolist = model('Todolist', todolistSchema);
-module.exports = Todolist;
+const Region = model('Region', todolistSchema);
+module.exports = Region;
