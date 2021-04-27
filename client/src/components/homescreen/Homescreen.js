@@ -18,7 +18,11 @@ import { UpdateListField_Transaction,
 	EditItem_Transaction,
 	UpdateList_Transaction } 				from '../../utils/jsTPS';
 import WInput from 'wt-frontend/build/components/winput/WInput';
+import { useHistory } from "react-router-dom";
+
 const ObjectId = require('mongoose').Types.ObjectId;
+
+
 
 
 const Homescreen = (props) => {
@@ -28,6 +32,8 @@ const Homescreen = (props) => {
 	// 	document.addEventListener('keydown', shortcuts);
 	// 	return () => {document.removeEventListener('keydown', shortcuts)}
 	// });
+
+	//console.log(props.history);
 
 	useEffect(() => {
 		document.addEventListener('keydown', shortcuts);
@@ -341,6 +347,13 @@ const Homescreen = (props) => {
 		toggleShowDelete(!showDelete)
 	}
 
+	let history = useHistory();
+	console.log(history);
+	//console.log(history);
+	const redirect = (route) => {
+		//history.push(route);
+	}
+
 	
 
 	return (//This attaches to the root
@@ -350,9 +363,8 @@ const Homescreen = (props) => {
 					fetchUser={props.fetchUser} auth={auth} 
 					setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 					refetchTodos={refetch} setActiveList={setActiveList}
-					directory={""}/>
+					directory={""} redirect={redirect}/>
 			</WLHeader>
-
 			<WLSide id='left-sidebar' side="left">
 				<WSidebar>
 					{
@@ -389,16 +401,17 @@ const Homescreen = (props) => {
 
 			</WLMain>
 			
+			
 			{
 				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
 			}
 
 			{
-				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
+				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} redirect={redirect}/>)
 			}
 
 			{
-				showLogin && (<Login fetchUser={props.fetchUser} refetchTodos={refetch}setShowLogin={setShowLogin} />)
+				showLogin && (<Login fetchUser={props.fetchUser} refetchTodos={refetch}setShowLogin={setShowLogin} redirect={redirect}/>)
 			}
 			
 		</WLayout>
@@ -421,3 +434,48 @@ export default Homescreen;
 	/>
 </ul>
 </WNavbar> */}
+
+//--------------------------------World Data Mapper
+{/* <WLMain>
+                <div className='image center'>
+                    Globe
+                </div>
+                <div className='homescreen-text'>Welcome to the World Data Mapper</div>
+            </WLMain> */}
+//--------------------------------World Data Mapper End
+
+{/* <WLSide id='left-sidebar' side="left">
+				<WSidebar>
+					{
+						activeList ?
+							<SidebarContents
+								todolists={todolists} activeid={activeList.id} auth={auth} listorder={todolistsIdsSorted}
+								handleSetActive={handleSetActive} createNewList={createNewList}
+								updateListField={updateListField}
+								listActive={listActive}
+							/>
+							:
+							<></>
+					}
+				</WSidebar>
+			</WLSide>
+			<WLMain id='mainlist'>
+				{
+					activeList ? 
+							<div id='workspace' className="container-secondary">
+								<MainContents
+									addItem={addItem} deleteItem={deleteItem}
+									editItem={editItem} reorderItem={reorderItem}
+									setShowDelete={setShowDelete}
+									activeList={activeList} closeList={closeList}
+									undo={tpsUndo} redo={tpsRedo}
+									canUndo={props.tps.hasTransactionToUndo()}
+									canRedo={props.tps.hasTransactionToRedo()}
+									sortList={updateSortedList}
+								/>
+							</div>
+						:
+							<div id='workspace' className="container-secondary" />
+				}
+
+			</WLMain> */}

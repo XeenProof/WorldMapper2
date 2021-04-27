@@ -6,9 +6,12 @@ import Region           from './components/region/Region';
 import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect, useHistory} from 'react-router-dom';
+import { PromiseProvider } from 'mongoose';
+//import { useHistory } from "react-router-dom";
  
 const App = () => {
+
 	
 	let user = null;
     let transactionStack = new jsTPS();
@@ -22,35 +25,42 @@ const App = () => {
 		if(getCurrentUser !== null) { user = getCurrentUser; }
     }
 
+	// let history = useHistory();
+
+	// //console.log(history);
+	// const changeUrl = () => {
+	// 	history.push("/spreadsheet");
+	// }
+
 	return(
 		<BrowserRouter>
 			<Switch>
-				<Redirect exact from="/" to={ {pathname: "/mapscreen"} } />
+				<Redirect exact from="/" to={ {pathname: "/home"} } />
 				<Route 
 					path="/home" 
 					name="home" 
-					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} />
+					component={() => 
+						<Homescreen tps={transactionStack} fetchUser={refetch} user={user}/>
 					} 
 				/>
 				<Route 
-					path="/mapscreen" 
-					name="mapscreen" 
-					render={() => 
+					path="/maps" 
+					name="maps" 
+					component={() => 
 						<Mapscreen tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
 				<Route 
 					path="/spreadsheet" 
 					name="spreadsheet" 
-					render={() => 
+					component={() => 
 						<Spreadsheet tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>
 				<Route 
 					path="/region" 
 					name="region" 
-					render={() => 
+					component={() => 
 						<Region tps={transactionStack} fetchUser={refetch} user={user} />
 					} 
 				/>

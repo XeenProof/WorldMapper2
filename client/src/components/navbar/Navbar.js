@@ -25,6 +25,7 @@ const Navbar = (props) => {
 					fetchUser={props.fetchUser} auth={props.auth} 
 					setShowCreate={props.setShowCreate} setShowLogin={props.setShowLogin}
 					refetchTodos={props.refetchTodos} setActiveList={props.setActiveList}
+					redirect={props.redirect}
 				/>
 			</ul>
 	</WNavbar>)

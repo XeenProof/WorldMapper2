@@ -35,6 +35,7 @@ const CreateAccount = (props) => {
 			}
 			else {
 				props.fetchUser();
+				props.redirect("/spreadsheet");
 			}
 			props.setShowCreate(false);
 

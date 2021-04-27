@@ -4,8 +4,16 @@ import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_TODOS } 				from '../../cache/queries';
+import { useHistory } from "react-router-dom";
+import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 
 const Spreadsheet = (props) => {
+
+    let history = useHistory();
+    console.log(history.peek);
+	const redirect = (route) => {
+		history.push(route);
+	}
 
     const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
@@ -36,15 +44,33 @@ const Spreadsheet = (props) => {
 
     console.log("loading reached");
 
+
+
     return(
-        <WLayout id="fullpage" wLayout="header-lside">
+        <WLayout id="fullpage" wLayout="header">
             <WLHeader id='header'>
                 <Navbar 
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={setShowCreate} setShowLogin={setShowLogin}
                     refetchTodos={refetch} setActiveList={setActiveList}
-                    directory={"Spreadsheet"}/>
+                    directory={"Spreadsheet"} redirect={redirect}/>
             </WLHeader>
+            <WLMain className='test'>
+                <WLayout wLayout="header">
+                    <WLHeader className='mapscreen-text'>
+                        <div >Your Maps</div>
+                    </WLHeader>
+                    <div className='flexlr'>
+                        <div className='size background-test'>
+                            hihi
+                        </div>
+                        <div className='size background-test2'>
+                            hihi
+                        </div>
+                    </div>
+
+                </WLayout>
+            </WLMain>
         </WLayout>
     );
 }

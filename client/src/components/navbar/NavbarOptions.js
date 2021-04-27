@@ -13,6 +13,7 @@ const LoggedIn = (props) => {
         if (data) {
             let reset = await client.resetStore();
             if (reset) props.setActiveList({});
+            props.redirect("/home");
         }
     };
 
@@ -48,7 +49,7 @@ const NavbarOptions = (props) => {
         <>
             {
                 props.auth === false ? <LoggedOut setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate} />
-                : <LoggedIn fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} />
+                : <LoggedIn fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} redirect={props.redirect}/>
             }
         </>
 

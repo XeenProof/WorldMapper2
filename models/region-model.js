@@ -1,7 +1,7 @@
 const { model, Schema, ObjectId } = require('mongoose');
 const Item = require('./item-model').schema;
 
-const todolistSchema = new Schema(
+const regionSchema = new Schema(
 	{
 		_id: {
 			type: ObjectId,
@@ -28,5 +28,5 @@ const todolistSchema = new Schema(
 	{ timestamps: true }
 );
 
-const Region = model('Region', todolistSchema);
+const Region = model('Region', regionSchema);
 module.exports = Region;

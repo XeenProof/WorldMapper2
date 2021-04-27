@@ -43,6 +43,7 @@
 	--blue-gray: #7e8084;
 	--darkblue-gray: #2b2e36;
     --warm-black: #322d2d;
+    --mapscreen-background:#ffcccc;
 }
 
 html, body {
@@ -185,7 +186,7 @@ html, body {
     font-size: 28px;
 }
 
-.navbar-options {
+.navbar-options {//keep
     color: $text-color;
     font-size: 16px;
 }
@@ -218,4 +219,45 @@ html, body {
 
 .route-text{
     text-align: left;
+}
+
+.image{
+    color: red;
+    font-size: 300px;
+    margin-top: 50px;
+    align-self: center;
+    text-align: center;
+    // font-family: 'Courier New', Courier, monospace;
+    // align-self: center;
+    // margin-top: 50px;
+}
+
+.homescreen-text{
+    color: white;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+    align-items: center;
+}
+
+.mapscreen-text{
+    background-color: black;
+    border-top: 5px solid red;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.test{
+    background-color: var(--mapscreen-background);
+}
+
+.background-test{
+    background-color: red;
+}
+
+.background-test2{
+    background-color: blue;
 }

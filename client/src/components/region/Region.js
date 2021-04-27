@@ -4,6 +4,7 @@ import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_TODOS } 				from '../../cache/queries';
+import { useHistory } from "react-router-dom";
 
 const Region = (props) => {
 
@@ -35,9 +36,15 @@ const Region = (props) => {
 	};
 
     console.log("loading reached");
+    let history = useHistory();
+	console.log(history);
+	//console.log(history);
+	const redirect = (route) => {
+		history.push(route);
+	}
 
     return(
-        <WLayout id="fullpage" wLayout="header-lside">
+        <WLayout id="fullpage" wLayout="header">
             <WLHeader id='header'>
                 <Navbar 
                     fetchUser={props.fetchUser} auth={auth} 

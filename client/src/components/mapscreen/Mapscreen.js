@@ -4,6 +4,7 @@ import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_TODOS } 				from '../../cache/queries';
+import { useHistory } from "react-router-dom";
 
 const Mapscreen = (props) => {
 
@@ -36,8 +37,15 @@ const Mapscreen = (props) => {
 
     console.log("loading reached");
 
+    let history = useHistory();
+	console.log(history);
+	//console.log(history);
+	const redirect = (route) => {
+		history.push(route);
+	}
+
     return(
-        <WLayout id="fullpage" wLayout="header-lside">
+        <WLayout id="fullpage" wLayout="header">
             <WLHeader id='header'>
                 <Navbar 
                     fetchUser={props.fetchUser} auth={auth} 
@@ -45,6 +53,21 @@ const Mapscreen = (props) => {
                     refetchTodos={refetch} setActiveList={setActiveList}
                     directory={"Mapscreen"}/>
             </WLHeader>
+			<WLMain className='test'>
+                <WLayout wLayout="header">
+                    <WLHeader className='mapscreen-text'>
+                        <div >Your Maps</div>
+                    </WLHeader>
+                    <div className='flexlr'>
+                        <div className='size background-test'>
+                            hihi
+                        </div>
+                        <div className='size background-test2'>
+							hihi
+                        </div>
+                    </div>
+                </WLayout>
+            </WLMain>
         </WLayout>
     );
 }

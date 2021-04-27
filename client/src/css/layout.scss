@@ -195,3 +195,43 @@ html {
 .logo{//keep
     width: 100px;
 }
+
+.test{
+    align-items: center;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.center{
+    display: flex;
+    height: 400px;
+}
+
+.vertical{
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
+}
+
+.mapscreen-body{
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.size{
+    min-width: 50%;
+    max-width: 50%;
+}
+
+.flexlr{
+    display: flex;
+    flex-direction: row;
+}
