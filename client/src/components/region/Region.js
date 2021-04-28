@@ -50,8 +50,18 @@ const Region = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={setShowCreate} setShowLogin={setShowLogin}
                     refetchTodos={refetch} setActiveList={setActiveList}
-                    directory={"Region"}/>
+                    directory={"Region"} redirect={redirect} user={props.user}/>
             </WLHeader>
+			<WLMain>
+				<div className='region-container background-test3 flexlr'>
+					<div className='region-container-inner background-test2'>
+						hihi
+					</div>
+					<div className='region-container-inner background-test'>
+						landmarks
+					</div>
+				</div>
+			</WLMain>
         </WLayout>
     );
 }

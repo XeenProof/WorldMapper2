@@ -18,11 +18,27 @@ const typeDefs = gql `
 		assigned_to: String!
 		completed:  Boolean!
 	}
+	type Region{
+		_id: String!
+		id: Int!
+		name: String!
+		capital: String
+		leader: String
+		owner: String!
+		parent: String!
+		children: [String]
+		landmark: [Landmark]
+	}
+	type Landmark{
+		id: Int!
+		landmark: String!
+	}
 	extend type Query {
 		getAllTodos: [Todolist]
 		getTodoById(_id: String!): Todolist 
 	}
 	extend type Mutation {
+		addMap(region: RegionInput!): String
 		addItem(item: ItemInput!, _id: String!, index: Int!): String
 		addTodolist(todolist: TodoInput!): String
 		deleteItem(itemId: String!, _id: String!): [Item]		
@@ -31,6 +47,21 @@ const typeDefs = gql `
 		updateItemField(itemId: String!, _id: String!, field: String!, value: String!, flag: Int!): [Item]
 		reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
 		sortTodoList(_id: String!, todoIDs: [String]!): Boolean
+	}
+	input RegionInput{
+		_id: String!
+		id: Int!
+		name: String!
+		capital: String
+		leader: String
+		owner: String!
+		parent: String!
+		children: [String]
+		landmark: [LandmarkInput]
+	}
+	input LandmarkInput{
+		id: Int!
+		landmark: String!
 	}
 	input FieldInput {
 		_id: String

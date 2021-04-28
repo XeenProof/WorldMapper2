@@ -1,10 +1,11 @@
 import React, { useState, useEffect } 	from 'react';
 import Navbar 							from '../navbar/Navbar';
-import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
+import { WNavbar, WSidebar, WNavItem, WButton } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import { useHistory } from "react-router-dom";
+import * as mutations 					from '../../cache/mutations';
 
 const Mapscreen = (props) => {
 
@@ -35,11 +36,8 @@ const Mapscreen = (props) => {
 		toggleShowCreate(!showCreate);
 	};
 
-    console.log("loading reached");
 
     let history = useHistory();
-	console.log(history);
-	//console.log(history);
 	const redirect = (route) => {
 		history.push(route);
 	}
@@ -51,19 +49,22 @@ const Mapscreen = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={setShowCreate} setShowLogin={setShowLogin}
                     refetchTodos={refetch} setActiveList={setActiveList}
-                    directory={"Mapscreen"}/>
+                    directory={"Mapscreen"} redirect={redirect} user={props.user}/>
             </WLHeader>
-			<WLMain className='test'>
+			<WLMain className='mapscreen-alignment'>
                 <WLayout wLayout="header">
                     <WLHeader className='mapscreen-text'>
                         <div >Your Maps</div>
                     </WLHeader>
                     <div className='flexlr'>
-                        <div className='size background-test'>
-                            hihi
+                        <div className='size'>
+                            
                         </div>
-                        <div className='size background-test2'>
-							hihi
+                        <div className='size'>
+                            <div className='image2 background-test2'>PlaceHolder</div>
+							<WButton className='create-new-map'>
+                                Create New Map
+                            </WButton>
                         </div>
                     </div>
                 </WLayout>

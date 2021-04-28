@@ -1,5 +1,5 @@
 const { model, Schema, ObjectId } = require('mongoose');
-const Item = require('./item-model').schema;
+const Landmark = require('./landmark-model').schema;
 
 const regionSchema = new Schema(
 	{
@@ -15,15 +15,24 @@ const regionSchema = new Schema(
 			type: String,
 			required: true
 		},
+		capital: {
+			type: String,
+			required: false
+		},
+		leader: {
+			type: String,
+			required: false
+		},
 		owner: {
 			type: String,
 			required: true
 		},
-		last_opened: {
+		parent: {
 			type: String,
 			required: true
 		},
-		items: [Item],
+		children: [String],
+		landmark: [Landmark],
 	},
 	{ timestamps: true }
 );

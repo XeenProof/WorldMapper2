@@ -17,8 +17,13 @@ const LoggedIn = (props) => {
         }
     };
 
+    let user = props.user? props.user.firstName: "";
+
     return (
         <WNavItem hoverAnimation="lighten">
+            <WButton className="navbar-options" onClick={handleLogout} wType="texted" hoverAnimation="text-primary">
+                {user}
+            </WButton>
             <WButton className="navbar-options" onClick={handleLogout} wType="texted" hoverAnimation="text-primary">
                 Logout
             </WButton>
@@ -48,8 +53,8 @@ const NavbarOptions = (props) => {
     return (
         <>
             {
-                props.auth === false ? <LoggedOut setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate} />
-                : <LoggedIn fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} redirect={props.redirect}/>
+                props.auth === false ? <LoggedOut setShowLogin={props.setShowLogin} setShowCreate={props.setShowCreate}/>
+                : <LoggedIn fetchUser={props.fetchUser} setActiveList={props.setActiveList} logout={props.logout} redirect={props.redirect}  user={props.user}/>
             }
         </>
 

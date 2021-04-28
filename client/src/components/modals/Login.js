@@ -31,7 +31,7 @@ const Login = (props) => {
 			props.refetchTodos();
 			toggleLoading(false);
 			props.setShowLogin(false);
-			props.redirect("/spreadsheet");
+			props.redirect("/maps");
 		};
 	};
 

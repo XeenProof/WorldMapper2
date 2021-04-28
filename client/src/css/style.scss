@@ -44,6 +44,8 @@
 	--darkblue-gray: #2b2e36;
     --warm-black: #322d2d;
     --mapscreen-background:#ffcccc;
+    --spreadsheet-background:#cccccc;
+    --create-button:#b30000;
 }
 
 html, body {
@@ -250,9 +252,39 @@ html, body {
     text-align: center;
 }
 
-.test{
+.spreadsheet-text{
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.mapscreen-alignment{
     background-color: var(--mapscreen-background);
 }
+
+.spreadsheet-alignment{
+    background-color: transparent;
+}
+
+.spreadsheet-background{
+    background-color: var(--spreadsheet-background);
+}
+
+.create-new-map{
+    color: white;
+    background-color: var(--create-button);
+    font-weight: bold;
+}
+
+.create-new-map:hover{
+    color: yellow;
+    background-color: var(--create-button);
+    font-weight: bold;
+}
+
+
 
 .background-test{
     background-color: red;
@@ -260,4 +292,8 @@ html, body {
 
 .background-test2{
     background-color: blue;
+}
+
+.background-test3{
+    background-color: yellow;
 }

@@ -196,11 +196,18 @@ html {
     width: 100px;
 }
 
-.test{
+.mapscreen-alignment{
     align-items: center;
     margin-left: 15%;
     margin-right: 15%;
     margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.spreadsheet-alignment{
+    align-items: center;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-bottom: 5%;
 }
 
@@ -234,4 +241,59 @@ html {
 .flexlr{
     display: flex;
     flex-direction: row;
+}
+
+.text-bottom{
+    text-align: center;
+}
+
+
+
+.container{
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.title-card{
+    min-width: 70%;
+    max-width: 70%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.button-set{
+    align-self: flex-start;
+    min-width: 15%;
+    min-width: 15%;
+}
+
+.region-container{
+    min-height: 97%;
+    max-height: 97%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 3%;
+}
+
+.region-container-inner{
+    min-width: 50%;
+    max-width: 50%;
+    min-height: 100%;
+    max-height: 100%;
+}
+
+.create-new-map{
+    min-width: 100%;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-button{
+    text-align: center;
+}
+
+.image2{
+    min-height: 92%;
 }

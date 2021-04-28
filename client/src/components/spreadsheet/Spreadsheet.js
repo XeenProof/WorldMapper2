@@ -10,7 +10,6 @@ import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 const Spreadsheet = (props) => {
 
     let history = useHistory();
-    console.log(history.peek);
 	const redirect = (route) => {
 		history.push(route);
 	}
@@ -53,22 +52,28 @@ const Spreadsheet = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={setShowCreate} setShowLogin={setShowLogin}
                     refetchTodos={refetch} setActiveList={setActiveList}
-                    directory={"Spreadsheet"} redirect={redirect}/>
+                    directory={"Spreadsheet"} redirect={redirect} user={props.user}/>
             </WLHeader>
-            <WLMain className='test'>
+            <WLMain className='spreadsheet-alignment'>
                 <WLayout wLayout="header">
-                    <WLHeader className='mapscreen-text'>
-                        <div >Your Maps</div>
+                    <WLHeader className='container flexlr'>
+                        <div className='button-set'>Button</div>
+                        <div className='spreadsheet-text flexlr title-card'>
+                            <div>Region Name:</div>
+                            <div> Temp </div>
+                        </div>
                     </WLHeader>
-                    <div className='flexlr'>
+                    <WLMain className="spreadsheet-background">
+                    </WLMain>
+
+                    {/* <div className='flexlr'>
                         <div className='size background-test'>
                             hihi
                         </div>
                         <div className='size background-test2'>
                             hihi
                         </div>
-                    </div>
-
+                    </div> */}
                 </WLayout>
             </WLMain>
         </WLayout>

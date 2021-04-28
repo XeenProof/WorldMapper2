@@ -25,6 +25,8 @@ const App = () => {
 		if(getCurrentUser !== null) { user = getCurrentUser; }
     }
 
+	
+
 	// let history = useHistory();
 
 	// //console.log(history);
