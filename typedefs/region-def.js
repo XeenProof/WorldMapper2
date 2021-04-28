@@ -20,14 +20,13 @@ const typeDefs = gql `
 	}
 	type Region{
 		_id: String!
-		id: Int!
 		name: String!
 		capital: String
 		leader: String
 		owner: String!
 		parent: String!
 		children: [String]
-		landmark: [Landmark]
+		landmarks: [Landmark]
 	}
 	type Landmark{
 		id: Int!
@@ -38,7 +37,9 @@ const typeDefs = gql `
 		getTodoById(_id: String!): Todolist 
 	}
 	extend type Mutation {
-		addMap(region: RegionInput!): String
+		addRegion(region: RegionInput!): String
+		
+
 		addItem(item: ItemInput!, _id: String!, index: Int!): String
 		addTodolist(todolist: TodoInput!): String
 		deleteItem(itemId: String!, _id: String!): [Item]		
@@ -50,14 +51,13 @@ const typeDefs = gql `
 	}
 	input RegionInput{
 		_id: String!
-		id: Int!
 		name: String!
 		capital: String
 		leader: String
 		owner: String!
 		parent: String!
 		children: [String]
-		landmark: [LandmarkInput]
+		landmarks: [LandmarkInput]
 	}
 	input LandmarkInput{
 		id: Int!

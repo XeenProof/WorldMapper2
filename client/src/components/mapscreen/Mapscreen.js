@@ -6,11 +6,15 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import { useHistory } from "react-router-dom";
 import * as mutations 					from '../../cache/mutations';
+import NameMap from '../modals/NameMap';
 
 const Mapscreen = (props) => {
 
+    const [AddRegion] 		= useMutation(mutations.ADD_REGION);
+
     const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
+    const [nameMap, toggleNameMap]          = useState(false);
     const [activeList, setActiveList] 		= useState({});
 
     const auth = props.user === null ? false : true;
@@ -26,14 +30,26 @@ const Mapscreen = (props) => {
 		// todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
 	}
 
+    const addMap = () => {
+
+    }
+
     const setShowLogin = () => {
 		toggleShowCreate(false);
+        toggleNameMap(false);
 		toggleShowLogin(!showLogin);
 	};
 
 	const setShowCreate = () => {
 		toggleShowLogin(false);
+        toggleNameMap(false);
 		toggleShowCreate(!showCreate);
+	};
+
+    const setShowName = () => {
+		toggleShowLogin(false);
+        toggleNameMap(!nameMap);
+		toggleShowCreate(false);
 	};
 
 
@@ -62,13 +78,16 @@ const Mapscreen = (props) => {
                         </div>
                         <div className='size'>
                             <div className='image2 background-test2'>PlaceHolder</div>
-							<WButton className='create-new-map'>
+							<WButton onClick={setShowName} className='create-new-map'>
                                 Create New Map
                             </WButton>
                         </div>
                     </div>
                 </WLayout>
             </WLMain>
+            {
+				nameMap && (<NameMap refetchTodos={refetch} setShowName={setShowName} user={props.user}/>)
+			}
         </WLayout>
     );
 }

@@ -34,6 +34,40 @@ module.exports = {
 		},
 	},
 	Mutation: {
+					// _id: String!
+			// id: Int!
+			// name: String!
+			// capital: String
+			// leader: String
+			// owner: String!
+			// parent: String!
+			// children: [String]
+			// landmark: [LandmarkInput]
+		/**
+		 * 
+		 * @param {object} args - a new region 
+		 * @returns {string} the objectID of the item or an error message
+		 */
+		addRegion: async(_, args) => {
+			console.log("adding Region");
+			const { region } = args;
+			const objectId = new ObjectId();
+			const { name, capital, leader, owner, parent, children, landmarks} = region;
+			const newRegion = new Region({
+				_id: objectId,
+				name: name,
+				capital: capital,
+				leader: leader,
+				owner: owner,
+				parent: parent,
+				children: children,
+				landmarks: landmarks,
+			});
+			const updated = newRegion.save();
+			if (updated) return objectId;
+			else return ("could not add region");
+		},
+
 		/** 
 		 	@param 	 {object} args - a todolist id and an empty item object
 			@returns {string} the objectID of the item or an error message

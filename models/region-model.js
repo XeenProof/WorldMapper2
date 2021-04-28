@@ -7,10 +7,6 @@ const regionSchema = new Schema(
 			type: ObjectId,
 			required: true
 		},
-		id: {
-			type: Number,
-			required: true
-		},
 		name: {
 			type: String,
 			required: true
@@ -32,7 +28,7 @@ const regionSchema = new Schema(
 			required: true
 		},
 		children: [String],
-		landmark: [Landmark],
+		landmarks: [Landmark],
 	},
 	{ timestamps: true }
 );
