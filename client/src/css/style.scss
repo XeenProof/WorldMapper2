@@ -126,7 +126,7 @@ html, body {
 
 .table-entry {
     border-bottom: 1px solid;
-    color: $text-color;
+    color: black;
     transition: 0.1s ease-in-out;
     height: 46px;
 }
@@ -284,7 +284,18 @@ html, body {
     font-weight: bold;
 }
 
+.map-entry {
+    color: black;
+    transition: 0.1s ease-in-out;
+}
 
+.map-entry:hover {
+    background-color: yellow;
+}
+
+.map-entry-button{
+    background-color: transparent;
+}
 
 .background-test{
     background-color: red;

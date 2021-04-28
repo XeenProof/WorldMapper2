@@ -17,7 +17,7 @@ const LoggedIn = (props) => {
         }
     };
 
-    let user = props.user? props.user.firstName: "";
+    let user = props.user? props.user.name: "";
 
     return (
         <WNavItem hoverAnimation="lighten">

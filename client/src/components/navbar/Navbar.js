@@ -7,7 +7,6 @@ import NavbarOptions from './NavbarOptions';
 
 
 const Navbar = (props) => {
-	console.log(props.user);
 
     return (<WNavbar color="colored">
 			<ul>
@@ -16,14 +15,14 @@ const Navbar = (props) => {
 			</WNavItem>
 				</ul>
 
-			<ul>
+			{/* <ul>
 			<WNavItem>
 				<WButton onClick={() => props.redirect("home")}>H</WButton>
 				<WButton onClick={() => props.redirect("maps")}>M</WButton>
 				<WButton onClick={() => props.redirect("spreadsheet")}>S</WButton>
 				<WButton onClick={() => props.redirect("region")}>R</WButton>
 			</WNavItem>
-			</ul>
+			</ul> */}
 			<ul>
 			<WNavItem>
 				<Route directory={props.directory}/>

@@ -43,27 +43,23 @@ module.exports = {
 			@returns {object} the user object or an object with an error message
 		**/
 		register: async (_, args, { res }) => {
-			const { email, password, firstName, lastName } = args;
+			const { email, password, name } = args;
 			const alreadyRegistered = await User.findOne({email: email});
 			if(alreadyRegistered) {
 				console.log('User with that email already registered.');
 				return(new User({
 					_id: '',
-					firstName: '',
-					lastName: '',
+					name: '',
 					email: 'already exists', 
-					password: '',
-					initials: ''}));
+					password: ''}));
 			}
 			const hashed = await bcrypt.hash(password, 10);
 			const _id = new ObjectId();
 			const user = new User({
 				_id: _id,
-				firstName: firstName,
-				lastName: lastName,
+				name: name,
 				email: email, 
-				password: hashed,
-				initials: `${firstName[0]}.${lastName[0]}.`
+				password: hashed
 			})
 			const saved = await user.save();
 			// After registering the user, their tokens are generated here so they
@@ -82,6 +78,19 @@ module.exports = {
 			res.clearCookie('refresh-token');
 			res.clearCookie('access-token');
 			return true;
+		},
+
+		update: async(_, args, { res }) => {
+			const { _id, email, password, name } = args
+			const hashed = await bcrypt.hash(password, 10);
+			const user = await User.updateOne({_id: _id}, {email: email, password: hashed, name: name});
+
+			const accessToken = tokens.generateAccessToken(user);
+			const refreshToken = tokens.generateRefreshToken(user);
+			res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			if(user) return true;
+			else return false;
 		}
 	}
 }

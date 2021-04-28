@@ -3,46 +3,64 @@ import Navbar 							from '../navbar/Navbar';
 import { WNavbar, WSidebar, WNavItem, WButton } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
-import { GET_DB_TODOS } 				from '../../cache/queries';
 import { useHistory } from "react-router-dom";
-import * as mutations 					from '../../cache/mutations';
+import { GET_DB_REGIONS } 				from '../../cache/queries';
 import NameMap from '../modals/NameMap';
+import MapList from './MapList';
+import * as mutations 					from '../../cache/mutations';
+import Delete 							from '../modals/Delete';
+
 
 const Mapscreen = (props) => {
 
-    const [AddRegion] 		= useMutation(mutations.ADD_REGION);
+    // let { user } = props.user;
+
+    let allRegions = [];
+    let rootRegions = [];
+
+    const [DeleteRegion] = useMutation(mutations.DELETE_REGION);
 
     const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
     const [nameMap, toggleNameMap]          = useState(false);
+    const [showDelete, toggleShowDelete]          = useState(false);
+    const [mapToDelete, setMapToDelete]     = useState("");
     const [activeList, setActiveList] 		= useState({});
 
     const auth = props.user === null ? false : true;
-    let todolists = [];
 
-    const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
+
+
+
+    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data) { 
-		todolists = data.getAllTodos; 
-		// todolistsIds = todolists.map(x => x._id.toString());
-		// const listComparator = makeComparator('last_opened', true);
-		// todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
+		allRegions = data.getAllRegions;
+        rootRegions = allRegions.filter(x => x.parent == 'root');
 	}
 
-    const addMap = () => {
+    console.log(allRegions);
+    console.log(rootRegions);
 
+    const deleteRegion = async () => {
+        const { data } = await DeleteRegion({ variables: { _id: mapToDelete}});
+        setShowDelete("");
+		refetch();
     }
+
 
     const setShowLogin = () => {
 		toggleShowCreate(false);
         toggleNameMap(false);
+        toggleShowDelete(false);
 		toggleShowLogin(!showLogin);
 	};
 
 	const setShowCreate = () => {
 		toggleShowLogin(false);
         toggleNameMap(false);
+        toggleShowDelete(false);
 		toggleShowCreate(!showCreate);
 	};
 
@@ -50,6 +68,15 @@ const Mapscreen = (props) => {
 		toggleShowLogin(false);
         toggleNameMap(!nameMap);
 		toggleShowCreate(false);
+        toggleShowDelete(false);
+	};
+
+    const setShowDelete = (id) => {
+        setMapToDelete(id);
+		toggleShowLogin(false);
+        toggleNameMap(false);
+		toggleShowCreate(false);
+        toggleShowDelete(!showDelete);
 	};
 
 
@@ -73,9 +100,7 @@ const Mapscreen = (props) => {
                         <div >Your Maps</div>
                     </WLHeader>
                     <div className='flexlr'>
-                        <div className='size'>
-                            
-                        </div>
+                        <MapList roots={rootRegions} setShowDelete={setShowDelete}/>
                         <div className='size'>
                             <div className='image2 background-test2'>PlaceHolder</div>
 							<WButton onClick={setShowName} className='create-new-map'>
@@ -86,7 +111,10 @@ const Mapscreen = (props) => {
                 </WLayout>
             </WLMain>
             {
-				nameMap && (<NameMap refetchTodos={refetch} setShowName={setShowName} user={props.user}/>)
+				nameMap && (<NameMap refetchTodos={refetch} setShowName={setShowName} user={props.user} refetch={refetch}/>)
+			}
+            {
+				showDelete && (<Delete deleteRegion={deleteRegion} deleteId={mapToDelete} setShowDelete={setShowDelete} />)
 			}
         </WLayout>
     );

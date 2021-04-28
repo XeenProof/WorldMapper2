@@ -20,6 +20,18 @@ module.exports = {
 			if(todolists) return (todolists);
 
 		},
+
+		/** 
+		 * gets all the todoLists that belong to the user ID
+		 	@param 	 {object} req - the request object containing a user id
+			@returns {array} an array of region objects on success, and an empty array on failure
+		**/
+		getAllRegions: async (_, __, {req}) => {
+			const _id = new ObjectId(req.userId);
+			if(!_id) {return([])};
+			const regions = await Region.find({owner: _id});
+			if(regions) return (regions);
+		},
 		/** 
 		 * //gets a todoList by id
 		 	@param 	 {object} args - a todolist id
@@ -66,6 +78,18 @@ module.exports = {
 			const updated = newRegion.save();
 			if (updated) return objectId;
 			else return ("could not add region");
+		},
+
+		/** 
+		 	@param 	 {object} args - a todolist objectID 
+			@returns {boolean} true on successful delete, false on failure
+		**/
+		deleteRegion: async(_, args) => {
+			const { _id } = args;
+			const objectId = new ObjectId(_id);
+			const deleted = await Region.deleteOne({_id: objectId});
+			if(deleted) return true;
+			else return false;
 		},
 
 		/** 

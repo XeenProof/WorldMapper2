@@ -34,10 +34,12 @@ const typeDefs = gql `
 	}
 	extend type Query {
 		getAllTodos: [Todolist]
+		getAllRegions: [Region]
 		getTodoById(_id: String!): Todolist 
 	}
 	extend type Mutation {
 		addRegion(region: RegionInput!): String
+		deleteRegion(_id: String!): Boolean
 		
 
 		addItem(item: ItemInput!, _id: String!, index: Int!): String

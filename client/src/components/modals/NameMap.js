@@ -26,8 +26,6 @@ const NameMap = (props) => {
 	// landmark: [LandmarkInput]
 
     const handleCreate = async () => {
-        console.log(props.user._id);
-        console.log(input);
         let map = {
             _id: 'temp',
             name: input,
@@ -40,6 +38,7 @@ const NameMap = (props) => {
         };
         const { data } = await AddRegion({ variables: { region: map}});
         props.setShowName();
+		props.refetch();
     }
 
     return (<WModal visible={isVisible} cover={true} className="login-modal">

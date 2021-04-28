@@ -5,21 +5,18 @@ export const LOGIN = gql`
 		login(email: $email, password: $password) {
 			email 
 			_id
-			firstName
-			lastName
+			name
 			password
-			initials
 		}
 	}
 `;
 
 export const REGISTER = gql`
-	mutation Register($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
-		register(email: $email, password: $password, firstName: $firstName, lastName: $lastName) {
+	mutation Register($email: String!, $password: String!, $name: String!) {
+		register(email: $email, password: $password, name: $name) {
 			email
 			password
-			firstName
-			lastName
+			name
 		}
 	}
 `;
@@ -29,12 +26,24 @@ export const LOGOUT = gql`
 	}
 `;
 
+export const UPDATE = gql`
+	mutation Update {
+		update
+	}
+`;
+
 //export const 
 
 //pulled from resolvers
 export const ADD_REGION = gql`
 	mutation AddRegion($region: RegionInput!){
 		addRegion(region: $region)
+	}
+`;
+
+export const DELETE_REGION = gql`
+	mutation DeleteRegion($_id: String!){
+		deleteRegion(_id: $_id)
 	}
 `;
 

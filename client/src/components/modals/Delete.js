@@ -6,8 +6,8 @@ const Delete = (props) => {
     const [isVisible, setVisible] = useState(true);
 
     const handleDelete = async () => {
-        props.deleteList(props.activeid);
-        props.setShowDelete(false);
+        props.deleteRegion(props.deleteId);
+        props.setShowDelete("");
     }
 
     return (
@@ -15,11 +15,11 @@ const Delete = (props) => {
 
         <WModal visible={isVisible} cover={true} className="delete-modal">
             <WMHeader className="modal-header" onClose={() => props.setShowDelete(false)}>
-                Delete List?
+                Delete Region?
 			</WMHeader>
 
             <WMMain>
-                <WButton className="modal-button cancel-button" onClick={() => props.setShowDelete(false)} wType="texted">
+                <WButton className="modal-button cancel-button" onClick={() => props.setShowDelete("")} wType="texted">
                     Cancel
 				</WButton>
                 <label className="col-spacer">&nbsp;</label>

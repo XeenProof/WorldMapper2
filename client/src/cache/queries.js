@@ -4,9 +4,26 @@ export const GET_DB_USER = gql`
 	query GetDBUser {
 		getCurrentUser {
 			_id
-			firstName
-			lastName
+			name
 			email
+		}
+	}
+`;
+
+export const GET_DB_REGIONS = gql`
+	query GetDBRegions{
+		getAllRegions{
+			_id
+			name
+			capital
+			leader
+			owner
+			parent
+			children
+			landmarks{
+				id
+				landmark
+			}
 		}
 	}
 `;
