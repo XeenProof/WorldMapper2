@@ -7,7 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import SpreadsheetOptions from './SpreadsheetOptions';
-import SpreadsheetContent from './SpreadsheetContent'
+import SpreadsheetTable from './SpreadsheetTable'
 import SpreadsheetTableHeader from './SpreadsheetTableHeader';
 
 const Spreadsheet = (props) => {
@@ -65,7 +65,7 @@ const Spreadsheet = (props) => {
                         </div>
                     </WLHeader>
                     <WLMain className="spreadsheet-background">
-                        <SpreadsheetTableHeader/>
+                        <SpreadsheetTable/>
                     </WLMain>
 
                     {/* <div className='flexlr'>

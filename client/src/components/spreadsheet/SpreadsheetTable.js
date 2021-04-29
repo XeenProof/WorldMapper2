@@ -1,10 +1,10 @@
 import React            from 'react';
 import SpreadsheetTableHeader from './SpreadsheetTableHeader'
 
-const SpreadsheetContent = (props) => {
+const SpreadsheetTable = (props) => {
     return(<div className='table'>
         <SpreadsheetTableHeader/>
     </div>)
 }
 
-export default SpreadsheetContent;
+export default SpreadsheetTable;

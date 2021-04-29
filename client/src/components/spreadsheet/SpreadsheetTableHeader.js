@@ -6,27 +6,27 @@ const SpreadsheetTableHeader = (props) => {
     return(<WRow className='dark-red-background'>
             <WCol size="3">
                 <WButton className='ss-header-button' onClick={wip} wType="texted" >
-                    <div>Name</div>
+                    <div>Name 3</div>
                 </WButton>
             </WCol>
             <WCol size="2">
                 <WButton className='ss-header-button' onClick={wip} wType="texted" >
-                    <div>Capital</div>
+                    <div>Capital 2</div>
                 </WButton>
             </WCol>
             <WCol size="2">
                 <WButton className='ss-header-button' onClick={wip} wType="texted" >
-                    <div>Leader</div>
+                    <div>Leader 2</div>
                 </WButton>
             </WCol>
             <WCol size="1">
                 <WButton className='ss-header-button' onClick={wip} wType="texted" >
-                    <div>Flag</div>
+                    <div>Flag 1</div>
                 </WButton>
             </WCol>
             <WCol size="4">
                 <WButton className='ss-header-button' onClick={wip} wType="texted" >
-                    <div>Landmarks</div>
+                    <div>Landmarks 4</div>
                 </WButton>
             </WCol>
         </WRow>);
