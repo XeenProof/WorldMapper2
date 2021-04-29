@@ -56,26 +56,23 @@ html {
 .table-header {
     width: calc(100% - 56px);
     box-sizing: border-box;
-    margin-left: 24px;
-    margin-right: 32px;
+    align-items: center;
 }
 
 .table-header-section {
     width: 100%;
     height: 100%;
     padding: 0;
-    padding-top: 24px;
-    padding-bottom: 12px;
 }
 
 .table-header-button {
     padding: 0;
-    margin-left: 36px;
+    // margin-left: 36px;
 }
 
 .table-header-button-disabled{
     padding: 0;
-    margin-left: 12px;
+    // margin-left: 12px;
     cursor: default;
 }
 
@@ -251,7 +248,7 @@ html {
 
 .container{
     justify-content: flex-start;
-    margin-top: 30px;
+    margin-top: 14px;
 }
 
 .title-card{
@@ -313,4 +310,12 @@ html {
 .map-entry {
     //padding: 12px 24px;
     //padding: 12px 0;
+}
+
+.ss-header-button{
+    min-width: 100%;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
 }

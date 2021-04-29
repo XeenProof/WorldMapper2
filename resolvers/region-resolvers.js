@@ -27,7 +27,6 @@ module.exports = {
 			@returns {array} an array of region objects on success, and an empty array on failure
 		**/
 		getAllRegions: async (_, __, {req}) => {
-			console.log(req.userId);
 			const _id = new ObjectId(req.userId);
 			if(!_id) {return([])};
 			const regions = await Region.find({owner: _id});

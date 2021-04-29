@@ -7,10 +7,12 @@ import { useHistory, useParams } from "react-router-dom";
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import SpreadsheetOptions from './SpreadsheetOptions';
+import SpreadsheetContent from './SpreadsheetContent'
+import SpreadsheetTableHeader from './SpreadsheetTableHeader';
 
 const Spreadsheet = (props) => {
 
-
+    let titleCard = "Region Name:";
     let activeRegion = {};
     let history = useHistory();
     let { id } = useParams();
@@ -39,6 +41,8 @@ const Spreadsheet = (props) => {
         reload = true;
     }
 
+    let name = (activeRegion)? activeRegion.name: '';
+
     console.log(activeRegion);
 
 
@@ -56,11 +60,12 @@ const Spreadsheet = (props) => {
                     <WLHeader className='container flexlr'>
                         <SpreadsheetOptions />
                         <div className='spreadsheet-text flexlr title-card'>
-                            <div>Region Name:</div>
-                            <div> Temp </div>
+                            <div>{"Region Name: "}</div>
+                            <div className={"title-name-text"}>{name}</div>
                         </div>
                     </WLHeader>
                     <WLMain className="spreadsheet-background">
+                        <SpreadsheetTableHeader/>
                     </WLMain>
 
                     {/* <div className='flexlr'>

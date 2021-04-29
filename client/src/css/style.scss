@@ -46,6 +46,7 @@
     --mapscreen-background:#ffcccc;
     --spreadsheet-background:#cccccc;
     --create-button:#b30000;
+    --ss-region-color:#428bff;
 }
 
 html, body {
@@ -137,7 +138,7 @@ html, body {
 
 .table-header-button {
     transition: 0.1s ease-in-out;
-    color: var(--light-gray);
+    color: var(--warm-black);
 }
 
 .table-header-button-disabled {
@@ -147,6 +148,7 @@ html, body {
 
 .table-header {
     border-bottom: 2px $text-color dotted;
+    color: var(--warm-black);
 }
 
 .table-header-section {
@@ -298,6 +300,44 @@ html, body {
     background-color: transparent;
 }
 
+.spreadsheet-entry-button{
+    background-color: transparent;
+    color: white;
+}
+
+.spreadsheet-entry-button2{
+    background-color: transparent;
+    color: green;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.title-name-text{
+    color: var(--ss-region-color);
+}
+
+.hide{
+    visibility: hidden;
+}
+
+.ss-header-button{
+    color: white;
+    font-weight: bold;
+}
+
+.ss-header-button:hover{
+    color: black;
+    font-weight: bold;
+}
+
+.dark-red-background{
+    background-color: var(--create-button);
+}
+
+.ss-header{
+
+}
+
 .background-test{
     background-color: red;
 }
@@ -308,4 +348,8 @@ html, body {
 
 .background-test3{
     background-color: yellow;
+}
+
+.border-test{
+    border: solid 3px black;
 }

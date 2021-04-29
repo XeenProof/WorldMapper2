@@ -33,19 +33,19 @@ const TableHeader = (props) => {
     return (
         <WRow className="table-header">
             <WCol size="3" >
-                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleDescriptionSorting} wType="texted" ><div>Task</div></WButton>
+                <WButton className='table-header' onClick={props.disabled ? clickDisabled() : handleDescriptionSorting} wType="texted" ><div>Task</div></WButton>
             </WCol>
 
             <WCol size="2" >
-                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleDueDateSorting} wType="texted" ><div>Due Date</div></WButton>
+                <WButton className='table-header' onClick={props.disabled ? clickDisabled() : handleDueDateSorting} wType="texted" ><div>Due Date</div></WButton>
             </WCol>
 
             <WCol size="2" >
-                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleCompleteSorting} wType="texted" ><div>Status</div></WButton>
+                <WButton className='table-header' onClick={props.disabled ? clickDisabled() : handleCompleteSorting} wType="texted" ><div>Status</div></WButton>
             </WCol>
 
             <WCol size="2" >
-                <WButton className='table-header-section' onClick={props.disabled ? clickDisabled() : handleUserSorting} wType="texted"  ><div>Assigned To</div></WButton>
+                <WButton className='table-header' onClick={props.disabled ? clickDisabled() : handleUserSorting} wType="texted"  ><div>Assigned To</div></WButton>
             </WCol>
 
             <WCol size="3">
