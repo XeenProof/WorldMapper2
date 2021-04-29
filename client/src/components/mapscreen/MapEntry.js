@@ -12,10 +12,14 @@ const MapEntry = (props) => {
         props.setShowRename(map._id);
     }
 
+    const spreadsheetRedirect = () => {
+        props.redirect(`/spreadsheet/${map._id}`);  
+    }
+
     return (
         <WRow className='map-entry'>
             <WCol size='9'>
-            <div className='map-text'>{map.name}</div>
+                <div className='map-text' onClick={spreadsheetRedirect}>{map.name}</div>
             </WCol>
             <WCol size='2'>
                 <div className='button-group'>

@@ -64,8 +64,8 @@ module.exports = {
 		addRegion: async(_, args) => {
 			console.log("adding Region");
 			const { region } = args;
-			const objectId = new ObjectId();
-			const { name, capital, leader, owner, parent, children, landmarks} = region;
+			const { _id, name, capital, leader, owner, parent, children, landmarks} = region;
+			const objectId = (_id == 'temp')? new ObjectId(): new ObjectId(_id);
 			const newRegion = new Region({
 				_id: objectId,
 				name: name,

@@ -3,46 +3,43 @@ import Navbar 							from '../navbar/Navbar';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
-import { GET_DB_TODOS } 				from '../../cache/queries';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
+import { GET_DB_REGIONS } 				from '../../cache/queries';
+import SpreadsheetOptions from './SpreadsheetOptions';
 
 const Spreadsheet = (props) => {
 
+
+    let activeRegion = {};
     let history = useHistory();
+    let { id } = useParams();
+    let activeId = id;
+
+    //console.log(activeId);
+
 	const redirect = (route) => {
 		history.push(route);
 	}
 
-    const [showCreate, toggleShowCreate] 	= useState(false);
-	const [showLogin, toggleShowLogin] 		= useState(false);
-    const [activeList, setActiveList] 		= useState({});
-
     const auth = props.user === null ? false : true;
-    let todolists = [];
+    let reload = false;
+    let allRegions = [];
 
-    const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
+    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data) { 
-		todolists = data.getAllTodos; 
-		// todolistsIds = todolists.map(x => x._id.toString());
-		// const listComparator = makeComparator('last_opened', true);
-		// todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
+        console.log("data reached");
+		allRegions = data.getAllRegions;
+        activeRegion = allRegions.find(x => x._id == activeId);
 	}
+    if(!auth && !reload){//makes sure that the list is loaded
+        refetch();
+        reload = true;
+    }
 
-    const setShowLogin = () => {
-		toggleShowCreate(false);
-		toggleShowLogin(!showLogin);
-	};
-
-	const setShowCreate = () => {
-		toggleShowLogin(false);
-		toggleShowCreate(!showCreate);
-	};
-
-    console.log("loading reached");
-
+    console.log(activeRegion);
 
 
     return(
@@ -50,14 +47,14 @@ const Spreadsheet = (props) => {
             <WLHeader id='header'>
                 <Navbar 
                     fetchUser={props.fetchUser} auth={auth} 
-                    setShowCreate={setShowCreate} setShowLogin={setShowLogin}
-                    refetchTodos={refetch} setActiveList={setActiveList}
-                    directory={"Spreadsheet"} redirect={redirect} user={props.user}/>
+                    setShowCreate={() => {}} setShowLogin={() => {}}
+                    refetchTodos={refetch} setActiveList={() => {}}
+                    directory={"spreadsheet"} redirect={redirect} user={props.user}/>
             </WLHeader>
             <WLMain className='spreadsheet-alignment'>
                 <WLayout wLayout="header">
                     <WLHeader className='container flexlr'>
-                        <div className='button-set'>Button</div>
+                        <SpreadsheetOptions />
                         <div className='spreadsheet-text flexlr title-card'>
                             <div>Region Name:</div>
                             <div> Temp </div>

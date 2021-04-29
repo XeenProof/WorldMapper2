@@ -51,21 +51,21 @@ const App = () => {
 					path="/maps/:id" 
 					name="maps" 
 					component={() => 
-						<Mapscreen tps={transactionStack} fetchUser={refetch} user={user} />
+						<Mapscreen tps={transactionStack} fetchUser={refetch} user={user}/>
 					} 
 				/>
 				<Route 
-					path="/spreadsheet" 
+					path="/spreadsheet/:id" 
 					name="spreadsheet" 
 					component={() => 
-						<Spreadsheet tps={transactionStack} fetchUser={refetch} user={user} />
+						<Spreadsheet tps={transactionStack} fetchUser={refetch} user={user}/>
 					} 
 				/>
 				<Route 
-					path="/region" 
+					path="/region/:id" 
 					name="region" 
 					component={() => 
-						<Region tps={transactionStack} fetchUser={refetch} user={user} />
+						<Region tps={transactionStack} fetchUser={refetch} user={user}/>
 					} 
 				/>
 			</Switch>

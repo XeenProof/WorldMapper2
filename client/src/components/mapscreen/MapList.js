@@ -2,11 +2,16 @@ import React 	from 'react';
 import MapEntry from './MapEntry';
 
 const MapList = (props) => {
+
+
     let roots = props.roots;
     return (
         roots? <div className='size container-primary'>{
             roots.map(entry => (
-                <MapEntry map={entry} setShowDelete={props.setShowDelete} setShowRename={props.setShowRename}/>
+                <MapEntry map={entry} 
+                setShowDelete={props.setShowDelete} setShowRename={props.setShowRename}
+                redirect={props.redirect} setActiveRegion={props.setActiveRegion}
+                />
             ))
         }   
         </div>: <div className='size'/>

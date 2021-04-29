@@ -27,7 +27,7 @@ const NameMap = (props) => {
 
     const handleCreate = async () => {
         let map = {
-            _id: 'temp',
+            _id: 'temp',//This is required to be temp if we are generating a completely new _id
             name: input,
             capital: 'null',
             leader: 'null',

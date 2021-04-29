@@ -18,7 +18,6 @@ const Mapscreen = (props) => {
 
     // let { user } = props.user;
     let reload = false;
-
     let allRegions = [];
     let rootRegions = [];
 
@@ -30,14 +29,7 @@ const Mapscreen = (props) => {
     const [showDelete, toggleShowDelete]    = useState(false);
     const [showUpdate, toggleShowUpdate]    = useState(false);
     const [showRename, toggleShowRename]       = useState(false);
-    
 
-
-    const [activeList, setActiveList] 		= useState({}); //remove
-
-    
-
-    
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
@@ -122,7 +114,7 @@ const Mapscreen = (props) => {
                 <Navbar 
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
-                    refetchTodos={refetch} setActiveList={setActiveList}
+                    refetchTodos={refetch} setActiveList={() => {}}
                     directory={"Mapscreen"} redirect={redirect} user={props.user}
                     setShowUpdate={setShowUpdate}/>
             </WLHeader>
@@ -132,7 +124,10 @@ const Mapscreen = (props) => {
                         <div >Your Maps</div>
                     </WLHeader>
                     <div className='flexlr'>
-                        <MapList roots={rootRegions} setShowDelete={setShowDelete} setShowRename={setShowRename}/>
+                        <MapList roots={rootRegions} 
+                        setShowDelete={setShowDelete} setShowRename={setShowRename}
+                        redirect={redirect} setActiveRegion={props.setActiveRegion}
+                        />
 
                         {/** perhaps move this to it's own file */}
                         <div className='size'>
