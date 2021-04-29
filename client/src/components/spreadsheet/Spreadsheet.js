@@ -6,6 +6,7 @@ import { useMutation, useQuery } 		from '@apollo/client';
 import { useHistory, useParams } from "react-router-dom";
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
+import * as mutations 					from '../../cache/mutations';
 import SpreadsheetOptions from './SpreadsheetOptions';
 import SpreadsheetTable from './SpreadsheetTable'
 import SpreadsheetTableHeader from './SpreadsheetTableHeader';
@@ -17,6 +18,8 @@ const Spreadsheet = (props) => {
     let history = useHistory();
     let { id } = useParams();
     let activeId = id;
+
+    const [AddRegion] = useMutation(mutations.ADD_REGION);
 
     //console.log(activeId);
 
@@ -45,6 +48,21 @@ const Spreadsheet = (props) => {
 
     console.log(activeRegion);
 
+    const addSubregion = async() => {
+        let region = {
+            _id: 'temp',//This is required to be temp if we are generating a completely new _id
+            name: 'region',
+            capital: 'capital',
+            leader: 'leaded',
+            owner: props.user._id,
+            parent: activeId,
+            children: [],
+            landmarks: []
+        };
+        const { data } = await AddRegion({ variables: { region: region}});
+        refetch();
+    }
+
 
     return(
         <WLayout id="fullpage" wLayout="header">
@@ -58,7 +76,7 @@ const Spreadsheet = (props) => {
             <WLMain className='spreadsheet-alignment'>
                 <WLayout wLayout="header">
                     <WLHeader className='container flexlr'>
-                        <SpreadsheetOptions />
+                        <SpreadsheetOptions addSubregion={addSubregion}/>
                         <div className='spreadsheet-text flexlr title-card'>
                             <div>{"Region Name: "}</div>
                             <div className={"title-name-text"}>{name}</div>
