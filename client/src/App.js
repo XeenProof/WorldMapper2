@@ -1,4 +1,4 @@
-import React 			from 'react';
+import React, { useState }			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
 import Mapscreen 		from './components/mapscreen/Mapscreen';
 import Spreadsheet 		from './components/spreadsheet/Spreadsheet';
@@ -22,7 +22,9 @@ const App = () => {
 	if(loading) { console.log(loading); }
 	if(data) { 
 		let { getCurrentUser } = data;
-		if(getCurrentUser !== null) { user = getCurrentUser; }
+		if(getCurrentUser !== null) {
+			user = getCurrentUser;
+		}
     }
 
 	
@@ -46,7 +48,7 @@ const App = () => {
 					} 
 				/>
 				<Route 
-					path="/maps" 
+					path="/maps/:id" 
 					name="maps" 
 					component={() => 
 						<Mapscreen tps={transactionStack} fetchUser={refetch} user={user} />

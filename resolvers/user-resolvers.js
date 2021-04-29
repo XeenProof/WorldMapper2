@@ -82,15 +82,35 @@ module.exports = {
 
 		update: async(_, args, { res }) => {
 			const { _id, email, password, name } = args
-			const hashed = await bcrypt.hash(password, 10);
-			const user = await User.updateOne({_id: _id}, {email: email, password: hashed, name: name});
+			const alreadyRegistered = await User.findOne({email: email});
+			if(alreadyRegistered) {
+				console.log('User with that email already registered.');
+				return(new User({
+					_id: '',
+					name: '',
+					email: 'already exists', 
+					password: ''}));
+			}
 
-			const accessToken = tokens.generateAccessToken(user);
-			const refreshToken = tokens.generateRefreshToken(user);
-			res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 
-			res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
-			if(user) return true;
-			else return false;
+			const objectId = new ObjectId(_id);
+			let user;
+
+			if (email != ''){
+				user = await User.updateOne({_id: objectId}, {email: email});
+			}
+			if (password != ''){
+				const hashed = await bcrypt.hash(password, 10);
+				user = await User.updateOne({_id: objectId}, {password: hashed});
+			}
+			if (user != ''){
+				user = await User.updateOne({_id: objectId}, {name: name});
+			}
+
+			// const accessToken = tokens.generateAccessToken(user);
+			// const refreshToken = tokens.generateRefreshToken(user);
+			// res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			// res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			return user;
 		}
 	}
 }

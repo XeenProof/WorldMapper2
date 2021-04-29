@@ -27,6 +27,7 @@ module.exports = {
 			@returns {array} an array of region objects on success, and an empty array on failure
 		**/
 		getAllRegions: async (_, __, {req}) => {
+			console.log(req.userId);
 			const _id = new ObjectId(req.userId);
 			if(!_id) {return([])};
 			const regions = await Region.find({owner: _id});
@@ -92,6 +93,18 @@ module.exports = {
 			else return false;
 		},
 
+		/** 
+		 	@param 	 {object} args - a region objectID, field, and the update value
+			@returns {string} value on successful update, empty string on failure
+		**/
+		updateRegionField: async(_, args) => {
+			const { _id, field, value } = args;
+			const objectId = new ObjectId(_id);
+			const updated = await Region.updateOne({_id: objectId}, {[field]: value});
+			if(updated) return value;
+			else return "";
+		},
+//------------------------------------------------------------------------------------
 		/** 
 		 	@param 	 {object} args - a todolist id and an empty item object
 			@returns {string} the objectID of the item or an error message
@@ -175,10 +188,6 @@ module.exports = {
 			const { field, value, _id } = args;
 			const objectId = new ObjectId(_id);
 			const updated = await Region.updateOne({_id: objectId}, {[field]: value});
-			// console.log(field === 'last_opened');
-			// if(field == 'last_opened'){
-			// 	const reorder = await Todolist.find({owner: _id}).sort({'last_opened', -1});
-			// }
 			if(updated) return value;
 			else return "";
 		},

@@ -31,7 +31,7 @@ const Login = (props) => {
 			props.refetchTodos();
 			toggleLoading(false);
 			props.setShowLogin(false);
-			props.redirect("/maps");
+			props.redirect(`/maps/${data.login._id}`);
 		};
 	};
 

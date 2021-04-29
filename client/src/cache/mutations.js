@@ -6,7 +6,6 @@ export const LOGIN = gql`
 			email 
 			_id
 			name
-			password
 		}
 	}
 `;
@@ -14,8 +13,8 @@ export const LOGIN = gql`
 export const REGISTER = gql`
 	mutation Register($email: String!, $password: String!, $name: String!) {
 		register(email: $email, password: $password, name: $name) {
+			_id
 			email
-			password
 			name
 		}
 	}
@@ -27,8 +26,12 @@ export const LOGOUT = gql`
 `;
 
 export const UPDATE = gql`
-	mutation Update {
-		update
+	mutation Update ($_id: String!, $email: String!, $password: String!, $name: String!){
+		update(_id: $_id, email: $email, password: $password, name: $name){
+			_id
+			email
+			name
+		}
 	}
 `;
 
@@ -47,7 +50,13 @@ export const DELETE_REGION = gql`
 	}
 `;
 
-//Old Stuff
+export const UPDATE_REGION_FIELD = gql`
+mutation UpdateRegionField($_id: String!, $field: String!, $value: String!) {
+	updateRegionField(_id: $_id, field: $field, value: $value)
+}
+`;
+
+//Old Stuff---------------------------------------------------------------------------
 export const ADD_ITEM = gql`
 	mutation AddItem($item: ItemInput!, $_id: String!, $index: Int!) {
 		addItem(item: $item, _id: $_id, index: $index)

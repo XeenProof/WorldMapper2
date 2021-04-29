@@ -287,6 +287,7 @@ html, body {
 .map-entry {
     color: black;
     transition: 0.1s ease-in-out;
+    max-width: 100%;
 }
 
 .map-entry:hover {

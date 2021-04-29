@@ -35,7 +35,7 @@ const CreateAccount = (props) => {
 			}
 			else {
 				props.fetchUser();
-				props.redirect("/spreadsheet");
+				props.redirect(`/maps/${data.register._id}`);
 			}
 			props.setShowCreate(false);
 
