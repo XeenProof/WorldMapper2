@@ -24,20 +24,20 @@ const RegionOptions = (props) => {
 
     return(
         <div className='button-set'>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={wip}>undo</i>
+            <WButton className='viewer-entry-button'>
+                <i className='viewer-entry-button material-icons' onClick={wip}>undo</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={wip}>redo</i>
+            <WButton className='viewer-entry-button'>
+                <i className='viewer-entry-button material-icons' onClick={wip}>redo</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={handleBack}>close</i>
+            <WButton className='viewer-entry-button'>
+                <i className='viewer-entry-button material-icons' onClick={handleBack}>close</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={wip}>{"<"}</i>
+            <WButton className='viewer-entry-button'>
+                <i className='viewer-entry-button material-icons' onClick={wip}>{"<"}</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={wip}>{">"}</i>
+            <WButton className='viewer-entry-button'>
+                <i className='viewer-entry-button material-icons' onClick={wip}>{">"}</i>
             </WButton>
         </div>
     );

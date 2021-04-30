@@ -28,6 +28,10 @@ const Spreadsheet = (props) => {
 	}
 
     const auth = props.user === null ? false : true;
+
+    if (!auth){
+        redirect("/home");
+    }
     let reload = false;
     let allRegions = [];
 
@@ -72,6 +76,7 @@ const Spreadsheet = (props) => {
             leader: 'leaded',
             owner: props.user._id,
             parent: activeId,
+            last_opened: '',
             children: [],
             landmarks: []
         };
@@ -108,10 +113,10 @@ const Spreadsheet = (props) => {
                         </div>
                     </WLHeader>
                     <WLMain className="spreadsheet-background">
-                        <SpreadsheetTable children={activeRegion.children} 
+                        {activeRegion && <SpreadsheetTable children={activeRegion.children} 
                         allRegions={allRegions} deleteSubregion={deleteSubregion}
                         redirect={redirect}
-                        />
+                        />}
                     </WLMain>
 
                     {/* <div className='flexlr'>

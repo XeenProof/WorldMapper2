@@ -1,11 +1,8 @@
 import React, { useState } 	from 'react';
-import * as mutations 			from '../../cache/mutations';
-import { useMutation}    	from '@apollo/client';
 
 import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput } from 'wt-frontend';
 
 const NameMap = (props) => {
-    const [AddRegion] 		= useMutation(mutations.ADD_REGION);
 
     const [input, setInput] = useState("");
     const [isVisible, setVisible] = useState(true);
@@ -15,30 +12,8 @@ const NameMap = (props) => {
 		setInput(value);
 	}
 
-    // _id: String!
-	// id: Int!
-	// name: String!
-	// capital: String
-	// leader: String
-	// owner: String!
-	// parent: String!
-	// children: [String]
-	// landmark: [LandmarkInput]
-
     const handleCreate = async () => {
-        let map = {
-            _id: 'temp',//This is required to be temp if we are generating a completely new _id
-            name: input,
-            capital: 'null',
-            leader: 'null',
-            owner: props.user._id,
-            parent: 'root',
-            children: [],
-            landmarks: []
-        };
-        const { data } = await AddRegion({ variables: { region: map}});
-        props.setShowName();
-		props.refetch();
+		props.createRegion(input);
     }
 
     return (<WModal visible={isVisible} cover={true} className="login-modal">

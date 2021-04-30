@@ -352,6 +352,12 @@ html, body {
     font-weight: bold;
 }
 
+.viewer-text{
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}
+
 .transparent-button{
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -361,8 +367,9 @@ html, body {
     outline:none;
 }
 
-.spreadsheet-entry-button{
-    
+.viewer-entry-button{
+    background-color: transparent;
+    color: white;
 }
 
 .temp{

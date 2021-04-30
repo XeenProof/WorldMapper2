@@ -19,6 +19,7 @@ export const GET_DB_REGIONS = gql`
 			leader
 			owner
 			parent
+			last_opened
 			children
 			landmarks{
 				id

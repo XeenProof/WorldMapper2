@@ -25,6 +25,7 @@ const typeDefs = gql `
 		leader: String
 		owner: String!
 		parent: String!
+		last_opened: String!
 		children: [String]
 		landmarks: [Landmark]
 	}
@@ -58,6 +59,7 @@ const typeDefs = gql `
 		leader: String
 		owner: String!
 		parent: String!
+		last_opened: String!
 		children: [String]
 		landmarks: [LandmarkInput]
 	}

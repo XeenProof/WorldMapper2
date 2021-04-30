@@ -13,7 +13,7 @@ const MapEntry = (props) => {
     }
 
     const spreadsheetRedirect = () => {
-        props.redirect(`/spreadsheet/${map._id}`);  
+        props.selectMap(map._id);  
     }
 
     return (

@@ -15,7 +15,9 @@ const Region = (props) => {
     let { id } = useParams();
     let activeId = id;
 
-    //console.log(activeId);
+	let leftRegion = {}
+	let rightRegion = {}
+	
 
 	const redirect = (route) => {
 		history.push(route);
@@ -51,7 +53,7 @@ const Region = (props) => {
 			<WLMain>
 				<div className='region-container flexlr'>
 					<RegionInfo region={activeRegion} user={props.user}
-					redirect={redirect}
+					redirect={redirect} allRegions={allRegions}
 					/>
 					<Landmarks region={activeRegion}/>
 				</div>

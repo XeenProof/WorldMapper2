@@ -5,12 +5,13 @@ const MapList = (props) => {
 
 
     let roots = props.roots;
+    let rootOrder = props.rootOrder;
     return (
         roots? <div className='size container-primary'>{
-            roots.map(entry => (
-                <MapEntry map={entry} 
+            rootOrder.map(id => (
+                <MapEntry map={roots.find(x => x._id == id)} 
                 setShowDelete={props.setShowDelete} setShowRename={props.setShowRename}
-                redirect={props.redirect} setActiveRegion={props.setActiveRegion}
+                selectMap={props.selectMap} setActiveRegion={props.setActiveRegion}
                 />
             ))
         }   

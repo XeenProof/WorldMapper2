@@ -72,6 +72,7 @@ module.exports = {
 				leader: leader,
 				owner: owner,
 				parent: parent,
+				last_opened: new Date().toISOString(),
 				children: children,
 				landmarks: landmarks,
 			});
