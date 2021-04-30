@@ -28,7 +28,7 @@ const Login = (props) => {
 		}
 		if (data) {
 			props.fetchUser();
-			props.refetchTodos();
+			//props.refetchTodos();
 			toggleLoading(false);
 			props.setShowLogin(false);
 			props.redirect(`/maps/${data.login._id}`);

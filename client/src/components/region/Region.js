@@ -37,6 +37,22 @@ const Region = (props) => {
 
 	console.log(activeRegion);
 
+	const createDirectory = () => {
+        if (!activeRegion){return ""}
+        let route = [];
+        let currentId = activeRegion.parent;
+        let region;
+        while (currentId != 'root'){
+            region = allRegions.find(x => x._id == currentId);
+            if(!region){break;}
+            route.unshift(region.name);
+            currentId = region.parent;
+        }
+        return route.join(' > ');
+    }
+
+    let directory = createDirectory();
+
     return(
         <WLayout id="fullpage" wLayout="header">
             <WLHeader id='header'>
@@ -44,7 +60,7 @@ const Region = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
                     refetchTodos={refetch} setActiveList={() => {}}
-                    directory={"Region"} redirect={redirect} user={props.user}/>
+                    directory={directory} redirect={redirect} user={props.user}/>
             </WLHeader>
 			<WLMain>
 				<div className='region-container flexlr'>

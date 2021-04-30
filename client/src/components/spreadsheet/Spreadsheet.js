@@ -58,7 +58,7 @@ const Spreadsheet = (props) => {
         let region;
         while (currentId != 'root'){
             region = allRegions.find(x => x._id == currentId);
-            if(!region){break;}
+            if(!region){break}
             route.unshift(region.name);
             currentId = region.parent;
         }
@@ -112,7 +112,7 @@ const Spreadsheet = (props) => {
                             <div className={"title-name-text"}>{name}</div>
                         </div>
                     </WLHeader>
-                    <WLMain className="spreadsheet-background">
+                    <WLMain className="spreadsheet-background ">
                         {activeRegion && <SpreadsheetTable children={activeRegion.children} 
                         allRegions={allRegions} deleteSubregion={deleteSubregion}
                         redirect={redirect}

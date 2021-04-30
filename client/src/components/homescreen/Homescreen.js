@@ -43,32 +43,6 @@ const Homescreen = (props) => {
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 
-	// const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS);
-	// const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD);
-	// const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD);
-	// const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
-	// const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM);
-	// const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
-	// const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM);
-	// const [SortList] 			    = useMutation(mutations.SORT_LIST);
-
-	
-
-	
-
-	//gets the date
-	//const test = new Date().toISOString();
-	//console.log(test);
-
-
-	
-
-	// useEffect function
-	// document.removeEventListener('keydown', shortcuts);
-	
-
-	//shortcuts came from here
-
 	// const makeComparator = (criteria, invert) => {
 	// 	let multi = invert? -1:1;
 	// 	return function (item1, item2){
@@ -105,32 +79,6 @@ const Homescreen = (props) => {
 	// }
 
 	const auth = props.user === null ? false : true;
-
-	// const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
-	// if(loading) { console.log(loading, 'loading'); }
-	// if(error) { console.log(error, 'error'); }
-	// if(data) { 
-	// 	let todolists = data.getAllTodos; 
-	// 	// todolistsIds = todolists.map(x => x._id.toString());
-	// 	// const listComparator = makeComparator('last_opened', true);
-	// 	// todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
-	// }
-
-	
-	// //getting active list
-	// const refetchTodos = async (refetch) => {
-	// 	const { loading, error, data } = await refetch();
-	// 	if (data) {
-	// 		todolists = data.getAllTodos;
-	// 		if (activeList._id) {
-	// 			let tempID = activeList._id;
-	// 			let list = todolists.find(list => list._id === tempID);
-
-	// 			setActiveList(list);
-	// 			toggleListActive(true);
-	// 		}
-	// 	}
-	// }
 
 	// let shortcuts = (event) => {
 	// 	//console.log(event);
@@ -338,7 +286,7 @@ const Homescreen = (props) => {
 	let history = useHistory();
 	console.log(history);
 	//console.log(history);
-	const redirect = (route) => {
+	const redirect = async(route) => {
 		history.push(route);
 	}
 
@@ -355,31 +303,12 @@ const Homescreen = (props) => {
 					refetchTodos={() => {}} setActiveList={() => {}}
 					directory={""} redirect={redirect} user={props.user}/>
 			</WLHeader>
-			{/* <WLSide id='left-sidebar' side="left">
-				<WSidebar>
-					{
-						activeList ?
-							<SidebarContents
-								todolists={todolists} activeid={activeList.id} auth={auth} listorder={todolistsIdsSorted}
-								handleSetActive={handleSetActive} createNewList={createNewList}
-								updateListField={updateListField}
-								listActive={listActive}
-							/>
-							:
-							<></>
-					}
-				</WSidebar>
-			</WLSide> */}
 			<WLMain>
                 <div className='image center background-test'>
                     Globe
                 </div>
                 <div className='homescreen-text'>Welcome to the World Data Mapper</div>
             </WLMain>
-
-			
-			
-
 			{
 				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} redirect={redirect}/>)
 			}

@@ -239,6 +239,11 @@ html {
     max-width: 50%;
 }
 
+.size2{
+    min-height: 100px;
+    max-height: 100px;
+}
+
 .flexlr{
     display: flex;
     flex-direction: row;
@@ -266,6 +271,12 @@ html {
     margin-right: 12px;
 }
 
+.landmark-container{
+    margin-top: 12px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
 .container{
     justify-content: flex-start;
     margin-top: 14px;
@@ -290,7 +301,7 @@ html {
     max-height: 97%;
     margin-left: 5%;
     margin-right: 5%;
-    margin-bottom: 3%;
+    margin-bottom: 5%;
 }
 
 .region-container-inner{
@@ -379,9 +390,18 @@ html {
     margin-bottom: 10px;
 }
 
+.landmarks-header-text{
+    text-align: center;
+    margin-top: auto;
+}
+
+.landmark-footer-size{
+    min-height: 50%;
+    max-height: 50%;
+}
+
 .overflow{
     overflow-y: scroll;
-    //max-height: 100%;
 }
 
 .auto-overflow{
@@ -402,5 +422,7 @@ html {
 }
 
 .test{
-      max-height: 50%;
+      width: 100%;
+      margin-top: auto;
+      margin-bottom: auto;
 }

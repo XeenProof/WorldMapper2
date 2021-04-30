@@ -17,7 +17,7 @@ import RenameMap from '../modals/RenameMap';
 const Mapscreen = (props) => {
 
     // let { user } = props.user;
-    let reload = false;
+    
     let allRegions = [];
     let rootRegions = [];
     let rootIdSet = [];
@@ -65,10 +65,16 @@ const Mapscreen = (props) => {
 	}
     
     console.log(auth);
-    if(!auth && !reload){//makes sure that the list is loaded
-        refetch();
-        reload = true;
-    }
+    console.log(allRegions);
+    console.log(rootRegions);
+
+    //-------Bug-Unstable-Fix--------------------------------------
+    // let reload = false;
+    // if(!auth && !reload){//makes sure that the list is loaded
+    //     refetch();
+    //     reload = true;
+    // }
+    //-------------------------------------------------------------
 
     const createRegion = async (input) => {
         let map = {
