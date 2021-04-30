@@ -1,16 +1,11 @@
 import React 	from 'react';
 import { WButton } from 'wt-frontend';
 
-const SpreadsheetOptions = (props) => {
+const RegionOptions = (props) => {
     const wip = () => {};
 
     let region = props.region;
     let user = props.user;
-
-    const handleAdd = () => {
-        console.log("added");
-        props.addSubregion();
-    };
 
     const handleBack = () => {
         console.log("back");
@@ -30,19 +25,22 @@ const SpreadsheetOptions = (props) => {
     return(
         <div className='button-set'>
             <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button2 material-icons' onClick={handleAdd}>add</i>
-            </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={handleBack}>close</i>
-            </WButton>
-            <WButton className='spreadsheet-entry-button'>
                 <i className='spreadsheet-entry-button material-icons' onClick={wip}>undo</i>
             </WButton>
             <WButton className='spreadsheet-entry-button'>
                 <i className='spreadsheet-entry-button material-icons' onClick={wip}>redo</i>
             </WButton>
+            <WButton className='spreadsheet-entry-button'>
+                <i className='spreadsheet-entry-button material-icons' onClick={handleBack}>close</i>
+            </WButton>
+            <WButton className='spreadsheet-entry-button'>
+                <i className='spreadsheet-entry-button material-icons' onClick={wip}>{"<"}</i>
+            </WButton>
+            <WButton className='spreadsheet-entry-button'>
+                <i className='spreadsheet-entry-button material-icons' onClick={wip}>{">"}</i>
+            </WButton>
         </div>
     );
 }
 
-export default SpreadsheetOptions;
+export default RegionOptions;

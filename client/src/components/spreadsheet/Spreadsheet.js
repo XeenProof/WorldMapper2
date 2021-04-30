@@ -13,7 +13,6 @@ import SpreadsheetTableHeader from './SpreadsheetTableHeader';
 
 const Spreadsheet = (props) => {
 
-    let titleCard = "Region Name:";
     let activeRegion = {};
     let history = useHistory();
     let { id } = useParams();

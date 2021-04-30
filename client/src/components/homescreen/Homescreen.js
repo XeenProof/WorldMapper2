@@ -7,7 +7,7 @@ import SidebarContents 					from '../sidebar/SidebarContents';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
 import CreateAccount 					from '../modals/CreateAccount';
-import { GET_DB_TODOS } 				from '../../cache/queries';
+import { GET_DB_REGIONS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
@@ -40,12 +40,6 @@ const Homescreen = (props) => {
 	// 	return () => {document.removeEventListener('keydown', shortcuts)}
 	// });
 
-	let todolists 							= [];
-	let todolistsIds                        = [];
-	let todolistsIdsSorted                  = [];
-	const [activeList, setActiveList] 		= useState({});
-	const [listActive, toggleListActive] 	= useState(false);
-	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 
@@ -110,17 +104,19 @@ const Homescreen = (props) => {
 	// 	return idSet;
 	// }
 
-	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
-	if(loading) { console.log(loading, 'loading'); }
-	if(error) { console.log(error, 'error'); }
-	if(data) { 
-		todolists = data.getAllTodos; 
-		// todolistsIds = todolists.map(x => x._id.toString());
-		// const listComparator = makeComparator('last_opened', true);
-		// todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
-	}
-
 	const auth = props.user === null ? false : true;
+
+	// const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
+	// if(loading) { console.log(loading, 'loading'); }
+	// if(error) { console.log(error, 'error'); }
+	// if(data) { 
+	// 	let todolists = data.getAllTodos; 
+	// 	// todolistsIds = todolists.map(x => x._id.toString());
+	// 	// const listComparator = makeComparator('last_opened', true);
+	// 	// todolistsIdsSorted = sortList(todolistsIds, todolists, listComparator);
+	// }
+
+	
 	// //getting active list
 	// const refetchTodos = async (refetch) => {
 	// 	const { loading, error, data } = await refetch();
@@ -330,22 +326,14 @@ const Homescreen = (props) => {
 		a modal manager that handles which to show.
 	*/
 	const setShowLogin = () => {
-		toggleShowDelete(false);
 		toggleShowCreate(false);
 		toggleShowLogin(!showLogin);
 	};
 
 	const setShowCreate = () => {
-		toggleShowDelete(false);
 		toggleShowLogin(false);
 		toggleShowCreate(!showCreate);
 	};
-
-	const setShowDelete = () => {
-		toggleShowCreate(false);
-		toggleShowLogin(false);
-		toggleShowDelete(!showDelete)
-	}
 
 	let history = useHistory();
 	console.log(history);
@@ -364,7 +352,7 @@ const Homescreen = (props) => {
 				<Navbar 
 					fetchUser={props.fetchUser} auth={auth} 
 					setShowCreate={setShowCreate} setShowLogin={setShowLogin}
-					refetchTodos={refetch} setActiveList={setActiveList}
+					refetchTodos={() => {}} setActiveList={() => {}}
 					directory={""} redirect={redirect} user={props.user}/>
 			</WLHeader>
 			{/* <WLSide id='left-sidebar' side="left">
@@ -388,39 +376,16 @@ const Homescreen = (props) => {
                 </div>
                 <div className='homescreen-text'>Welcome to the World Data Mapper</div>
             </WLMain>
-			{/* <WLMain id='mainlist'>
-				{
-					activeList ? 
-							<div id='workspace' className="container-secondary">
-								<MainContents
-									addItem={addItem} deleteItem={deleteItem}
-									editItem={editItem} reorderItem={reorderItem}
-									setShowDelete={setShowDelete}
-									activeList={activeList} closeList={closeList}
-									undo={tpsUndo} redo={tpsRedo}
-									canUndo={props.tps.hasTransactionToUndo()}
-									canRedo={props.tps.hasTransactionToRedo()}
-									sortList={updateSortedList}
-								/>
-							</div>
-						:
-							<div id='workspace' className="container-secondary" />
-				}
-
-			</WLMain> */}
 
 			
 			
-			{/* {
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
-			} */}
 
 			{
 				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} redirect={redirect}/>)
 			}
 
 			{
-				showLogin && (<Login fetchUser={props.fetchUser} refetchTodos={refetch}setShowLogin={setShowLogin} redirect={redirect}/>)
+				showLogin && (<Login fetchUser={props.fetchUser} refetchTodos={() => {}}setShowLogin={setShowLogin} redirect={redirect}/>)
 			}
 			
 		</WLayout>
