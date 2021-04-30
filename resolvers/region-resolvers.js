@@ -106,7 +106,7 @@ module.exports = {
 			const regionToDelete = await Region.findOne({_id: objectId});
 			
 			let parent = (regionToDelete)? regionToDelete.parent: 'root';
-
+			//deleting self from parent
 			if (parent != 'root'){
 				const parentId = new ObjectId(parent);
 				console.log(parentId);
@@ -117,8 +117,18 @@ module.exports = {
 					const updated = await Region.updateOne({_id: parentId}, { children: newChildren });
 				}
 			}
+			
+			let idSet = [objectId];
+			for(let i = 0; i < idSet.length; i++){
+				const find = await Region.findOne({_id: idSet[i]});
+				if (!find){break;}
+				const childSet = find.children;
+				const converted = childSet.map(x => new ObjectId(x));
+				idSet = idSet.concat(converted);
+			}
 
-			const deleted = await Region.deleteOne({_id: objectId});
+			const deleted = await Region.deleteMany({_id: idSet});
+
 			if(deleted) return true;
 			else return false;
 		},

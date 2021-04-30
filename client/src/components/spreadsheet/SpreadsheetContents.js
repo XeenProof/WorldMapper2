@@ -12,6 +12,7 @@ const SpreadsheetContents = (props) => {
                     <SpreadsheetEntry
                         region={allRegions.find(x => x._id == entry)}
                         deleteSubregion={props.deleteSubregion}
+                        redirect={props.redirect}
                     />
                 ))
             }

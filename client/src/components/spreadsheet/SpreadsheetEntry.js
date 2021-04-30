@@ -25,6 +25,14 @@ const SpreadsheetEntry = (props) => {
         props.deleteSubregion(_id);
     }
 
+    const handleEnder = () => {
+        props.redirect(`/spreadsheet/${_id}`);
+    }
+
+    const handleViewer = () => {
+        props.redirect(`/region/${_id}`);
+    }
+
     const wip = () => {};
     return(
     <WRow className='table-entry'>
@@ -37,7 +45,7 @@ const SpreadsheetEntry = (props) => {
                 {name}
             </div>
             <WButton className='transparent-button' >
-                <i className='ss-button ss-text-centered3 material-icons' onClick={handleDelete}>explore</i>
+                <i className='ss-button ss-text-centered3 material-icons' onClick={handleEnder}>explore</i>
             </WButton>
             </div>
         </WCol>
@@ -57,7 +65,7 @@ const SpreadsheetEntry = (props) => {
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>
-            <div className="ss-text ss-text-centered ss-color" onClick={wip}>
+            <div className="ss-text ss-text-centered ss-color" onClick={handleViewer}>
                 {landmarks}
             </div>
         </WCol>

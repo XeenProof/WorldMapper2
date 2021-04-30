@@ -36,7 +36,6 @@ const Spreadsheet = (props) => {
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data) { 
-        console.log("data reached");
 		allRegions = data.getAllRegions;
         activeRegion = allRegions.find(x => x._id == activeId);
 	}
@@ -47,7 +46,24 @@ const Spreadsheet = (props) => {
 
     let name = (activeRegion)? activeRegion.name: '';
 
-    console.log(activeRegion);
+    //console.log(activeRegion);
+
+    const createDirectory = () => {
+        if (!activeRegion){return ""}
+        let route = [];
+        let currentId = activeRegion.parent;
+        let region;
+        while (currentId != 'root'){
+            region = allRegions.find(x => x._id == currentId);
+            if(!region){break;}
+            route.unshift(region.name);
+            currentId = region.parent;
+        }
+        return route.join(' > ');
+    }
+
+    let directory = createDirectory();
+
 
     const addSubregion = async() => {
         let region = {
@@ -78,19 +94,25 @@ const Spreadsheet = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
                     refetchTodos={refetch} setActiveList={() => {}}
-                    directory={"spreadsheet"} redirect={redirect} user={props.user}/>
+                    directory={directory} redirect={redirect} user={props.user}/>
             </WLHeader>
             <WLMain className='spreadsheet-alignment'>
                 <WLayout wLayout="header">
                     <WLHeader className='container flexlr'>
-                        <SpreadsheetOptions addSubregion={addSubregion}/>
+                        <SpreadsheetOptions 
+                        addSubregion={addSubregion} redirect={redirect}
+                        region={activeRegion} user={props.user}
+                        />
                         <div className='spreadsheet-text flexlr title-card'>
                             <div>{"Region Name: "}</div>
                             <div className={"title-name-text"}>{name}</div>
                         </div>
                     </WLHeader>
                     <WLMain className="spreadsheet-background">
-                        <SpreadsheetTable children={activeRegion.children} allRegions={allRegions} deleteSubregion={deleteSubregion}/>
+                        <SpreadsheetTable children={activeRegion.children} 
+                        allRegions={allRegions} deleteSubregion={deleteSubregion}
+                        redirect={redirect}
+                        />
                     </WLMain>
 
                     {/* <div className='flexlr'>
