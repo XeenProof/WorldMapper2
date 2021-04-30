@@ -249,8 +249,21 @@ html {
 }
 
 .viewer-text{
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 12px;
+}
+
+.viewer-text2{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 12px;
+}
+
+.viewer-text3{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 12px;
 }
 
 .container{
@@ -312,6 +325,7 @@ html {
     padding-top: 12px;
     cursor: pointer;
     font-weight: bold;
+    margin-left: 10px;
 }
 
 .map-entry {
@@ -367,7 +381,24 @@ html {
 
 .overflow{
     overflow-y: scroll;
-    max-height: 100%;
+    //max-height: 100%;
+}
+
+.auto-overflow{
+    overflow-y: auto;
+}
+
+.overflow-text{
+    overflow: hidden;
+    max-height: 90%;
+}
+
+.clickable{
+    
+}
+
+.clickable:hover{
+    cursor: pointer;
 }
 
 .test{

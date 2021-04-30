@@ -7,7 +7,7 @@ const MapList = (props) => {
     let roots = props.roots;
     let rootOrder = props.rootOrder;
     return (
-        roots? <div className='size container-primary'>{
+        roots? <div className='size container-primary auto-overflow'>{
             rootOrder.map(id => (
                 <MapEntry map={roots.find(x => x._id == id)} 
                 setShowDelete={props.setShowDelete} setShowRename={props.setShowRename}

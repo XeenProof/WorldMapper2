@@ -15,10 +15,6 @@ const Region = (props) => {
     let { id } = useParams();
     let activeId = id;
 
-	let leftRegion = {}
-	let rightRegion = {}
-	
-
 	const redirect = (route) => {
 		history.push(route);
 	}

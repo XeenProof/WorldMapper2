@@ -6,7 +6,7 @@ const SpreadsheetContents = (props) => {
     let allRegions = props.allRegions;
 
     return (
-        regionIds ? <div className='table-entries container-primary test'>
+        regionIds ? <div className='table-entries container-primary overflow-test'>
             {
                 regionIds.map(entry => (
                     <SpreadsheetEntry

@@ -21,7 +21,7 @@ const LoggedIn = (props) => {
 
     return (
         <WNavItem hoverAnimation="lighten">
-            <WButton className="navbar-options" onClick={props.setShowUpdate} wType="texted" hoverAnimation="text-primary">
+            <WButton className="navbar-options purple" onClick={props.setShowUpdate} wType="texted" hoverAnimation="text-primary">
                 {user}
             </WButton>
             <WButton className="navbar-options" onClick={handleLogout} wType="texted" hoverAnimation="text-primary">

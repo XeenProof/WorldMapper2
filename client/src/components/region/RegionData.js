@@ -1,28 +1,56 @@
 import React from 'react';
+import { WButton } from 'wt-frontend';
 
 const RegionData = (props) => {
+    const wip = () => {};
+
     let region = props.region;//the region itself
+    let allRegions = props.allRegions;
 
     let name = '';
     let capital = '';
     let leader = '';
-    let landmarks = [];
+    let children = [];
     let subregions = 0;
+
+    let parent = {};
+    let parentName = '';
 
     //direct info
     if(region){
         name = region.name;
         capital = region.capital;
         leader = region.leader;
+        parent = allRegions.find(x => x._id == region.parent);
+        parentName = (parent)? parent.name:'';
 
-        landmarks = region.landmarks;
-        subregions = (landmarks)? landmarks.length: 0;
+        children = region.children;
+        subregions = (children)? children.length: 0;
     }
 
     return(
         <div>
-            <div className="viewer-text">Region Name:</div>
-            <div className="viewer-text">Region Name:</div>
+            <div className="flexlr">
+                <div className='viewer-text'>Region Name:</div>
+                <div className='viewer-text'>{name}</div>
+            </div>
+            <div className="flexlr">
+                <div className='viewer-text'>Parent Region:</div>
+                <div className='viewer-text2'>{parentName}</div>
+                <i className='viewer-entry-button2 viewer-text3 clickable material-icons' onClick={wip}>edit</i>
+            </div>
+            <div className="flexlr">
+                <div className='viewer-text'>Region Capital:</div>
+                <div className='viewer-text'>{capital}</div>
+            </div>
+            <div className="flexlr">
+                <div className='viewer-text'>Region Leader:</div>
+                <div className='viewer-text'>{leader}</div>
+            </div>
+            <div className="flexlr">
+                <div className='viewer-text'># of Subregions:</div>
+                <div className='viewer-text'>{subregions}</div>
+            </div>
         </div>
     )
 }

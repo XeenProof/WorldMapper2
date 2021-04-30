@@ -358,6 +358,18 @@ html, body {
     font-size: 20px;
 }
 
+.viewer-text2{
+    font-weight: bold;
+    color: var(--ss-region-color);
+    font-size: 20px;
+}
+
+.viewer-text3{
+    font-weight: bold;
+    color: $primary-color;
+    font-size: 20px;
+}
+
 .transparent-button{
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -370,6 +382,15 @@ html, body {
 .viewer-entry-button{
     background-color: transparent;
     color: white;
+}
+
+.viewer-entry-button2{
+    background-color: transparent;
+    color: $primary-color;
+}
+
+.purple{
+    color: purple;
 }
 
 .temp{

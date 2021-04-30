@@ -42,10 +42,10 @@ const Spreadsheet = (props) => {
 		allRegions = data.getAllRegions;
         activeRegion = allRegions.find(x => x._id == activeId);
 	}
-    if(!auth && !reload){//makes sure that the list is loaded
-        refetch();
-        reload = true;
-    }
+    // if(!auth && !reload){//makes sure that the list is loaded
+    //     refetch();
+    //     reload = true;
+    // }
 
     let name = (activeRegion)? activeRegion.name: '';
 
@@ -118,15 +118,6 @@ const Spreadsheet = (props) => {
                         redirect={redirect}
                         />}
                     </WLMain>
-
-                    {/* <div className='flexlr'>
-                        <div className='size background-test'>
-                            hihi
-                        </div>
-                        <div className='size background-test2'>
-                            hihi
-                        </div>
-                    </div> */}
                 </WLayout>
             </WLMain>
         </WLayout>

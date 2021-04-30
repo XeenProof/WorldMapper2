@@ -33,41 +33,6 @@ const Mapscreen = (props) => {
     const [showUpdate, toggleShowUpdate]    = useState(false);
     const [showRename, toggleShowRename]       = useState(false);
 
-    // const makeComparator = (criteria, invert) => {
-	// 	let multi = invert? -1:1;
-	// 	return function (item1, item2){
-	// 		let value1 = item1[criteria];
-	// 		let value2 = item2[criteria];
-	// 		if (value1 < value2) {
-	// 			return -1*multi;
-	// 		  }
-	// 		  else if (value1 === value2) {
-	// 			return 0;
-	// 		  }
-	// 		  else {
-	// 			return 1*multi;
-	// 		  }
-	// 	}
-	// }
-
-    // const sortList = (ids, source, comparator) => {
-	// 	let info = source;
-	// 	let idSet = ids;
-	// 	for(let i = 0; i < ids.length-1; i++){
-	// 		for(let j = i + 1; j < ids.length; j++){
-	// 			let itemi = info.find(e => e._id.toString() === idSet[i]);
-	// 			let itemj = info.find(e => e._id.toString() === idSet[j]);
-	// 			let result = comparator(itemi, itemj)
-	// 			if (result == 1){
-	// 				let temp = idSet[i];
-	// 				idSet[i] = idSet[j];
-	// 				idSet[j] = temp;
-	// 			}
-	// 		}
-	// 	}
-	// 	return idSet;
-	// }
-
     const sortRoots = (ids, info) => {
         let rootIds = ids;
         let source = info;
@@ -75,7 +40,6 @@ const Mapscreen = (props) => {
 			for(let j = i + 1; j < rootIds.length; j++){
 				let itemi = source.find(e => e._id.toString() === rootIds[i]);
 				let itemj = source.find(e => e._id.toString() === rootIds[j]);
-                console.log(itemi.last_opened);
 				let result = (itemi.last_opened > itemj.last_opened)? -1: (itemi.last_opened == itemj.last_opened)? 0: 1;
 				if (result == 1){
 					let temp = rootIds[i];
@@ -87,6 +51,7 @@ const Mapscreen = (props) => {
 		return rootIds;
     }
 
+    const auth = props.user === null ? false : true;
 
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
@@ -98,16 +63,12 @@ const Mapscreen = (props) => {
         rootIdSet = rootRegions.map(x => x._id);
         rootOrder = sortRoots(rootIdSet, rootRegions);
 	}
-    const auth = props.user === null ? false : true;
+    
+    console.log(auth);
     if(!auth && !reload){//makes sure that the list is loaded
         refetch();
         reload = true;
     }
-
-
-
-    console.log(allRegions);
-    console.log(rootRegions);
 
     const createRegion = async (input) => {
         let map = {
