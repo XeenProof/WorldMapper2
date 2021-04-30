@@ -75,7 +75,23 @@ module.exports = {
 				children: children,
 				landmarks: landmarks,
 			});
+			
 			const updated = newRegion.save();
+			//adding child id to parent
+			if (parent != 'root'){
+				const parentId = new ObjectId(parent);
+				const found = await Region.findOne({_id: parentId});
+				console.log(found);
+				if (!found) return objectId;
+				
+				let children = found.children;
+				let exist = children.find(x => x == objectId);
+				if (exist) return objectId;
+
+				children.push(objectId);
+				const updated = await Region.updateOne({_id: parentId}, { children: children });
+			}
+
 			if (updated) return objectId;
 			else return ("could not add region");
 		},
@@ -87,6 +103,19 @@ module.exports = {
 		deleteRegion: async(_, args) => {
 			const { _id } = args;
 			const objectId = new ObjectId(_id);
+			const regionToDelete = Region.findOne({_id: objectId});
+			let parent = regionToDelete.parent;
+
+			if (parent != 'root'){
+				const parentId = new ObjectId(parent);
+				const found = Region.findOne({_id: parentId});
+				if (found){
+					let children = found.children;
+					let newChildren = children.filter(x => x != _id);
+					const updated = await Region.updateOne({_id: parentId}, { children: newChildren });
+				}
+			}
+
 			const deleted = await Region.deleteOne({_id: objectId});
 			if(deleted) return true;
 			else return false;
