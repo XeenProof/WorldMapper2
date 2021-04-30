@@ -338,6 +338,33 @@ html, body {
 
 }
 
+.ss-rborder {
+    border-right: 1px solid;
+    color: black;
+    transition: 0.1s ease-in-out;
+}
+
+.ss-color{
+    color: var(--ss-region-color);
+}
+
+.ss-text{
+    font-weight: bold;
+}
+
+.transparent-button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.background-tranparent{
+    background-color: transparent;
+}
+
 .background-test{
     background-color: red;
 }

@@ -20,6 +20,7 @@ const Spreadsheet = (props) => {
     let activeId = id;
 
     const [AddRegion] = useMutation(mutations.ADD_REGION);
+    const [DeleteRegion] = useMutation(mutations.DELETE_REGION);
 
     //console.log(activeId);
 
@@ -63,6 +64,12 @@ const Spreadsheet = (props) => {
         refetch();
     }
 
+    const deleteSubregion = async (_id) => {
+        const { data } = await DeleteRegion({ variables: { _id: _id}});
+        //setShowDelete("");
+		refetch();
+    }
+
 
     return(
         <WLayout id="fullpage" wLayout="header">
@@ -83,7 +90,7 @@ const Spreadsheet = (props) => {
                         </div>
                     </WLHeader>
                     <WLMain className="spreadsheet-background">
-                        <SpreadsheetTable/>
+                        <SpreadsheetTable children={activeRegion.children} allRegions={allRegions} deleteSubregion={deleteSubregion}/>
                     </WLMain>
 
                     {/* <div className='flexlr'>

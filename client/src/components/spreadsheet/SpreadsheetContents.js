@@ -1,23 +1,23 @@
 import React from 'react'
+import SpreadsheetEntry from './SpreadsheetEntry';
 
 const SpreadsheetContents = (props) => {
-    let regions = props.children;
+    let regionIds = props.children;
+    let allRegions = props.allRegions;
+
     return (
-        regions ? <div className=' table-entries container-primary'>
-            {/* {
-                region.map((entry, index) => (
-                    <TableEntry
-                        data={entry} key={entry.id}
-                        deleteItem={props.deleteItem} reorderItem={props.reorderItem}
-                        editItem={props.editItem}
-                        canMoveUp={index != 0}
-                        canMoveDown={index != max}
+        regionIds ? <div className='table-entries container-primary test'>
+            {
+                regionIds.map(entry => (
+                    <SpreadsheetEntry
+                        region={allRegions.find(x => x._id == entry)}
+                        deleteSubregion={props.deleteSubregion}
                     />
                 ))
-            } */}
+            }
 
             </div>
-            : <div className='container-primary' />
+            : <div className='container-primary test' />
     );
 }
 

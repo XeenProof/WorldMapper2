@@ -103,12 +103,14 @@ module.exports = {
 		deleteRegion: async(_, args) => {
 			const { _id } = args;
 			const objectId = new ObjectId(_id);
-			const regionToDelete = Region.findOne({_id: objectId});
-			let parent = regionToDelete.parent;
+			const regionToDelete = await Region.findOne({_id: objectId});
+			
+			let parent = (regionToDelete)? regionToDelete.parent: 'root';
 
 			if (parent != 'root'){
 				const parentId = new ObjectId(parent);
-				const found = Region.findOne({_id: parentId});
+				console.log(parentId);
+				const found = await Region.findOne({_id: parentId});
 				if (found){
 					let children = found.children;
 					let newChildren = children.filter(x => x != _id);
