@@ -8,6 +8,7 @@ import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect, useHistory} from 'react-router-dom';
 import { PromiseProvider } from 'mongoose';
+import { GET_DB_REGIONS } 				from './cache/queries';
 //import { useHistory } from "react-router-dom";
  
 const App = () => {
@@ -26,6 +27,8 @@ const App = () => {
 			user = getCurrentUser;
 		}
     }
+
+
 
 	
 

@@ -3,7 +3,7 @@ import Navbar 							from '../navbar/Navbar';
 import { WNavbar, WSidebar, WNavItem, WButton } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import NameMap from '../modals/NameMap';
 import MapList from './MapList';
@@ -17,6 +17,8 @@ import RenameMap from '../modals/RenameMap';
 const Mapscreen = (props) => {
 
     // let { user } = props.user;
+
+    let { id } = useParams();
     
     let allRegions = [];
     let rootRegions = [];
@@ -53,28 +55,45 @@ const Mapscreen = (props) => {
 
     const auth = props.user === null ? false : true;
 
+
+//-----Temp-Sealed-------------------------------------------------------
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
 	if(data) { 
-        console.log("data reached");
+        console.log(data);
 		allRegions = data.getAllRegions;
         rootRegions = allRegions.filter(x => x.parent == 'root');
         rootIdSet = rootRegions.map(x => x._id);
         rootOrder = sortRoots(rootIdSet, rootRegions);
 	}
     
-    console.log(auth);
+    console.log(props.user);
     console.log(allRegions);
     console.log(rootRegions);
+//-----Temp-Sealed-------------------------------------------------------
 
     //-------Bug-Unstable-Fix--------------------------------------
-    // let reload = false;
-    // if(!auth && !reload){//makes sure that the list is loaded
+    // if(!auth){//makes sure that the list is loaded
+    //     console.log("reloaded");
     //     refetch();
-    //     reload = true;
     // }
     //-------------------------------------------------------------
+
+    // if(id){
+    //     refetch();
+    // }
+
+    let history = useHistory();
+    console.log((history.location.state)? history.location.state.reload: 'no');
+    let reload = (history.location.state)? history.location.state.reload: false;
+    if(reload){
+        refetch();
+        history.replace(history.location.pathname, {reload: false});
+    }
+	const redirect = (route) => {
+		history.push(route, {reload: true});
+	};
 
     const createRegion = async (input) => {
         let map = {
@@ -137,10 +156,7 @@ const Mapscreen = (props) => {
     }
 
 
-    let history = useHistory();
-	const redirect = (route) => {
-		history.push(route);
-	};
+    
 
     const selectMap = async (_id) => {
         const { data } = await UpdateRegionField({variables: {_id: _id, field: "last_opened", value: new Date().toISOString()}});

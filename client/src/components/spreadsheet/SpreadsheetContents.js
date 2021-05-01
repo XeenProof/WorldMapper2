@@ -6,7 +6,7 @@ const SpreadsheetContents = (props) => {
     let allRegions = props.allRegions;
 
     return (
-        regionIds ? <div className='table-entries container-primary test border-test'>
+        regionIds ? <div className='table-entries container-primary ss-height-lock'>
             {
                 regionIds.map(entry => (
                     <SpreadsheetEntry

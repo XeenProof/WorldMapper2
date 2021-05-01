@@ -16,13 +16,13 @@ const Region = (props) => {
     let activeId = id;
 
 	const redirect = (route) => {
-		history.push(route);
+		history.push(route, {reload: true});
 	}
 
     const auth = props.user === null ? false : true;
     let reload = false;
     let allRegions = [];
-
+//-----Temp-Sealed-------------------------------------------------------
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
@@ -34,7 +34,7 @@ const Region = (props) => {
         refetch();
         reload = true;
     }
-
+//-----Temp-Sealed-------------------------------------------------------
 	console.log(activeRegion);
 
 	const createDirectory = () => {

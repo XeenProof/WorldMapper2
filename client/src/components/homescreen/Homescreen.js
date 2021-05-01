@@ -287,7 +287,7 @@ const Homescreen = (props) => {
 	console.log(history);
 	//console.log(history);
 	const redirect = async(route) => {
-		history.push(route);
+		history.push(route, {reload: true});
 	}
 
 	

@@ -23,18 +23,13 @@ const Spreadsheet = (props) => {
 
     //console.log(activeId);
 
-	const redirect = (route) => {
-		history.push(route);
-	}
+	
 
     const auth = props.user === null ? false : true;
 
-    if (!auth){
-        redirect("/home");
-    }
     let reload = false;
     let allRegions = [];
-
+//-----Temp-Sealed-------------------------------------------------------
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
@@ -42,10 +37,9 @@ const Spreadsheet = (props) => {
 		allRegions = data.getAllRegions;
         activeRegion = allRegions.find(x => x._id == activeId);
 	}
-    // if(!auth && !reload){//makes sure that the list is loaded
-    //     refetch();
-    //     reload = true;
-    // }
+//-----Temp-Sealed-------------------------------------------------------
+
+    
 
     let name = (activeRegion)? activeRegion.name: '';
 
@@ -88,6 +82,16 @@ const Spreadsheet = (props) => {
         const { data } = await DeleteRegion({ variables: { _id: _id}});
         //setShowDelete("");
 		refetch();
+    }
+
+    const redirect = (route) => {
+		history.push(route, {reload: true});
+	}
+
+    if(!auth && !reload){//makes sure that the list is loaded
+        
+        refetch();
+        reload = true;
     }
 
 
