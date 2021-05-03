@@ -61,7 +61,11 @@ const Spreadsheet = (props) => {
 
     let directory = createDirectory();
 
+    const getRegion = (_id) => {
+        return allRegions.find(x => x._id == _id);
+    }
 
+    //------------------------------resolvers callers----------------------------------------------
     const addSubregion = async() => {
         let region = {
             _id: 'temp',//This is required to be temp if we are generating a completely new _id
@@ -83,8 +87,10 @@ const Spreadsheet = (props) => {
         //setShowDelete("");
 		refetch();
     }
+    //------------------------------resolvers callers end------------------------------------------
 
     const redirect = (route) => {
+        props.tps.clearAllTransactions();
 		history.push(route, {reload: true});
 	}
 

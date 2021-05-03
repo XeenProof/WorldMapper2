@@ -28,6 +28,20 @@ const RegionData = (props) => {
         subregions = (children)? children.length: 0;
     }
 
+    const handleBack = () => {
+        console.log("back");
+        if(!region){
+            return;
+        }
+        let id = props.user._id;
+        if (parent == 'root'){
+            props.redirect(`/maps/${id}`);
+        }
+        else{
+            props.redirect(`/spreadsheet/${parent._id}`);
+        }
+    };
+
     return(
         <div>
             <div className="flexlr">
@@ -36,7 +50,7 @@ const RegionData = (props) => {
             </div>
             <div className="flexlr">
                 <div className='viewer-text'>Parent Region:</div>
-                <div className='viewer-text2'>{parentName}</div>
+                <div className='viewer-text2 clickable' onClick={handleBack}>{parentName}</div>
                 <i className='viewer-entry-button2 viewer-text3 clickable material-icons' onClick={wip}>edit</i>
             </div>
             <div className="flexlr">

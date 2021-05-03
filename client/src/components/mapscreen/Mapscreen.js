@@ -92,6 +92,7 @@ const Mapscreen = (props) => {
         history.replace(history.location.pathname, {reload: false});
     }
 	const redirect = (route) => {
+        props.tps.clearAllTransactions();
 		history.push(route, {reload: true});
 	};
 
@@ -154,8 +155,6 @@ const Mapscreen = (props) => {
         toggleShowUpdate(false);
         toggleShowRename(!showRename);
     }
-
-
     
 
     const selectMap = async (_id) => {

@@ -16,6 +16,7 @@ const Region = (props) => {
     let activeId = id;
 
 	const redirect = (route) => {
+        props.tps.clearAllTransactions();
 		history.push(route, {reload: true});
 	}
 
@@ -52,6 +53,10 @@ const Region = (props) => {
     }
 
     let directory = createDirectory();
+
+    const getRegion = (_id) => {
+        return allRegions.find(x => x._id == _id);
+    }
 
     return(
         <WLayout id="fullpage" wLayout="header">
