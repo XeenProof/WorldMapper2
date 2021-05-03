@@ -6,7 +6,7 @@ const RegionInfo = (props) => {
     return(
     <div className='region-container-inner'>
         <RegionOptions region={props.region} user={props.user}
-        redirect={props.redirect}/>
+        redirect={props.redirect} left={props.left} right={props.right}/>
         <div className="viewer-text">Image</div>
         <RegionData region={props.region} allRegions={props.allRegions}
         redirect={props.redirect} user={props.user}

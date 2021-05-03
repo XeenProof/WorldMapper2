@@ -10,6 +10,7 @@ import * as mutations 					from '../../cache/mutations';
 import SpreadsheetOptions from './SpreadsheetOptions';
 import SpreadsheetTable from './SpreadsheetTable'
 import SpreadsheetTableHeader from './SpreadsheetTableHeader';
+import UpdateAccount from '../modals/UpdateAccount';
 
 const Spreadsheet = (props) => {
 
@@ -18,10 +19,14 @@ const Spreadsheet = (props) => {
     let { id } = useParams();
     let activeId = id;
 
+    
+
     const [AddRegion] = useMutation(mutations.ADD_REGION);
     const [DeleteRegion] = useMutation(mutations.DELETE_REGION);
 
     //console.log(activeId);
+
+    const [showUpdate, toggleShowUpdate]    = useState(false);
 
 	
 
@@ -100,6 +105,10 @@ const Spreadsheet = (props) => {
         reload = true;
     }
 
+    const setShowUpdate = () => {
+        toggleShowUpdate(!showUpdate);
+	};
+
 
     return(
         <WLayout id="fullpage" wLayout="header">
@@ -108,7 +117,8 @@ const Spreadsheet = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
                     refetchTodos={refetch} setActiveList={() => {}}
-                    directory={directory} redirect={redirect} user={props.user}/>
+                    directory={directory} redirect={redirect} user={props.user}
+                    setShowUpdate={setShowUpdate}/>
             </WLHeader>
             <WLMain className='spreadsheet-alignment'>
                 <WLayout wLayout="header">
@@ -130,6 +140,9 @@ const Spreadsheet = (props) => {
                     </WLMain>
                 </WLayout>
             </WLMain>
+            {
+				showUpdate && (<UpdateAccount user={props.user} setShowUpdate={setShowUpdate} fetchUser={props.fetchUser}/>)
+			}
         </WLayout>
     );
 }
