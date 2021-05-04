@@ -75,7 +75,7 @@ const Spreadsheet = (props) => {
 
     //------------------------------resolvers callers----------------------------------------------
     const addSubregion = async() => {
-        let region = {
+        let region = [{
             _id: 'temp',//This is required to be temp if we are generating a completely new _id
             name: 'region',
             capital: 'capital',
@@ -85,7 +85,7 @@ const Spreadsheet = (props) => {
             last_opened: '',
             children: [],
             landmarks: []
-        };
+        }];
         const { data } = await AddRegion({ variables: { region: region}});
         refetch();
     }

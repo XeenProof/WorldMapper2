@@ -39,7 +39,7 @@ export const UPDATE = gql`
 
 //pulled from resolvers
 export const ADD_REGION = gql`
-	mutation AddRegion($region: RegionInput!){
+	mutation AddRegion($region: [RegionInput]!){
 		addRegion(region: $region)
 	}
 `;

@@ -97,7 +97,7 @@ const Mapscreen = (props) => {
 	};
 
     const createRegion = async (input) => {
-        let map = {
+        let map = [{
             _id: 'temp',//This is required to be temp if we are generating a completely new _id
             name: input,
             capital: 'null',
@@ -107,7 +107,7 @@ const Mapscreen = (props) => {
 			last_opened: '',
             children: [],
             landmarks: []
-        };
+        }];
         const { data } = await AddRegion({ variables: { region: map}});
         setShowName();
 		refetch();

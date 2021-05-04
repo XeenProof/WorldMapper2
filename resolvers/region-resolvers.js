@@ -46,55 +46,97 @@ module.exports = {
 		},
 	},
 	Mutation: {
-					// _id: String!
-			// id: Int!
-			// name: String!
-			// capital: String
-			// leader: String
-			// owner: String!
-			// parent: String!
-			// children: [String]
-			// landmark: [LandmarkInput]
 		/**
+		 * 
+		//  * @param {object} args - a new region 
+		//  * @returns {string} the objectID of the item or an error message
+		//  */
+		// addRegion: async(_, args) => {
+		// 	console.log("adding Region");
+		// 	const { region } = args;
+		// 	const { _id, name, capital, leader, owner, parent, children, landmarks} = region;
+		// 	const objectId = (_id == 'temp')? new ObjectId(): new ObjectId(_id);
+		// 	const newRegion = new Region({
+		// 		_id: objectId,
+		// 		name: name,
+		// 		capital: capital,
+		// 		leader: leader,
+		// 		owner: owner,
+		// 		parent: parent,
+		// 		last_opened: new Date().toISOString(),
+		// 		children: children,
+		// 		landmarks: landmarks,
+		// 	});
+			
+		// 	const updated = newRegion.save();
+		// 	//adding child id to parent
+		// 	if (parent != 'root'){
+		// 		const parentId = new ObjectId(parent);
+		// 		const found = await Region.findOne({_id: parentId});
+		// 		console.log(found);
+		// 		if (!found) return objectId;
+				
+		// 		let children = found.children;
+		// 		let exist = children.find(x => x == objectId);
+		// 		if (exist) return objectId;
+
+		// 		children.push(objectId);
+		// 		const updated = await Region.updateOne({_id: parentId}, { children: children });
+		// 	}
+
+		// 	if (updated) return objectId;
+		// 	else return ("could not add region");
+		// },
+
+				/**
 		 * 
 		 * @param {object} args - a new region 
 		 * @returns {string} the objectID of the item or an error message
 		 */
 		addRegion: async(_, args) => {
-			console.log("adding Region");
+			console.log("adding Region 2");
 			const { region } = args;
-			const { _id, name, capital, leader, owner, parent, children, landmarks} = region;
-			const objectId = (_id == 'temp')? new ObjectId(): new ObjectId(_id);
-			const newRegion = new Region({
-				_id: objectId,
-				name: name,
-				capital: capital,
-				leader: leader,
-				owner: owner,
-				parent: parent,
-				last_opened: new Date().toISOString(),
-				children: children,
-				landmarks: landmarks,
-			});
-			
-			const updated = newRegion.save();
-			//adding child id to parent
-			if (parent != 'root'){
-				const parentId = new ObjectId(parent);
-				const found = await Region.findOne({_id: parentId});
-				console.log(found);
-				if (!found) return objectId;
+			const regionSet = region.map(x => 
+				new Region({
+					_id: (x._id == 'temp')? new ObjectId(): new ObjectId(x._id),
+					name: x.name,
+					capital: x.capital,
+					leader: x.leader,
+					owner: x.owner,
+					parent: x.parent,
+					last_opened: new Date().toISOString(),
+					children: x.children,
+					landmarks: x.landmarks,
+				})
+			);
+
+			const updated = regionSet.map(x => x.save());
+
+			const idSet = regionSet.map(x => x._id.toString());
+
+			for(let i = 0; i < regionSet.length; i++){
+				let current = regionSet[i];
+				if(current.parent == 'root'){
+					continue;
+				}
+
+				let objectId = current._id;
+				let parentId = new ObjectId(current.parent);
 				
+				let found = await Region.findOne({_id: parentId});
+				if (!found) continue;
+
 				let children = found.children;
 				let exist = children.find(x => x == objectId);
-				if (exist) return objectId;
-
+		 		if (exist) continue;
+				
 				children.push(objectId);
-				const updated = await Region.updateOne({_id: parentId}, { children: children });
+		 		await Region.updateOne({_id: parentId}, { children: children });
 			}
+			console.log(idSet);
 
-			if (updated) return objectId;
-			else return ("could not add region");
+			if (updated) return idSet;
+			else return [];
 		},
 
 		/** 
@@ -129,7 +171,6 @@ module.exports = {
 				const converted = childSet.map(x => new ObjectId(x));
 				idSet = idSet.concat(converted);
 			}
-			console.log(regionSet);
 
 			const deleted = await Region.deleteMany({_id: idSet});
 
