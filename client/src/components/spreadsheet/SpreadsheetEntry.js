@@ -59,7 +59,7 @@ const SpreadsheetEntry = (props) => {
                 <i className='ss-button ss-text-centered3 material-icons' onClick={handleDelete}>delete</i>
             </WButton>
             {(editing == 'name')? <WInput
-                className='test' onBlur={handleEdit} name='name'
+                className='table-input' onBlur={handleEdit} name='name'
                 autoFocus={true} defaultValue={info['name']} type='text'
                 wType="outlined" barAnimation="solid" inputClass="table-input-class"
             />: <div className="ss-text ss-text-centered2 ss-color" onClick={() =>  toggleEdit('name')}>

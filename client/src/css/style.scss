@@ -47,6 +47,7 @@
     --spreadsheet-background:#cccccc;
     --create-button:#b30000;
     --ss-region-color:#428bff;
+    --text-color2: black;
 }
 
 html, body {
@@ -76,7 +77,7 @@ html, body {
 
 .list-item-edit-input, .table-input {
     font-size: 1.125rem !important;
-    color: black;
+    color: black !important;
 }
 
 .logo {//keep
@@ -176,6 +177,7 @@ html, body {
     font-size: 14px;
     color: var(--light-gray);*/
     text-decoration-color: black;
+    color:black;
 }
 
 .table-select {
@@ -430,4 +432,8 @@ html, body {
     font-size: 1.125rem;
     background-color: transparent;
     color: black;
+}
+
+.table-input-class {
+    color: black !important;
 }
