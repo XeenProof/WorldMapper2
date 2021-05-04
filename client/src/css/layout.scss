@@ -431,8 +431,35 @@ html {
       height: 512px;
 }
 
-.test{
-    height: 100%;
+// .test{
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+// }
+
+.directory-container{
+    width: 80%;
     display: flex;
-    align-items: center;
+    flex-direction: row;
+}
+
+.directory-inner{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.directory-margin{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.hard-flexlr{
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.display-flex{
+    display: flex;
 }

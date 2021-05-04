@@ -42,6 +42,7 @@ const typeDefs = gql `
 		addRegion(region: [RegionInput]): [String]
 		deleteRegion(_id: String!): [Region]
 		updateRegionField(_id: String!, field: String!, value: String): String
+		sortRegion(_id: String!, regionIds: [String]!): Boolean
 
 		addItem(item: ItemInput!, _id: String!, index: Int!): String
 		addTodolist(todolist: TodoInput!): String

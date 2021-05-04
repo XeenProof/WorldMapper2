@@ -23,7 +23,7 @@ const Navbar = (props) => {
 				<WButton onClick={() => props.redirect("region")}>R</WButton>
 			</WNavItem>
 			</ul> */}
-			<ul>
+			<ul className='directory-container'>
 			<WNavItem>
 				<Route directory={props.directory}/>
 			</WNavItem>

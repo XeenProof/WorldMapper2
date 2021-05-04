@@ -171,7 +171,7 @@ const Mapscreen = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
                     refetchTodos={refetch} setActiveList={() => {}}
-                    directory={"Mapscreen"} redirect={redirect} user={props.user}
+                    directory={[]} redirect={redirect} user={props.user}
                     setShowUpdate={setShowUpdate}/>
             </WLHeader>
 			<WLMain className='mapscreen-alignment'>

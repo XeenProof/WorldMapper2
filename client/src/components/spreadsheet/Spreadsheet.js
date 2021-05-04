@@ -12,12 +12,10 @@ import SpreadsheetTable from './SpreadsheetTable'
 import SpreadsheetTableHeader from './SpreadsheetTableHeader';
 import Delete 							from '../modals/Delete';
 import UpdateAccount from '../modals/UpdateAccount';
-import { DeleteRegion_Transaction,
+import { AddRegion_Transaction,
+    DeleteRegion_Transaction,
     UpdateRegionField_Transaction, 
-	UpdateListItems_Transaction, 
-	ReorderItems_Transaction, 
-	EditItem_Transaction,
-	UpdateList_Transaction } 				from '../../utils/jsTPS';
+	SortRegion_Transaction} 				from '../../utils/jsTPS';
 
 const Spreadsheet = (props) => {
 
@@ -31,6 +29,7 @@ const Spreadsheet = (props) => {
     const [AddRegion] = useMutation(mutations.ADD_REGION);
     const [DeleteRegion] = useMutation(mutations.DELETE_REGION);
     const [UpdateRegionField] = useMutation(mutations.UPDATE_REGION_FIELD);
+    const [SortRegion] = useMutation(mutations.SORT_REGION);
 
     //console.log(activeId);
 
@@ -80,10 +79,10 @@ const Spreadsheet = (props) => {
         while (currentId != 'root'){
             region = allRegions.find(x => x._id == currentId);
             if(!region){break}
-            route.unshift(region.name);
+            route.unshift(region);
             currentId = region.parent;
         }
-        return route.join(' > ');
+        return route;
     }
 
     let directory = createDirectory();
@@ -92,9 +91,56 @@ const Spreadsheet = (props) => {
         return allRegions.find(x => x._id == _id);
     }
 
+    const makeComparator = (criteria) => {
+		//let multi = invert? -1:1;
+		return function (item1, item2){
+			let value1 = item1[criteria];
+			let value2 = item2[criteria];
+			if (value1 < value2) {
+				return -1;
+			  }
+			  else if (value1 === value2) {
+				return 0;
+			  }
+			  else {
+				return 1;
+			  }
+		}
+	}
+
+	const sortList = (ids, source, comparator) => {
+		let info = source;
+		let idSet = ids;
+		for(let i = 0; i < ids.length-1; i++){
+			for(let j = i + 1; j < ids.length; j++){
+				let itemi = info.find(e => e._id.toString() === idSet[i]);
+				let itemj = info.find(e => e._id.toString() === idSet[j]);
+				let result = comparator(itemi, itemj)
+				if (result == 1){               
+					let temp = idSet[i];
+					idSet[i] = idSet[j];
+					idSet[j] = temp;
+				}
+			}
+		}
+		return idSet;
+	}
+
+    const compareList = (list1, list2) => {
+		if (list1.length != list2.length){
+			return false;
+		}
+		for(let i = 0; i < list1.length; i++){
+			if(list1[i] !== list2[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+
     //------------------------------resolvers callers----------------------------------------------
     const addSubregion = async() => {
-        let region = [{
+        let newRegion = [{
             _id: 'temp',//This is required to be temp if we are generating a completely new _id
             name: 'region',
             capital: 'capital',
@@ -105,8 +151,11 @@ const Spreadsheet = (props) => {
             children: [],
             landmarks: []
         }];
-        const { data } = await AddRegion({ variables: { region: region}});
-        refetch();
+        let transaction = new AddRegion_Transaction(newRegion, AddRegion, DeleteRegion);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
+        //const { data } = await AddRegion({ variables: { region: region}});
+        //refetch();
     }
 
     const deleteSubregion = async () => {
@@ -120,18 +169,28 @@ const Spreadsheet = (props) => {
         props.tps.addTransaction(transaction);
         tpsRedo();
     }
+
+    const sortRegion = async (field) => {
+        //let source = allRegions;
+        let unsorted = activeRegion.children.map(x => x);
+        let unsorted2 = activeRegion.children.map(x => x);
+
+        let comparator = makeComparator(field);
+        let sorted = sortList(unsorted2, allRegions, comparator);
+        if(compareList(unsorted, sorted)){
+            sorted.reverse();
+        }
+
+        let transaction = new SortRegion_Transaction(activeId, unsorted, sorted, SortRegion);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
+    }
     //------------------------------resolvers callers end------------------------------------------
 
     const redirect = (route) => {
         props.tps.clearAllTransactions();
 		history.push(route, {reload: true});
 	}
-
-    // if(!auth && !reload){//makes sure that the list is loaded
-        
-    //     refetch();
-    //     reload = true;
-    // }
 
     const setShowUpdate = () => {
         setRegion('');
@@ -173,6 +232,7 @@ const Spreadsheet = (props) => {
                         {activeRegion && <SpreadsheetTable children={activeRegion.children} 
                         allRegions={allRegions} setShowDelete={setShowDelete}
                         redirect={redirect} updateRegionField={updateRegionField}
+                        sortRegion={sortRegion}
                         />}
                     </WLMain>
                 </WLayout>

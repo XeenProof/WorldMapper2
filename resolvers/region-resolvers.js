@@ -146,6 +146,14 @@ module.exports = {
 			if(updated) return value;
 			else return "";
 		},
+
+		sortRegion: async(_, args) => {
+			const { _id, regionIds } = args;
+			let objectId = new ObjectId(_id);
+			const updated = await Region.updateOne({_id: objectId}, { children: regionIds });
+			if(updated) return true;
+			else return false;
+		},
 //------------------------------------------------------------------------------------
 		/** 
 		 	@param 	 {object} args - a todolist id and an empty item object

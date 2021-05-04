@@ -99,7 +99,7 @@ const Region = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
                     refetchTodos={refetch} setActiveList={() => {}}
-                    directory={directory} redirect={redirect} user={props.user}
+                    directory={[]} redirect={redirect} user={props.user}
                     setShowUpdate={setShowUpdate}/>
             </WLHeader>
 			<WLMain>

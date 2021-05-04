@@ -6,6 +6,28 @@ export class jsTPS_Transaction {
     undoTransaction () {};
 }
 
+export class AddRegion_Transaction extends jsTPS_Transaction{
+    constructor(region, addFunction, deleteFunction){
+        super();
+        this.region = region;
+        this._id = '';
+        this.add = addFunction;
+        this.delete = deleteFunction
+    }
+
+    async doTransaction() {
+        const { data } = await this.add({variables: { region: this.region}})
+        this._id = data.addRegion[0];
+        this.region[0]._id = this._id;
+        return data;
+    }
+
+    async undoTransaction() {
+        const { data } = await this.delete({variables: {_id: this._id}})
+        return data;
+    }
+}
+
 export class DeleteRegion_Transaction extends jsTPS_Transaction{
     constructor(_id, deleteFunction, addFunction){
         super();
@@ -58,6 +80,24 @@ export class UpdateRegionField_Transaction extends jsTPS_Transaction {
     }
     async undoTransaction() {
         const { data } = await this.updateFunction({ variables: { _id: this._id, field: this.field, value: this.prev }});
+		return data;
+    }
+}
+
+export class SortRegion_Transaction extends jsTPS_Transaction {
+    constructor(_id, unsorted, sorted, updateListFunc){
+        super();
+        this._id = _id;
+        this.unsorted = unsorted;
+        this.sorted = sorted;
+        this.updateListFunc = updateListFunc;
+    }
+    async doTransaction() {
+		const { data } = await this.updateListFunc({ variables: { _id: this._id, regionIds: this.sorted}});
+		return data;
+    }
+    async undoTransaction() {
+        const { data } = await this.updateListFunc({ variables: { _id: this._id, regionIds: this.unsorted}});
 		return data;
     }
 }

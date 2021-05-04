@@ -301,7 +301,7 @@ const Homescreen = (props) => {
 					fetchUser={props.fetchUser} auth={auth} 
 					setShowCreate={setShowCreate} setShowLogin={setShowLogin}
 					refetchTodos={() => {}} setActiveList={() => {}}
-					directory={""} redirect={redirect} user={props.user}/>
+					directory={[]} redirect={redirect} user={props.user}/>
 			</WLHeader>
 			<WLMain>
 				<img src='The World/Logo2.JPG' width="400" height="400"/>

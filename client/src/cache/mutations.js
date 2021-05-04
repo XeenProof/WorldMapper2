@@ -64,9 +64,15 @@ export const DELETE_REGION = gql`
 `;
 
 export const UPDATE_REGION_FIELD = gql`
-mutation UpdateRegionField($_id: String!, $field: String!, $value: String!) {
-	updateRegionField(_id: $_id, field: $field, value: $value)
-}
+	mutation UpdateRegionField($_id: String!, $field: String!, $value: String!) {
+		updateRegionField(_id: $_id, field: $field, value: $value)
+	}
+`;
+
+export const SORT_REGION = gql`
+	mutation SortRegion($_id: String!, $regionIds: [String]!){
+		sortRegion(_id: $_id, regionIds: $regionIds)
+	}
 `;
 
 //Old Stuff---------------------------------------------------------------------------
