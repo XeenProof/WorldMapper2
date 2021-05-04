@@ -36,10 +36,10 @@ const SpreadsheetOptions = (props) => {
                 <i className='spreadsheet-entry-button material-icons' onClick={handleBack}>close</i>
             </WButton>
             <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={wip}>undo</i>
+                <i className='spreadsheet-entry-button material-icons' onClick={props.undo}>undo</i>
             </WButton>
             <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={wip}>redo</i>
+                <i className='spreadsheet-entry-button material-icons' onClick={props.redo}>redo</i>
             </WButton>
         </div>
     );

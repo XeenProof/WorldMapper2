@@ -390,6 +390,10 @@ html {
     margin-bottom: 10px;
 }
 
+.ss-text-margin{
+    margin: 0px;
+}
+
 .landmarks-header-text{
     text-align: center;
     margin-top: auto;
@@ -425,4 +429,10 @@ html {
       width: 100%;
       //display:block;
       height: 512px;
+}
+
+.test{
+    height: 100%;
+    display: flex;
+    align-items: center;
 }

@@ -1,8 +1,69 @@
+
+
 export class jsTPS_Transaction {
     constructor() {};
     doTransaction() {};
     undoTransaction () {};
 }
+
+export class DeleteRegion_Transaction extends jsTPS_Transaction{
+    constructor(_id, deleteFunction, addFunction){
+        super();
+        this._id = _id;
+        this.returning = [];
+        this.delete = deleteFunction;
+        this.add = addFunction;
+    }
+
+    async doTransaction() {
+		const { data } = await this.delete({ variables: { _id: this._id}});
+        if (this.returning.length != 0) return data; 
+        let regions = data.deleteRegion;
+        const createRegion = (x) => {
+            return {
+                _id: x._id,
+                name: x.name,
+                capital: x.capital,
+                leader: x.leader,
+                owner: x.owner,
+                parent: x.parent,
+                last_opened: x.last_opened,
+                children: x.children,
+                landmarks: x.landmarks
+            }
+        }
+        this.returning = regions.map(x => createRegion(x));
+		return data;
+    }
+
+    async undoTransaction() {
+        console.log(this.returning);
+        const { data } = await this.add({ variables: { region: this.returning}});
+		return data;
+    }
+}
+
+export class UpdateRegionField_Transaction extends jsTPS_Transaction {
+    constructor(_id, field, prev, update, callback) {
+        super();
+        this.prev = prev;
+        this.update = update;
+        this.field = field;
+        this._id = _id;
+        this.updateFunction = callback;
+    }
+    async doTransaction() {
+		const { data } = await this.updateFunction({ variables: { _id: this._id, field: this.field, value: this.update }});
+		return data;
+    }
+    async undoTransaction() {
+        const { data } = await this.updateFunction({ variables: { _id: this._id, field: this.field, value: this.prev }});
+		return data;
+    }
+}
+
+
+//---------------Old-Todolist-Stuff----------------------------------------------------------------------------------------
 /*  Handles list name changes, or any other top level details of a todolist that may be added   */
 export class UpdateListField_Transaction extends jsTPS_Transaction {
     constructor(_id, field, prev, update, callback) {
@@ -152,7 +213,7 @@ export class UpdateList_Transaction extends jsTPS_Transaction {
 }
 
 
-
+//-----------------------Main-JsTPS-starts-here----------------------------------------
 
 export class jsTPS {
     constructor() {

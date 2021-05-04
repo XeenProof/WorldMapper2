@@ -46,52 +46,10 @@ module.exports = {
 		},
 	},
 	Mutation: {
+
 		/**
-		 * 
-		//  * @param {object} args - a new region 
-		//  * @returns {string} the objectID of the item or an error message
-		//  */
-		// addRegion: async(_, args) => {
-		// 	console.log("adding Region");
-		// 	const { region } = args;
-		// 	const { _id, name, capital, leader, owner, parent, children, landmarks} = region;
-		// 	const objectId = (_id == 'temp')? new ObjectId(): new ObjectId(_id);
-		// 	const newRegion = new Region({
-		// 		_id: objectId,
-		// 		name: name,
-		// 		capital: capital,
-		// 		leader: leader,
-		// 		owner: owner,
-		// 		parent: parent,
-		// 		last_opened: new Date().toISOString(),
-		// 		children: children,
-		// 		landmarks: landmarks,
-		// 	});
-			
-		// 	const updated = newRegion.save();
-		// 	//adding child id to parent
-		// 	if (parent != 'root'){
-		// 		const parentId = new ObjectId(parent);
-		// 		const found = await Region.findOne({_id: parentId});
-		// 		console.log(found);
-		// 		if (!found) return objectId;
-				
-		// 		let children = found.children;
-		// 		let exist = children.find(x => x == objectId);
-		// 		if (exist) return objectId;
-
-		// 		children.push(objectId);
-		// 		const updated = await Region.updateOne({_id: parentId}, { children: children });
-		// 	}
-
-		// 	if (updated) return objectId;
-		// 	else return ("could not add region");
-		// },
-
-				/**
-		 * 
-		 * @param {object} args - a new region 
-		 * @returns {string} the objectID of the item or an error message
+		 * @param {object} args - an array of new regions 
+		 * @returns {string} an array of objectIds
 		 */
 		addRegion: async(_, args) => {
 			console.log("adding Region 2");
@@ -119,7 +77,6 @@ module.exports = {
 				if(current.parent == 'root'){
 					continue;
 				}
-
 				let objectId = current._id;
 				let parentId = new ObjectId(current.parent);
 				
@@ -133,7 +90,6 @@ module.exports = {
 				children.push(objectId);
 		 		await Region.updateOne({_id: parentId}, { children: children });
 			}
-			console.log(idSet);
 
 			if (updated) return idSet;
 			else return [];

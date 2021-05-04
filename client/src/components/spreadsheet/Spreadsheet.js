@@ -12,6 +12,12 @@ import SpreadsheetTable from './SpreadsheetTable'
 import SpreadsheetTableHeader from './SpreadsheetTableHeader';
 import Delete 							from '../modals/Delete';
 import UpdateAccount from '../modals/UpdateAccount';
+import { DeleteRegion_Transaction,
+    UpdateRegionField_Transaction, 
+	UpdateListItems_Transaction, 
+	ReorderItems_Transaction, 
+	EditItem_Transaction,
+	UpdateList_Transaction } 				from '../../utils/jsTPS';
 
 const Spreadsheet = (props) => {
 
@@ -24,6 +30,7 @@ const Spreadsheet = (props) => {
 
     const [AddRegion] = useMutation(mutations.ADD_REGION);
     const [DeleteRegion] = useMutation(mutations.DELETE_REGION);
+    const [UpdateRegionField] = useMutation(mutations.UPDATE_REGION_FIELD);
 
     //console.log(activeId);
 
@@ -47,7 +54,19 @@ const Spreadsheet = (props) => {
 	}
 //-----Temp-Sealed-------------------------------------------------------
 
-    
+    const tpsUndo = async () => {
+		if (props.tps.hasTransactionToUndo()){
+			const retVal = await props.tps.undoTransaction();
+			refetch();
+		}
+	}
+
+	const tpsRedo = async () => {
+		if (props.tps.hasTransactionToRedo()){
+			const retVal = await props.tps.doTransaction();
+			refetch();
+		}
+	}
 
     let name = (activeRegion)? activeRegion.name: '';
 
@@ -91,9 +110,15 @@ const Spreadsheet = (props) => {
     }
 
     const deleteSubregion = async () => {
-        const { data } = await DeleteRegion({ variables: { _id: region}});
-        console.log(data);
-		refetch();
+        let transaction = new DeleteRegion_Transaction(region, DeleteRegion, AddRegion);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
+    }
+
+    const updateRegionField = async (_id, field, prev, update) => {
+        let transaction = new UpdateRegionField_Transaction(_id, field, prev, update, UpdateRegionField);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
     }
     //------------------------------resolvers callers end------------------------------------------
 
@@ -102,11 +127,11 @@ const Spreadsheet = (props) => {
 		history.push(route, {reload: true});
 	}
 
-    if(!auth && !reload){//makes sure that the list is loaded
+    // if(!auth && !reload){//makes sure that the list is loaded
         
-        refetch();
-        reload = true;
-    }
+    //     refetch();
+    //     reload = true;
+    // }
 
     const setShowUpdate = () => {
         setRegion('');
@@ -137,6 +162,7 @@ const Spreadsheet = (props) => {
                         <SpreadsheetOptions 
                         addSubregion={addSubregion} redirect={redirect}
                         region={activeRegion} user={props.user}
+                        undo={tpsUndo} redo={tpsRedo}
                         />
                         <div className='spreadsheet-text flexlr title-card'>
                             <div>{"Region Name: "}</div>
@@ -146,7 +172,7 @@ const Spreadsheet = (props) => {
                     <WLMain className="spreadsheet-background ">
                         {activeRegion && <SpreadsheetTable children={activeRegion.children} 
                         allRegions={allRegions} setShowDelete={setShowDelete}
-                        redirect={redirect}
+                        redirect={redirect} updateRegionField={updateRegionField}
                         />}
                     </WLMain>
                 </WLayout>

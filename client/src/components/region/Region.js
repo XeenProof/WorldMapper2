@@ -57,7 +57,20 @@ const Region = (props) => {
         reload = true;
     }
 //-----Temp-Sealed-------------------------------------------------------
-	console.log(activeRegion);
+	//console.log(activeRegion);
+    const tpsUndo = async () => {
+		if (props.tps.hasTransactionToUndo()){
+			const retVal = await props.tps.undoTransaction();
+			refetch();
+		}
+	}
+
+	const tpsRedo = async () => {
+		if (props.tps.hasTransactionToRedo()){
+			const retVal = await props.tps.doTransaction();
+			refetch();
+		}
+	}
 
 	const createDirectory = () => {
         if (!activeRegion){return ""}

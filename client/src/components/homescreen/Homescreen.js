@@ -12,7 +12,8 @@ import * as mutations 					from '../../cache/mutations';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
-import { UpdateListField_Transaction, 
+import { DeleteRegion_Transaction, 
+	UpdateListField_Transaction, 
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
 	EditItem_Transaction,
@@ -303,7 +304,7 @@ const Homescreen = (props) => {
 					directory={""} redirect={redirect} user={props.user}/>
 			</WLHeader>
 			<WLMain>
-				<img src='/Logo2.JPG' width="400" height="400"/>
+				<img src='The World/Logo2.JPG' width="400" height="400"/>
                 {/* <div className='image center background-test'>
                     Globe
                 </div> */}

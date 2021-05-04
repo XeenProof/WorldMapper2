@@ -39,7 +39,7 @@ const typeDefs = gql `
 		getTodoById(_id: String!): Todolist 
 	}
 	extend type Mutation {
-		addRegion(region: [RegionInput]!): [String]
+		addRegion(region: [RegionInput]): [String]
 		deleteRegion(_id: String!): [Region]
 		updateRegionField(_id: String!, field: String!, value: String): String
 

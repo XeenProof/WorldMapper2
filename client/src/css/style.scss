@@ -76,6 +76,7 @@ html, body {
 
 .list-item-edit-input, .table-input {
     font-size: 1.125rem !important;
+    color: black;
 }
 
 .logo {//keep
@@ -174,6 +175,7 @@ html, body {
     font-family: 'Roboto';
     font-size: 14px;
     color: var(--light-gray);*/
+    text-decoration-color: black;
 }
 
 .table-select {
@@ -352,6 +354,10 @@ html, body {
     font-weight: bold;
 }
 
+.ss-text-margin{
+    background-color: white;
+}
+
 .viewer-text{
     font-weight: bold;
     color: white;
@@ -418,4 +424,10 @@ html, body {
 
 .border-test{
     border: solid 1px black;
+}
+
+.test{
+    font-size: 1.125rem;
+    background-color: transparent;
+    color: black;
 }

@@ -13,6 +13,7 @@ const SpreadsheetContents = (props) => {
                         region={allRegions.find(x => x._id == entry)}
                         setShowDelete={props.setShowDelete}
                         redirect={props.redirect}
+                        updateRegionField={props.updateRegionField}
                     />
                 ))
             }
