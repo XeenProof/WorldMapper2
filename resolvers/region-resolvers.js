@@ -120,18 +120,22 @@ module.exports = {
 			}
 			
 			let idSet = [objectId];
+			let regionSet = [];
 			for(let i = 0; i < idSet.length; i++){
 				const find = await Region.findOne({_id: idSet[i]});
-				if (!find){break;}
+				if (!find){continue;}
+				regionSet.push(find);
 				const childSet = find.children;
 				const converted = childSet.map(x => new ObjectId(x));
 				idSet = idSet.concat(converted);
 			}
+			console.log(regionSet);
 
 			const deleted = await Region.deleteMany({_id: idSet});
 
-			if(deleted) return true;
-			else return false;
+			//console.log(deleted);
+			if(deleted) return regionSet;
+			else return regionSet;
 		},
 
 		/** 

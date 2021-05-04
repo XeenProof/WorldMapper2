@@ -92,7 +92,7 @@ const Spreadsheet = (props) => {
 
     const deleteSubregion = async () => {
         const { data } = await DeleteRegion({ variables: { _id: region}});
-        //setShowDelete("");
+        console.log(data);
 		refetch();
     }
     //------------------------------resolvers callers end------------------------------------------
