@@ -22,7 +22,7 @@ const SpreadsheetEntry = (props) => {
     }
 
     const handleDelete = () => {
-        props.deleteSubregion(_id);
+        props.setShowDelete(_id);
     }
 
     const handleEnder = () => {

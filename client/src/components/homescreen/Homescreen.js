@@ -20,7 +20,6 @@ import { UpdateListField_Transaction,
 import WInput from 'wt-frontend/build/components/winput/WInput';
 import { useHistory } from "react-router-dom";
 
-const ObjectId = require('mongoose').Types.ObjectId;
 
 
 

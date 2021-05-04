@@ -10,6 +10,7 @@ import * as mutations 					from '../../cache/mutations';
 import SpreadsheetOptions from './SpreadsheetOptions';
 import SpreadsheetTable from './SpreadsheetTable'
 import SpreadsheetTableHeader from './SpreadsheetTableHeader';
+import Delete 							from '../modals/Delete';
 import UpdateAccount from '../modals/UpdateAccount';
 
 const Spreadsheet = (props) => {
@@ -26,7 +27,9 @@ const Spreadsheet = (props) => {
 
     //console.log(activeId);
 
+    const [region, setRegion]     = useState("");
     const [showUpdate, toggleShowUpdate]    = useState(false);
+    const [showDelete, toggleShowDelete]    = useState(false);
 
 	
 
@@ -87,8 +90,8 @@ const Spreadsheet = (props) => {
         refetch();
     }
 
-    const deleteSubregion = async (_id) => {
-        const { data } = await DeleteRegion({ variables: { _id: _id}});
+    const deleteSubregion = async () => {
+        const { data } = await DeleteRegion({ variables: { _id: region}});
         //setShowDelete("");
 		refetch();
     }
@@ -106,7 +109,15 @@ const Spreadsheet = (props) => {
     }
 
     const setShowUpdate = () => {
+        setRegion('');
+        toggleShowDelete(false);
         toggleShowUpdate(!showUpdate);
+	};
+
+    const setShowDelete = (id) => {
+        setRegion(id);
+        toggleShowDelete(!showDelete);
+        toggleShowUpdate(false);
 	};
 
 
@@ -134,12 +145,15 @@ const Spreadsheet = (props) => {
                     </WLHeader>
                     <WLMain className="spreadsheet-background ">
                         {activeRegion && <SpreadsheetTable children={activeRegion.children} 
-                        allRegions={allRegions} deleteSubregion={deleteSubregion}
+                        allRegions={allRegions} setShowDelete={setShowDelete}
                         redirect={redirect}
                         />}
                     </WLMain>
                 </WLayout>
             </WLMain>
+            {
+				showDelete && (<Delete deleteRegion={deleteSubregion} setShowDelete={setShowDelete} />)
+			}
             {
 				showUpdate && (<UpdateAccount user={props.user} setShowUpdate={setShowUpdate} fetchUser={props.fetchUser}/>)
 			}

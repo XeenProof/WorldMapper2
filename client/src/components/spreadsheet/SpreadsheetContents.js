@@ -11,7 +11,7 @@ const SpreadsheetContents = (props) => {
                 regionIds.map(entry => (
                     <SpreadsheetEntry
                         region={allRegions.find(x => x._id == entry)}
-                        deleteSubregion={props.deleteSubregion}
+                        setShowDelete={props.setShowDelete}
                         redirect={props.redirect}
                     />
                 ))

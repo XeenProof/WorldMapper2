@@ -24,11 +24,15 @@ const RegionOptions = (props) => {
     //     }
     // };
     const handleLeft = () => {
-        props.redirect(`/region/${leftId}`);
+        if(leftId != ''){
+            props.redirect(`/region/${leftId}`);
+        }
     }
 
     const handleRight = () => {
-        props.redirect(`/spreadsheet/${rightId}`);
+        if(rightId != ''){
+            props.redirect(`/region/${rightId}`);
+        }
     }
 
     return(

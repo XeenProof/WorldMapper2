@@ -46,8 +46,10 @@ const Region = (props) => {
         siblings = parent? parent.children: [];
         let index = (siblings)? siblings.indexOf(activeId):0;
         if(siblings){
-            left = (index-1 > 0)? siblings[index-1]: {};
-            right = (index+1 < siblings.length)? siblings[index+1]: {};
+            left = (index-1 > 0)? siblings[index-1]: '';
+            right = (index+1 < siblings.length)? siblings[index+1]: '';
+            console.log(left);
+            console.log(right);
         }
 	}
     if(!auth && !reload){//makes sure that the list is loaded

@@ -6,7 +6,7 @@ const SpreadsheetTable = (props) => {
     return(<div className=''>
         <SpreadsheetTableHeader/>
         <SpreadsheetContents children={props.children} allRegions={props.allRegions}
-        deleteSubregion={props.deleteSubregion} redirect={props.redirect}/>
+        setShowDelete={props.setShowDelete} redirect={props.redirect}/>
         
     </div>)
 }
