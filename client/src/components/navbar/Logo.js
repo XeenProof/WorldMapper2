@@ -3,7 +3,12 @@ import React from 'react';
 const Logo = (props) => {
     let id = props.user? props.user._id: "";
     const handleClick = () => {
-        props.redirect(`/maps/${id}`);
+        if(id != ""){
+            props.redirect(`/maps/${id}`);
+        }
+        else{
+            props.redirect(`/home`);
+        }
     }
 
     return (

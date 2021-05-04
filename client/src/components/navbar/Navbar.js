@@ -11,7 +11,7 @@ const Navbar = (props) => {
     return (<WNavbar color="colored">
 			<ul>
 			<WNavItem>
-				<Logo className='logo' redirect={props.redirect} user={props.user}/>
+				<Logo className='logo' redirect={props.redirect} user={props.user} auth={props.auth}/>
 			</WNavItem>
 				</ul>
 
