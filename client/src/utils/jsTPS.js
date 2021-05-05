@@ -85,20 +85,20 @@ export class UpdateRegionField_Transaction extends jsTPS_Transaction {
 }
 
 export class UpdateRegionArray_Transaction extends jsTPS_Transaction {
-    constructor(_id, field, unsorted, sorted, updateListFunc){
+    constructor(_id, field, oldArray, newArray, updateListFunc){
         super();
         this._id = _id;
         this.field = field;
-        this.unsorted = unsorted;
-        this.sorted = sorted;
+        this.oldArray = oldArray;
+        this.newArray = newArray;
         this.updateListFunc = updateListFunc;
     }
     async doTransaction() {
-		const { data } = await this.updateListFunc({ variables: { _id: this._id, field: this.field, array: this.sorted}});
+		const { data } = await this.updateListFunc({ variables: { _id: this._id, field: this.field, array: this.newArray}});
 		return data;
     }
     async undoTransaction() {
-        const { data } = await this.updateListFunc({ variables: { _id: this._id, field: this.field, array: this.unsorted}});
+        const { data } = await this.updateListFunc({ variables: { _id: this._id, field: this.field, array: this.oldArray}});
 		return data;
     }
 }
