@@ -38,10 +38,10 @@ const RegionOptions = (props) => {
     return(
         <div className='button-set'>
             <WButton className='viewer-entry-button'>
-                <i className='viewer-entry-button material-icons' onClick={wip}>undo</i>
+                <i className='viewer-entry-button material-icons' onClick={props.undo}>undo</i>
             </WButton>
             <WButton className='viewer-entry-button'>
-                <i className='viewer-entry-button material-icons' onClick={wip}>redo</i>
+                <i className='viewer-entry-button material-icons' onClick={props.redo}>redo</i>
             </WButton>
             <WButton className='viewer-entry-button'>
                 <i className='viewer-entry-button material-icons' onClick={handleLeft}>arrow_back</i>

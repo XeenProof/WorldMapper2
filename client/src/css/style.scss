@@ -48,6 +48,7 @@
     --create-button:#b30000;
     --ss-region-color:#428bff;
     --text-color2: black;
+    --landmark-footer-background: #616161;
 }
 
 html, body {
@@ -438,6 +439,10 @@ html, body {
     color: black !important;
 }
 
+.landmark-input-class {
+    color: white !important;
+}
+
 .route-clickable{
     color: white;
 }
@@ -450,3 +455,34 @@ html, body {
 .route-clickable-disable{
     color: white;
 }
+
+.button-settings{
+    background-color: transparent;
+}
+
+.landmark-add-button{
+    color: var(--light-green);
+    font-weight: bold;
+}
+
+.landmark-delete-button{
+    color: red;
+}
+
+.landmark-footer-settings{
+    background-color: var(--landmark-footer-background);
+}
+
+.landmark-body-settings{
+    background-color: black;
+}
+
+.white-text{
+    color: white;
+}
+
+.border-test{
+    border-bottom: 1px solid;
+    border-color: white;
+}
+

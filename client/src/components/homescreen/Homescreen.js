@@ -304,7 +304,7 @@ const Homescreen = (props) => {
 					directory={[]} redirect={redirect} user={props.user}/>
 			</WLHeader>
 			<WLMain>
-				<img src='The World/Logo2.JPG' width="400" height="400"/>
+				<img src='Logo2.JPG' width="400" height="400"/>
                 {/* <div className='image center background-test'>
                     Globe
                 </div> */}

@@ -1,20 +1,27 @@
 import React from 'react'
 import { WLayout, WLHeader, WLMain, WLFooter, WLSide } from 'wt-frontend';
-import { WCard, WCHeader, WCMedia, WCContent, WCFooter } from 'wt-frontend';
+import LandmarkFooter from './LandmarkFooter';
+import LandmarkTable from './LandmarkTable';
+
 
 const Landmarks = (props) => {
-    //Might want to build my own instead of using layouts
+    //let landmarks = props.landmarks;
+
     return(
     <div className='region-container-inner'>
         <WLayout wLayout="header-footer" className='landmark-container'>
             <WLHeader className='landmarks-header-text'>
                 Region Landmarks:
             </WLHeader>
-            <WLMain className='background-test2'>
-                body
+            <WLMain className='landmark-body-settings'>
+                <LandmarkTable landmarks={props.landmarks}
+                deleteLandmark={props.deleteLandmark}
+                />
             </WLMain>
-            <WLFooter className='background-test3 landmark-footer-size'>
-                footer
+            <WLFooter className='landmark-footer-settings'>
+                <LandmarkFooter
+                addLandmark={props.addLandmark}
+                />
             </WLFooter>
         </WLayout>
     </div>

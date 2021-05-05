@@ -51,6 +51,7 @@ const SpreadsheetEntry = (props) => {
     }
 
     const wip = () => {};
+    
     return(
     <WRow className='table-entry'>
         <WCol size="3" className='flexlr ss-rborder'>
@@ -91,7 +92,7 @@ const SpreadsheetEntry = (props) => {
         </WCol>
         <WCol size="1" className='flexlr ss-rborder'>
             <div>
-                <img src='The World/Logo2.JPG' width="80" height="40"/>
+                <img src='../Logo2.JPG' width="80" height="40"/>
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>

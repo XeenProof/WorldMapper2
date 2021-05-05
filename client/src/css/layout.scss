@@ -399,7 +399,7 @@ html {
     margin-top: auto;
 }
 
-.landmark-footer-size{
+.landmark-footer-settings{
     min-height: 50%;
     max-height: 50%;
 }
@@ -466,4 +466,23 @@ html {
 
 .spreadsheet-background{
     height: 550px;
+}
+
+.button-settings{
+    height: 32px;
+    width: 32px;
+    padding: 0px 4px;
+}
+
+.landmark-table{
+    height: 100%;
+}
+
+.landmark-overflow{
+    overflow-y: scroll;
+}
+
+.landmark-entry-text{
+    height: 32px;
+    padding-top: 5px;
 }

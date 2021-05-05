@@ -163,6 +163,7 @@ const Mapscreen = (props) => {
         redirect(`/spreadsheet/${_id}`);
     };
 
+    //console.log(document.getElementById('temp'));
 
     return(
         <WLayout id="fullpage" wLayout="header">
@@ -187,7 +188,7 @@ const Mapscreen = (props) => {
 
                         {/** perhaps move this to it's own file */}
                         <div className='size'>
-                            <img src='The World/Logo2.JPG' width="537" height="430"/>
+                            <img src='../Logo2.JPG' width="537" height="430"/>
 							<WButton onClick={setShowName} className='create-new-map'>
                                 Create New Map
                             </WButton>

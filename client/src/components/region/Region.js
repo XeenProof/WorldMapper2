@@ -8,6 +8,8 @@ import { useHistory, useParams } from "react-router-dom";
 import RegionInfo from './RegionInfo'
 import Landmarks from './Landmarks';
 import UpdateAccount from '../modals/UpdateAccount';
+import * as mutations 					from '../../cache/mutations';
+import {  UpdateRegionArray_Transaction } 				from '../../utils/jsTPS';
 
 const Region = (props) => {
 
@@ -17,6 +19,8 @@ const Region = (props) => {
     let activeId = id;
 
     const [showUpdate, toggleShowUpdate]    = useState(false);
+
+    const [UpdateRegionArray] = useMutation(mutations.UPDATE_REGION_ARRAY);
 
 	const redirect = (route) => {
         props.tps.clearAllTransactions();
@@ -30,10 +34,7 @@ const Region = (props) => {
     let siblings = [];
     let left = {};
     let right = {};
-
-    const getRegion = (_id) => {
-        return allRegions.find(x => x._id == _id);
-    }
+    let myLandmarks = [];
 
 //-----Temp-Sealed-------------------------------------------------------
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
@@ -42,14 +43,13 @@ const Region = (props) => {
 	if(data) { 
 		allRegions = data.getAllRegions;
         activeRegion = allRegions.find(x => x._id == activeId);
+        myLandmarks = activeRegion? activeRegion.landmarks:[];
         parent = activeRegion? allRegions.find(x => x._id == activeRegion.parent): {};
         siblings = parent? parent.children: [];
         let index = (siblings)? siblings.indexOf(activeId):0;
         if(siblings){
             left = (index-1 > 0)? siblings[index-1]: '';
             right = (index+1 < siblings.length)? siblings[index+1]: '';
-            console.log(left);
-            console.log(right);
         }
 	}
     if(!auth && !reload){//makes sure that the list is loaded
@@ -88,6 +88,72 @@ const Region = (props) => {
 
     let directory = createDirectory();
 
+    const getTree = (startId) => {
+        let regions = [allRegions.find(x => x._id == startId)];
+        for(let i = 0; i < regions.length; i++){
+            let currentRegion = regions[i];
+            if (!currentRegion) continue;
+            let children = currentRegion.children;
+            let newRegions = children.map(x => allRegions.find(y => y._id == x));
+            regions = regions.concat(newRegions);
+        }
+        return regions;
+    }
+
+    const getAllLandmarks = (id) => {
+        let landmarkList = [];
+        let regions = getTree(id);
+        let allLandmarkArrays = regions.map(x => ({
+            landmarks: x? x.landmarks: [],
+            owner: x? x.name: '',
+            editable: x? (x._id == id): false,
+            exist: !!x
+        }));
+        allLandmarkArrays = allLandmarkArrays.filter(x => x.exist);
+        if (allLandmarkArrays.length == 0) return [];
+        allLandmarkArrays.map(array => array.landmarks.map(landmark => landmarkList.push({
+            landmark: landmark,
+            owner: array.owner,
+            editable: array.editable
+        })));
+        return landmarkList;
+    }
+
+    let allLandmarks = getAllLandmarks(activeId);
+
+//---------Resolver-Callers-----------------------------------------
+    const addLandmark = (landmark) => {
+        let landmarkSet = myLandmarks.map(x => x);
+        let newLandmarkSet = myLandmarks.map(x => x);
+        if (newLandmarkSet.find(x => x == landmark)){
+            return;
+        }
+        newLandmarkSet.push(landmark);
+        let transaction = new UpdateRegionArray_Transaction(activeId, 'landmarks', landmarkSet, newLandmarkSet, UpdateRegionArray);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
+    }
+
+    const deleteLandmark = (landmark) => {
+        let landmarkSet = myLandmarks.map(x => x);
+        let newLandmarkSet = myLandmarks.map(x => x);
+        let index = newLandmarkSet.findIndex(x => x == landmark);
+        console.log(index);
+        if (index < 0){
+            return;
+        }
+        newLandmarkSet.splice(index, 1);
+        let transaction = new UpdateRegionArray_Transaction(activeId, 'landmarks', landmarkSet, newLandmarkSet, UpdateRegionArray);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
+    }
+
+    const updateLandmark = () => {
+
+    }
+//---------Resolver-Caller-Ends-------------------------------------
+
+
     const setShowUpdate = () => {
         toggleShowUpdate(!showUpdate);
 	};
@@ -107,8 +173,11 @@ const Region = (props) => {
 					<RegionInfo region={activeRegion} user={props.user}
 					redirect={redirect} allRegions={allRegions}
                     left={left} right={right}
+                    undo={tpsUndo} redo={tpsRedo}
 					/>
-					<Landmarks region={activeRegion}/>
+					<Landmarks region={activeRegion} landmarks={allLandmarks}
+                    addLandmark={addLandmark} deleteLandmark={deleteLandmark}
+                    />
 				</div>
 			</WLMain>
             {
