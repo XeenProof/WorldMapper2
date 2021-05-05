@@ -437,3 +437,16 @@ html, body {
 .table-input-class {
     color: black !important;
 }
+
+.route-clickable{
+    color: white;
+}
+
+.route-clickable:hover{
+    color: yellow;
+    cursor: pointer;
+}
+
+.route-clickable-disable{
+    color: white;
+}

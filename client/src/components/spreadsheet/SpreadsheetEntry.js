@@ -90,8 +90,8 @@ const SpreadsheetEntry = (props) => {
             </div>}
         </WCol>
         <WCol size="1" className='flexlr ss-rborder'>
-            <div className="ss-text ss-text-centered" onClick={wip}>
-                {flag}
+            <div>
+                <img src='The World/Logo2.JPG' width="80" height="40"/>
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>
@@ -103,5 +103,5 @@ const SpreadsheetEntry = (props) => {
 
     );
 }
-
+//src='The World/North America/United States Flag.png'
 export default SpreadsheetEntry;

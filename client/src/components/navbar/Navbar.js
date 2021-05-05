@@ -13,19 +13,10 @@ const Navbar = (props) => {
 			<WNavItem>
 				<Logo className='logo' redirect={props.redirect} user={props.user} auth={props.auth}/>
 			</WNavItem>
-				</ul>
-
-			{/* <ul>
-			<WNavItem>
-				<WButton onClick={() => props.redirect("home")}>H</WButton>
-				<WButton onClick={() => props.redirect("maps")}>M</WButton>
-				<WButton onClick={() => props.redirect("spreadsheet")}>S</WButton>
-				<WButton onClick={() => props.redirect("region")}>R</WButton>
-			</WNavItem>
-			</ul> */}
+			</ul>
 			<ul className='directory-container'>
 			<WNavItem>
-				<Route directory={props.directory}/>
+				<Route directory={props.directory} redirect={props.redirect}/>
 			</WNavItem>
 			</ul>
 			

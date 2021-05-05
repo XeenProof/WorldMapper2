@@ -2,10 +2,16 @@ import React from 'react';
 
 const RouteEntry = (props) => {
     let region = props.region;
-    let isLastElement = props.isLastElement;
+    let clickable = (region._id != '');
+    let displayStyle = (region._id != '')? 'directory-margin route-clickable': 'directory-margin route-clickable-disable';
+    let _id = region._id;
+
+    const handleClick = () => {
+        props.redirect(`/spreadsheet/${_id}`);
+    }
 
     return (
-            <div className='directory-margin'>{region.name}</div>
+            <div className={displayStyle} onClick={(clickable)? handleClick: () => {}}>{region.name}</div>
     )
 }
 

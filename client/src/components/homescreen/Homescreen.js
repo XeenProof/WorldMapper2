@@ -293,7 +293,7 @@ const Homescreen = (props) => {
 	
 
 	
-
+//src='The World/Logo2.JPG'
 	return (//This attaches to the root
 		<WLayout id="fullpage" wLayout="header">
 			<WLHeader id='header'>
