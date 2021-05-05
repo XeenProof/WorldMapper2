@@ -27,7 +27,7 @@ const typeDefs = gql `
 		parent: String!
 		last_opened: String!
 		children: [String]
-		landmarks: [Landmark]
+		landmarks: [String]
 	}
 	type Landmark{
 		id: Int!
@@ -62,7 +62,7 @@ const typeDefs = gql `
 		parent: String!
 		last_opened: String!
 		children: [String]
-		landmarks: [LandmarkInput]
+		landmarks: [String]
 	}
 	input LandmarkInput{
 		id: Int!

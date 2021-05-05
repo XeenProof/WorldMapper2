@@ -55,10 +55,7 @@ export const DELETE_REGION = gql`
 			parent
 			last_opened
 			children
-			landmarks{
-				id
-				landmark
-			}
+			landmarks
 		}
 	}
 `;

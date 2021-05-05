@@ -32,7 +32,7 @@ const regionSchema = new Schema(
 			required: true
 		},
 		children: [String],
-		landmarks: [Landmark],
+		landmarks: [String],
 	},
 	{ timestamps: true }
 );
