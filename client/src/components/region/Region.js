@@ -88,6 +88,40 @@ const Region = (props) => {
 
     let directory = createDirectory();
 
+    const makeComparator = (criteria) => {
+		//let multi = invert? -1:1;
+		return function (item1, item2){
+			let value1 = item1[criteria];
+			let value2 = item2[criteria];
+			if (value1 < value2) {
+				return -1;
+			  }
+			  else if (value1 === value2) {
+				return 0;
+			  }
+			  else {
+				return 1;
+			  }
+		}
+	}
+
+    const sortLandmarks = (list) => {
+        let comparator = makeComparator('display');
+        for(let i = 0; i < list.length-1; i++){
+            for(let j = i+1; j < list.length; j++){
+                let itemi = list[i];
+                let itemj = list[j];
+                let result = comparator(list[i], list[j]);
+                if (result == 1){
+                    let temp = list[i];
+                    list[i] = list[j];
+                    list[j] = temp;
+                }
+            }
+        }
+        return list;
+    }
+
     const getTree = (startId) => {
         let regions = [allRegions.find(x => x._id == startId)];
         for(let i = 0; i < regions.length; i++){
@@ -112,14 +146,26 @@ const Region = (props) => {
         allLandmarkArrays = allLandmarkArrays.filter(x => x.exist);
         if (allLandmarkArrays.length == 0) return [];
         allLandmarkArrays.map(array => array.landmarks.map(landmark => landmarkList.push({
-            landmark: landmark,
-            owner: array.owner,
-            editable: array.editable
+            editable: array.editable,
+            display: (array.editable)? landmark: landmark.concat(' - ', array.owner)
         })));
-        return landmarkList;
+        return sortLandmarks(landmarkList);
     }
 
     let allLandmarks = getAllLandmarks(activeId);
+
+    const AlphabeticalOrder = (list) => {
+        for(let i = 0; i < list.length-1; i++){
+            for(let j = i+1; j < list.length; j++){
+                if(list[i] > list[j]){
+                    let temp = list[i];
+                    list[i] = list[j];
+                    list[j] = temp;
+                }
+            }
+        }
+        return list;
+    }
 
 //---------Resolver-Callers-----------------------------------------
     const addLandmark = (landmark) => {
@@ -129,6 +175,8 @@ const Region = (props) => {
             return;
         }
         newLandmarkSet.push(landmark);
+        landmarkSet = AlphabeticalOrder(landmarkSet);
+        newLandmarkSet = AlphabeticalOrder(newLandmarkSet);
         let transaction = new UpdateRegionArray_Transaction(activeId, 'landmarks', landmarkSet, newLandmarkSet, UpdateRegionArray);
         props.tps.addTransaction(transaction);
         tpsRedo();
@@ -143,6 +191,8 @@ const Region = (props) => {
             return;
         }
         newLandmarkSet.splice(index, 1);
+        landmarkSet = AlphabeticalOrder(landmarkSet);
+        newLandmarkSet = AlphabeticalOrder(newLandmarkSet);
         let transaction = new UpdateRegionArray_Transaction(activeId, 'landmarks', landmarkSet, newLandmarkSet, UpdateRegionArray);
         props.tps.addTransaction(transaction);
         tpsRedo();
@@ -157,6 +207,8 @@ const Region = (props) => {
             return;
         }
         newLandmarkSet.splice(index, 1, newValue);
+        landmarkSet = AlphabeticalOrder(landmarkSet);
+        newLandmarkSet = AlphabeticalOrder(newLandmarkSet);
         let transaction = new UpdateRegionArray_Transaction(activeId, 'landmarks', landmarkSet, newLandmarkSet, UpdateRegionArray);
         props.tps.addTransaction(transaction);
         tpsRedo();

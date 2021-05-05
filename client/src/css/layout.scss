@@ -482,6 +482,16 @@ html {
     overflow-y: scroll;
 }
 
+.landmark-overflow::-webkit-scrollbar{
+    width: 15px;
+    background-color: blue;
+}
+
+.landmark-overflow::-webkit-scrollbar-thumb{
+    width: 10px;
+    background-color: red;
+}
+
 .landmark-entry-text{
     height: 32px;
     padding-top: 5px;
@@ -493,6 +503,15 @@ html {
     cursor: default;
 }
 
-.landmark-entry-input{
+.spreadsheet-image{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    padding-left: 18%;
+    padding-right: 18%;
+}
 
+.ss-image.padding{
+    padding-left: 100px;
 }

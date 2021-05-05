@@ -6,20 +6,18 @@ const LandmarkEntry = (props) => {
     const [edit, toggleEdit] = useState(false);
 
     let landmark = props.landmark;
-    let name = landmark.landmark;
-    let owner = landmark.owner;
     let editable = landmark.editable;
+    let display = landmark.display;
 
-    let display = (editable)? name: name.concat(' - ', owner);
     let hidden = editable? '':'hidden';
     let canEdit = editable? 'landmark-entry-text':'landmark-entry-text-disabled';
 
     const handleDelete = () => {
-        props.deleteLandmark(name);
+        props.deleteLandmark(display);
     }
 
     const handleUpdate = (e) => {
-        props.updateLandmark(name, e.target.value);
+        props.updateLandmark(display, e.target.value);
         toggleEdit(false);
     }
 
@@ -31,7 +29,7 @@ const LandmarkEntry = (props) => {
             {
             edit? <WInput
             className='table-input' onBlur={handleUpdate}
-            autoFocus={true} defaultValue={name} type='text'
+            autoFocus={true} defaultValue={display} type='text'
             wType="outlined" barAnimation="solid" inputClass="landmark-input-class"
             />
             :<div className={canEdit} onClick={editable? () => {toggleEdit(true)}:() =>  {}}>

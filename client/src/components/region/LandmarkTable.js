@@ -5,7 +5,7 @@ const LandmarkTable = (props) =>{
     let landmarks = props.landmarks;
 
     return(
-        landmarks? <div className='white-text landmark-table landmark-overflow'>{
+        landmarks? <div className='landmark-table landmark-overflow'>{
             landmarks.map(entry => (
                 <LandmarkEntry landmark={entry}
                 deleteLandmark={props.deleteLandmark}

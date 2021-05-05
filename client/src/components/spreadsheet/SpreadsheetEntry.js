@@ -14,7 +14,7 @@ const SpreadsheetEntry = (props) => {
 
     let flag = 'temp';
 
-    let landmarkSet = props.landmarks;
+    let landmarkSet = region.landmarks;
     let landmarks = "...";
     if(landmarkSet){
         if (landmarkSet.length == 1){
@@ -91,8 +91,8 @@ const SpreadsheetEntry = (props) => {
             </div>}
         </WCol>
         <WCol size="1" className='flexlr ss-rborder'>
-            <div>
-                <img src='../Logo2.JPG' width="80" height="40"/>
+            <div className='spreadsheet-image'>
+                <img src='../Logo2.JPG' width="70" height="40"/>
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>
