@@ -79,11 +79,11 @@ const Region = (props) => {
         let region;
         while (currentId != 'root'){
             region = allRegions.find(x => x._id == currentId);
-            if(!region){break;}
-            route.unshift(region.name);
+            if(!region){break}
+            route.unshift(region);
             currentId = region.parent;
         }
-        return route.join(' > ');
+        return route;
     }
 
     let directory = createDirectory();
@@ -99,7 +99,7 @@ const Region = (props) => {
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
                     refetchTodos={refetch} setActiveList={() => {}}
-                    directory={[]} redirect={redirect} user={props.user}
+                    directory={directory} redirect={redirect} user={props.user}
                     setShowUpdate={setShowUpdate}/>
             </WLHeader>
 			<WLMain>
