@@ -147,10 +147,10 @@ module.exports = {
 			else return "";
 		},
 
-		sortRegion: async(_, args) => {
-			const { _id, regionIds } = args;
+		updateRegionArray: async(_, args) => {
+			const { _id, field, array } = args;
 			let objectId = new ObjectId(_id);
-			const updated = await Region.updateOne({_id: objectId}, { children: regionIds });
+			const updated = await Region.updateOne({_id: objectId}, { [field]: array });
 			if(updated) return true;
 			else return false;
 		},

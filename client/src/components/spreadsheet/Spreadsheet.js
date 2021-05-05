@@ -15,7 +15,7 @@ import UpdateAccount from '../modals/UpdateAccount';
 import { AddRegion_Transaction,
     DeleteRegion_Transaction,
     UpdateRegionField_Transaction, 
-	SortRegion_Transaction} 				from '../../utils/jsTPS';
+	UpdateRegionArray_Transaction} 				from '../../utils/jsTPS';
 
 const Spreadsheet = (props) => {
 
@@ -29,7 +29,7 @@ const Spreadsheet = (props) => {
     const [AddRegion] = useMutation(mutations.ADD_REGION);
     const [DeleteRegion] = useMutation(mutations.DELETE_REGION);
     const [UpdateRegionField] = useMutation(mutations.UPDATE_REGION_FIELD);
-    const [SortRegion] = useMutation(mutations.SORT_REGION);
+    const [UpdateRegionArray] = useMutation(mutations.UPDATE_REGION_ARRAY);
 
     //console.log(activeId);
 
@@ -181,7 +181,7 @@ const Spreadsheet = (props) => {
             sorted.reverse();
         }
 
-        let transaction = new SortRegion_Transaction(activeId, unsorted, sorted, SortRegion);
+        let transaction = new UpdateRegionArray_Transaction(activeId, 'children', unsorted, sorted, UpdateRegionArray);
         props.tps.addTransaction(transaction);
         tpsRedo();
     }

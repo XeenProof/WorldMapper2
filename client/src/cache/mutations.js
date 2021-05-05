@@ -66,9 +66,9 @@ export const UPDATE_REGION_FIELD = gql`
 	}
 `;
 
-export const SORT_REGION = gql`
-	mutation SortRegion($_id: String!, $regionIds: [String]!){
-		sortRegion(_id: $_id, regionIds: $regionIds)
+export const UPDATE_REGION_ARRAY = gql`
+	mutation UpdateRegionArray($_id: String!, $field: String!, $array: [String]!){
+		updateRegionArray(_id: $_id, field: $field, array: $array)
 	}
 `;
 
