@@ -187,7 +187,7 @@ const Mapscreen = (props) => {
 
                         {/** perhaps move this to it's own file */}
                         <div className='size'>
-                            <div className='image2 background-test2'>PlaceHolder</div>
+                            <img src='The World/Logo2.JPG' width="537" height="430"/>
 							<WButton onClick={setShowName} className='create-new-map'>
                                 Create New Map
                             </WButton>
