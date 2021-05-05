@@ -148,8 +148,18 @@ const Region = (props) => {
         tpsRedo();
     }
 
-    const updateLandmark = () => {
-
+    const updateLandmark = (oldValue, newValue) => {
+        let landmarkSet = myLandmarks.map(x => x);
+        let newLandmarkSet = myLandmarks.map(x => x);
+        let index = newLandmarkSet.findIndex(x => x == oldValue);
+        console.log(index);
+        if (index < 0){
+            return;
+        }
+        newLandmarkSet.splice(index, 1, newValue);
+        let transaction = new UpdateRegionArray_Transaction(activeId, 'landmarks', landmarkSet, newLandmarkSet, UpdateRegionArray);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
     }
 //---------Resolver-Caller-Ends-------------------------------------
 
@@ -177,6 +187,7 @@ const Region = (props) => {
 					/>
 					<Landmarks region={activeRegion} landmarks={allLandmarks}
                     addLandmark={addLandmark} deleteLandmark={deleteLandmark}
+                    updateLandmark={updateLandmark}
                     />
 				</div>
 			</WLMain>

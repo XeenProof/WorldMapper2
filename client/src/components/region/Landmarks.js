@@ -16,6 +16,7 @@ const Landmarks = (props) => {
             <WLMain className='landmark-body-settings'>
                 <LandmarkTable landmarks={props.landmarks}
                 deleteLandmark={props.deleteLandmark}
+                updateLandmark={props.updateLandmark}
                 />
             </WLMain>
             <WLFooter className='landmark-footer-settings'>

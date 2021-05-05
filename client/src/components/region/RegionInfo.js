@@ -5,7 +5,7 @@ import RegionOptions from './RegionOptions'
 const RegionInfo = (props) => {
     return(
     <div className='region-container-inner'>
-        <RegionOptions region={props.region} user={props.user}
+        <RegionOptions user={props.user}
         redirect={props.redirect} left={props.left} right={props.right}
         undo={props.undo} redo={props.redo}/>
         <div className="viewer-text">

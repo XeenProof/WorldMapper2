@@ -22,7 +22,7 @@ const LandmarkFooter = (props) => {
                 <i className='landmark-add-button material-icons'>add</i>
             </WButton>
             <WInput
-                className='table-input' onBlur={handleValue} name='capital'
+                className='table-input' onBlur={handleValue}
                 autoFocus={true} defaultValue={value2} type='text'
                 wType="outlined" barAnimation="solid" inputClass="landmark-input-class"
             />

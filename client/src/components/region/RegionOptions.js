@@ -4,7 +4,6 @@ import { WButton } from 'wt-frontend';
 const RegionOptions = (props) => {
     const wip = () => {};
 
-    let region = props.region;
     let leftId = props.left;
     let rightId = props.right;
     // let user = props.user;

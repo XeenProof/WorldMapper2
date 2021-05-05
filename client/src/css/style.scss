@@ -49,6 +49,7 @@
     --ss-region-color:#428bff;
     --text-color2: black;
     --landmark-footer-background: #616161;
+    --disabled:#878787;
 }
 
 html, body {
@@ -484,5 +485,20 @@ html, body {
 .border-test{
     border-bottom: 1px solid;
     border-color: white;
+}
+
+.landmark-entry-text{
+    color: white;
+    font-weight: bold;
+}
+
+.landmark-entry-text:hover{
+    color: yellow;
+    font-weight: bold;
+}
+
+.landmark-entry-text-disabled{
+    color: var(--deep-blue-lighter);
+    font-weight: bold;
 }
 

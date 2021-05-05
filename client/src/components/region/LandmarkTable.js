@@ -9,6 +9,7 @@ const LandmarkTable = (props) =>{
             landmarks.map(entry => (
                 <LandmarkEntry landmark={entry}
                 deleteLandmark={props.deleteLandmark}
+                updateLandmark={props.updateLandmark}
                 />
             ))
         }</div>: 
