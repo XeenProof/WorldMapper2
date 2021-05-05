@@ -23,7 +23,7 @@ const LandmarkFooter = (props) => {
             </WButton>
             <WInput
                 className='table-input' onBlur={handleValue}
-                autoFocus={true} defaultValue={value2} type='text'
+                defaultValue={value2} type='text'
                 wType="outlined" barAnimation="solid" inputClass="landmark-input-class"
             />
         </div>

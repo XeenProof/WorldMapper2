@@ -50,6 +50,8 @@
     --text-color2: black;
     --landmark-footer-background: #616161;
     --disabled:#878787;
+    --scroll-bar: #adadad;
+    --scroll-bar-thumb: #292929;
 }
 
 html, body {
@@ -503,10 +505,10 @@ html, body {
 }
 
 .landmark-overflow::-webkit-scrollbar{
-    background-color: red;
+    background-color: var(--scroll-bar);
 }
 
 .landmark-overflow::-webkit-scrollbar-thumb{
-    background-color: blue;
+    background-color: var(--scroll-bar-thumb);
 }
 
