@@ -2,26 +2,10 @@ import React 	from 'react';
 import { WButton } from 'wt-frontend';
 
 const RegionOptions = (props) => {
-    const wip = () => {};
 
     let leftId = props.left;
     let rightId = props.right;
-    // let user = props.user;
-
-    // const handleBack = () => {
-    //     console.log("back");
-    //     if(!region){
-    //         return;
-    //     }
-    //     let parent = region.parent;
-    //     let id = user._id;
-    //     if (parent == 'root'){
-    //         props.redirect(`/maps/${id}`);
-    //     }
-    //     else{
-    //         props.redirect(`/spreadsheet/${parent}`);
-    //     }
-    // };
+    
     const handleLeft = () => {
         if(leftId != ''){
             props.redirect(`/region/${leftId}`);
