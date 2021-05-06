@@ -147,11 +147,47 @@ module.exports = {
 			else return "";
 		},
 
+		/** 
+		 	@param 	 {object} args - a region objectID, field, and the update array
+			@returns {string} value on successful update, empty string on failure
+		**/
 		updateRegionArray: async(_, args) => {
 			const { _id, field, array } = args;
 			let objectId = new ObjectId(_id);
 			const updated = await Region.updateOne({_id: objectId}, { [field]: array });
 			if(updated) return true;
+			else return false;
+		},
+
+		changeRegionParent: async(_, args) => {
+			const { _id, parentId } = args;
+			const objectId = new ObjectId(_id);
+			const newParentId = new ObjectId(parentId);
+
+			const newParent = await Region.findOne({_id: newParentId}); //the new parent
+
+			const region = await Region.findOne({_id: objectId}); //the region getting it's parent changed
+
+			if (!region || !newParent){return false;}
+			if (region.parent == 'root'){return false;}
+			const oldParentId = new ObjectId(region.parent);
+
+			const oldParent = await Region.findOne({_id: oldParentId}); //the old parent
+
+			let oldSiblings = oldParent.children;
+			let newSiblings = newParent.children;
+
+			let exist = newSiblings.find(x => x == _id);
+			if (!exist) {
+				newSiblings.push(_id);
+			}
+			let updatedOldSiblings = oldSiblings.filter(x => x != _id);
+
+			const oldUpdated = await Region.updateOne({_id: oldParentId}, { children: updatedOldSiblings });
+			const newUpdated = await Region.updateOne({_id: newParentId}, { children: newSiblings });
+			const regionUpdated = await Region.updateOne({_id: objectId}, { parent: parentId });
+
+			if(regionUpdated) return true;
 			else return false;
 		},
 //------------------------------------------------------------------------------------

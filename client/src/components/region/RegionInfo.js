@@ -13,6 +13,7 @@ const RegionInfo = (props) => {
         </div>
         <RegionData region={props.region} allRegions={props.allRegions}
         redirect={props.redirect} user={props.user}
+        setChangeParent={props.setChangeParent}
         />
     </div>);
 }

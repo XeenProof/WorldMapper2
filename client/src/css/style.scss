@@ -512,3 +512,36 @@ html, body {
     background-color: var(--scroll-bar-thumb);
 }
 
+.Parent-header {
+    color: $text-color;
+    font-size: 28px;
+}
+
+.header-selected {
+    color: var(--ss-region-color);
+    font-size: 28px;
+}
+
+.Parent-table{
+    background-color: black;
+    border: 1px solid;
+    border-color: $primary-color;
+}
+
+.Parent-entry{
+    color: white;
+    font-size: 20px;
+}
+
+.Parent-entry:hover{
+    color: yellow;
+    cursor: pointer;
+}
+
+.modal-button-disabled{
+    width: 100%;
+    justify-content: center;
+    cursor: default;
+    background-color: var(--disabled);
+}
+

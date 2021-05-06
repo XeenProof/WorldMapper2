@@ -43,6 +43,7 @@ const typeDefs = gql `
 		deleteRegion(_id: String!): [Region]
 		updateRegionField(_id: String!, field: String!, value: String): String
 		updateRegionArray(_id: String!, field: String!, array: [String]!): Boolean
+		changeRegionParent(_id: String!, parentId: String!): Boolean
 
 		addItem(item: ItemInput!, _id: String!, index: Int!): String
 		addTodolist(todolist: TodoInput!): String

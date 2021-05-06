@@ -72,6 +72,12 @@ export const UPDATE_REGION_ARRAY = gql`
 	}
 `;
 
+export const CHANGE_REGION_PARENT = gql`
+	mutation ChangeRegionParent($_id: String!, $parentId: String!){
+		changeRegionParent(_id: $_id, parentId: $parentId)
+	}
+`;
+
 //Old Stuff---------------------------------------------------------------------------
 export const ADD_ITEM = gql`
 	mutation AddItem($item: ItemInput!, $_id: String!, $index: Int!) {

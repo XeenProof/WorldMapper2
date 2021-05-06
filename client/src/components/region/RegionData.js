@@ -51,7 +51,7 @@ const RegionData = (props) => {
             <div className="flexlr">
                 <div className='viewer-text'>Parent Region:</div>
                 <div className='viewer-text2 clickable' onClick={handleBack}>{parentName}</div>
-                <i className='viewer-entry-button2 viewer-text3 clickable material-icons' onClick={wip}>edit</i>
+                <i className='viewer-entry-button2 viewer-text3 clickable material-icons' onClick={props.setChangeParent}>edit</i>
             </div>
             <div className="flexlr">
                 <div className='viewer-text'>Region Capital:</div>

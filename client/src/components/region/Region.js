@@ -8,8 +8,10 @@ import { useHistory, useParams } from "react-router-dom";
 import RegionInfo from './RegionInfo'
 import Landmarks from './Landmarks';
 import UpdateAccount from '../modals/UpdateAccount';
+import Parent from '../modals/ParentModal/Parent'
 import * as mutations 					from '../../cache/mutations';
-import {  UpdateRegionArray_Transaction } 				from '../../utils/jsTPS';
+import {  UpdateRegionArray_Transaction,
+          UpdateRegionParent_Transaction} 				from '../../utils/jsTPS';
 
 const Region = (props) => {
 
@@ -19,8 +21,10 @@ const Region = (props) => {
     let activeId = id;
 
     const [showUpdate, toggleShowUpdate]    = useState(false);
+    const [changeParent, toggleChangeParent] = useState(false);
 
     const [UpdateRegionArray] = useMutation(mutations.UPDATE_REGION_ARRAY);
+    const [ChangeRegionParent] = useMutation(mutations.CHANGE_REGION_PARENT);
 
 	const redirect = (route) => {
         props.tps.clearAllTransactions();
@@ -213,11 +217,28 @@ const Region = (props) => {
         props.tps.addTransaction(transaction);
         tpsRedo();
     }
+
+    const updateRegionParent = (newParent) => {
+        let _id = activeId;
+        let oldParent = activeRegion.parent;
+        if (oldParent == newParent){
+            return;
+        }
+        let transaction = new UpdateRegionParent_Transaction(_id, oldParent, newParent, ChangeRegionParent);
+        props.tps.addTransaction(transaction);
+        tpsRedo();
+    }
 //---------Resolver-Caller-Ends-------------------------------------
 
 
     const setShowUpdate = () => {
+        toggleChangeParent(false);
         toggleShowUpdate(!showUpdate);
+	};
+
+    const setChangeParent = () => {
+        toggleChangeParent(!changeParent);
+        toggleShowUpdate(false);
 	};
 
     return(
@@ -236,6 +257,7 @@ const Region = (props) => {
 					redirect={redirect} allRegions={allRegions}
                     left={left} right={right}
                     undo={tpsUndo} redo={tpsRedo}
+                    setChangeParent={setChangeParent}
 					/>
 					<Landmarks region={activeRegion} landmarks={allLandmarks}
                     addLandmark={addLandmark} deleteLandmark={deleteLandmark}
@@ -245,6 +267,10 @@ const Region = (props) => {
 			</WLMain>
             {
 				showUpdate && (<UpdateAccount user={props.user} setShowUpdate={setShowUpdate} fetchUser={props.fetchUser}/>)
+			}
+            {
+				changeParent && (<Parent setChangeParent={setChangeParent} allRegions={allRegions} regionId={activeId} 
+                    updateRegionParent={updateRegionParent}/>)
 			}
         </WLayout>
     );

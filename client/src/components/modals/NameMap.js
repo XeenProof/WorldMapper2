@@ -24,13 +24,6 @@ const NameMap = (props) => {
 			{
                     <WMMain className="main-login-modal">
 						<WInput className="modal-input" onChange={updateInput} name='Map Name' labelAnimation="up" barAnimation="solid" labelText="Name" wType="outlined" inputType='text' />
-						{/* {
-							showErr ? <WMMain className='modal-error'>
-								{errorMsg}
-							</WMMain>
-								: <WMMain className='modal-error'>&nbsp;</WMMain>
-						} */}
-
 					</WMMain>
 			}
 			<WMFooter>

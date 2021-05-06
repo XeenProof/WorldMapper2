@@ -519,3 +519,37 @@ html {
     margin-left: auto;
     margin-right: auto;
 }
+
+.Parent-modal{
+    width: 1000px;
+    height: 600px;
+}
+
+.Parent-header{
+    width: 100%;
+    height:75px;
+}  
+
+.Parent-footer{
+    width: 100%;
+    height:75px;
+    padding: 18px;
+}
+
+.Parent-main{
+    width: 100%;
+    height:450px;
+    padding: 25px;
+}
+
+.Parent-table{
+    width: 100%;
+    min-height: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.Parent-entry{
+    margin-top: 3px;
+    margin-left: 10px;
+}

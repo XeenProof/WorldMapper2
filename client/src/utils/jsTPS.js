@@ -103,6 +103,24 @@ export class UpdateRegionArray_Transaction extends jsTPS_Transaction {
     }
 }
 
+export class UpdateRegionParent_Transaction extends jsTPS_Transaction {
+    constructor(_id, oldParent, newParent, changeParent){
+        super();
+        this._id = _id;
+        this.oldParent = oldParent;
+        this.newParent = newParent;
+        this.changeParent = changeParent;
+    }
+    async doTransaction() {
+		const { data } = await this.changeParent({ variables: { _id: this._id, parentId: this.newParent}});
+		return data;
+    }
+    async undoTransaction() {
+        const { data } = await this.changeParent({ variables: { _id: this._id, parentId: this.oldParent}});
+		return data;
+    }
+}
+
 
 //---------------Old-Todolist-Stuff----------------------------------------------------------------------------------------
 /*  Handles list name changes, or any other top level details of a todolist that may be added   */
