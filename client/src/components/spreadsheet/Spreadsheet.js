@@ -19,6 +19,11 @@ import { AddRegion_Transaction,
 
 const Spreadsheet = (props) => {
 
+    useEffect(() => {
+		document.addEventListener('keydown', shortcuts);
+		return () => {document.removeEventListener('keydown', shortcuts)}
+	});
+
     let activeRegion = {};
     let history = useHistory();
     let { id } = useParams();
@@ -52,6 +57,21 @@ const Spreadsheet = (props) => {
         activeRegion = allRegions.find(x => x._id == activeId);
 	}
 //-----Temp-Sealed-------------------------------------------------------
+
+    let shortcuts = (event) => {
+        //console.log(event);
+        if(showUpdate || showDelete){
+            return;
+        }
+        if(event.ctrlKey && event.code == 'KeyZ'){
+        console.log("Undo: triggered");
+        tpsUndo();
+        }
+        if(event.ctrlKey && event.code == 'KeyY'){
+        console.log("Redo: triggered");
+        tpsRedo();
+        }
+    }
 
     const tpsUndo = async () => {
 		if (props.tps.hasTransactionToUndo()){

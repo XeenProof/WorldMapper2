@@ -1,24 +1,8 @@
-import React, { useState, useEffect } 	from 'react';
+import React, { useState } 	from 'react';
 import Navbar 							from '../navbar/Navbar';
-import Logo 							from '../navbar/Logo';
-import NavbarOptions 					from '../navbar/NavbarOptions';
-import MainContents 					from '../main/MainContents';
-import SidebarContents 					from '../sidebar/SidebarContents';
 import Login 							from '../modals/Login';
-import Delete 							from '../modals/Delete';
 import CreateAccount 					from '../modals/CreateAccount';
-import { GET_DB_REGIONS } 				from '../../cache/queries';
-import * as mutations 					from '../../cache/mutations';
-import { useMutation, useQuery } 		from '@apollo/client';
-import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
-import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
-import { DeleteRegion_Transaction, 
-	UpdateListField_Transaction, 
-	UpdateListItems_Transaction, 
-	ReorderItems_Transaction, 
-	EditItem_Transaction,
-	UpdateList_Transaction } 				from '../../utils/jsTPS';
-import WInput from 'wt-frontend/build/components/winput/WInput';
+import { WLayout, WLHeader, WLMain} from 'wt-frontend';
 import { useHistory } from "react-router-dom";
 
 
