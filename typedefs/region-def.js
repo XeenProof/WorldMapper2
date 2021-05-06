@@ -29,10 +29,6 @@ const typeDefs = gql `
 		children: [String]
 		landmarks: [String]
 	}
-	type Landmark{
-		id: Int!
-		landmark: String!
-	}
 	extend type Query {
 		getAllTodos: [Todolist]
 		getAllRegions: [Region]
@@ -64,10 +60,6 @@ const typeDefs = gql `
 		last_opened: String!
 		children: [String]
 		landmarks: [String]
-	}
-	input LandmarkInput{
-		id: Int!
-		landmark: String!
 	}
 	input FieldInput {
 		_id: String

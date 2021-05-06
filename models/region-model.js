@@ -1,5 +1,4 @@
 const { model, Schema, ObjectId } = require('mongoose');
-const Landmark = require('./landmark-model').schema;
 
 const regionSchema = new Schema(
 	{
