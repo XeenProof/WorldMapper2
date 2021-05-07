@@ -12,6 +12,9 @@ const SpreadsheetEntry = (props) => {
     info['capital'] = region.capital;
     info['leader'] = region.leader;
 
+    let flag = `../The World/${info['name']} flag.png`
+
+
     let landmarkSet = region.landmarks;
     let landmarks = "...";
     if(landmarkSet){
@@ -36,10 +39,7 @@ const SpreadsheetEntry = (props) => {
     }
 
     const toggleEdit = (edit) =>{
-        //console.log(edit);
         props.setEditField(_id, edit);
-        //setEditing(edit);
-        //console.log(editing);
     }
 
     const handleEdit = (e) => {
@@ -92,7 +92,7 @@ const SpreadsheetEntry = (props) => {
         </WCol>
         <WCol size="1" className='flexlr ss-rborder'>
             <div className='spreadsheet-image'>
-                <img src='../The World/United States Flag.png' width="70" height="40"/>
+                <img src={flag} width="70" height="40"/>
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>

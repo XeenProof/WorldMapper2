@@ -28,6 +28,8 @@ const RegionData = (props) => {
         subregions = (children)? children.length: 0;
     }
 
+    let flag = `../The World/${name} flag.png`
+
     const handleBack = () => {
         console.log("back");
         if(!region){
@@ -45,7 +47,7 @@ const RegionData = (props) => {
     return(
         <div>
             <div className="viewer-text">
-                <img src='../Logo2.JPG' width="500" height="300"/>
+                <img src={flag} width="500" height="300"/>
             </div>
             <div className="flexlr">
                 <div className='viewer-text'>Region Name:</div>
