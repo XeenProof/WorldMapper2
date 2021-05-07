@@ -185,8 +185,6 @@ const Mapscreen = (props) => {
                         setShowDelete={setShowDelete} setShowRename={setShowRename}
                         selectMap={selectMap} setActiveRegion={props.setActiveRegion}
                         />
-
-                        {/** perhaps move this to it's own file */}
                         <div className='size'>
                             <img src='../Logo2.JPG' width="537" height="430"/>
 							<WButton onClick={setShowName} className='create-new-map'>

@@ -38,8 +38,10 @@ const SpreadsheetEntry = (props) => {
     }
 
     const toggleEdit = (edit) =>{
-        setEditing(edit);
-        console.log(editing);
+        //console.log(edit);
+        props.setEditField(_id, edit);
+        //setEditing(edit);
+        //console.log(editing);
     }
 
     const handleEdit = (e) => {
@@ -47,7 +49,7 @@ const SpreadsheetEntry = (props) => {
         const newInfo = value;
         const prevInfo = info[name];
         props.updateRegionField(_id, name, prevInfo, newInfo);
-        setEditing('');
+        props.setEditField('','');
     }
 
     const wip = () => {};
@@ -59,7 +61,7 @@ const SpreadsheetEntry = (props) => {
             <WButton className='transparent-button' >
                 <i className='ss-button ss-text-centered3 material-icons' onClick={handleDelete}>delete</i>
             </WButton>
-            {(editing == 'name')? <WInput
+            {(props.field == 'name')? <WInput id={_id.concat(' ', 'name')}
                 className='table-input' onBlur={handleEdit} name='name'
                 autoFocus={true} defaultValue={info['name']} type='text'
                 wType="outlined" barAnimation="solid" inputClass="table-input-class"
@@ -72,7 +74,7 @@ const SpreadsheetEntry = (props) => {
             </div>
         </WCol>
         <WCol size="2" className='flexlr ss-rborder'>
-            {(editing == 'capital')? <WInput
+            {(props.field == 'capital')? <WInput id={_id.concat(' ', 'capital')}
                 className='table-input' onBlur={handleEdit} name='capital'
                 autoFocus={true} defaultValue={info['capital']} type='text'
                 wType="outlined" barAnimation="solid" inputClass="table-input-class"
@@ -81,7 +83,7 @@ const SpreadsheetEntry = (props) => {
             </div>}
         </WCol>
         <WCol size="2" className='flexlr ss-rborder'>
-            {(editing == 'leader')? <WInput
+            {(props.field == 'leader')? <WInput id={_id.concat(' ', 'leader')}
                 className='table-input' onBlur={handleEdit} name='leader'
                 autoFocus={true} defaultValue={info['leader']} type='text'
                 wType="outlined" barAnimation="solid" inputClass="table-input-class"

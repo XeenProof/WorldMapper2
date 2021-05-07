@@ -44,6 +44,9 @@ const RegionData = (props) => {
 
     return(
         <div>
+            <div className="viewer-text">
+                <img src='../Logo2.JPG' width="500" height="300"/>
+            </div>
             <div className="flexlr">
                 <div className='viewer-text'>Region Name:</div>
                 <div className='viewer-text'>{name}</div>

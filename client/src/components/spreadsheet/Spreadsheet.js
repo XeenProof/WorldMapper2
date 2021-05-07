@@ -37,16 +37,19 @@ const Spreadsheet = (props) => {
     const [UpdateRegionArray] = useMutation(mutations.UPDATE_REGION_ARRAY);
 
     //console.log(activeId);
-
+    const [editing, setEditing] = useState({_id: '', field: ''});
     const [region, setRegion]     = useState("");
     const [showUpdate, toggleShowUpdate]    = useState(false);
     const [showDelete, toggleShowDelete]    = useState(false);
 
-	
+	const setEditField = (_id, field) => {
+        console.log(_id);
+        console.log(field);
+        setEditing({_id: _id, field: field});
+    }
 
     const auth = props.user === null ? false : true;
 
-    let reload = false;
     let allRegions = [];
 //-----Temp-Sealed-------------------------------------------------------
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
@@ -59,7 +62,7 @@ const Spreadsheet = (props) => {
 //-----Temp-Sealed-------------------------------------------------------
 
     let shortcuts = (event) => {
-        //console.log(event);
+        console.log(event.code);
         if(showUpdate || showDelete){
             return;
         }
@@ -71,7 +74,54 @@ const Spreadsheet = (props) => {
         console.log("Redo: triggered");
         tpsRedo();
         }
+        if(editing._id == ''){
+            return;
+        }
+        if(event.code == 'Enter'){
+            blurFocus();
+        }
+        if(event.code == 'ArrowUp'){
+            arrowPress(-1, 0);
+        }
+        if(event.code == 'ArrowDown'){
+            arrowPress(1, 0);
+        }
+        if(event.code == 'ArrowLeft'){
+            arrowPress(0, -1);
+        }
+        if(event.code == 'ArrowRight'){
+            arrowPress(0, 1);
+        }
     }
+
+    const arrowPress = (upDown, leftRight) => {
+        const fields = ['name', 'capital', 'leader'];
+        const regionList = activeRegion.children;
+        let focusIndex = regionList.indexOf(editing._id);
+        let fieldIndex = fields.indexOf(editing.field);
+        if (focusIndex == -1 || fieldIndex == -1){
+            return;
+        }
+        focusIndex = focusIndex + upDown;
+        fieldIndex = fieldIndex + leftRight;
+        if(focusIndex < 0 || focusIndex >= regionList.length || fieldIndex < 0 || fieldIndex > 2){
+            return;
+        }
+        blurFocus();
+        let newEditId = regionList[focusIndex];
+        let newEditField = fields[fieldIndex];
+        setEditField(newEditId, newEditField);
+    }
+
+    const blurFocus = () => {
+        let elementId = editing._id.concat(' ', editing.field);
+        let element = document.getElementById(elementId);
+        if(element){
+            element.blur();
+        }
+    }
+
+
 
     const tpsUndo = async () => {
 		if (props.tps.hasTransactionToUndo()){
@@ -106,10 +156,6 @@ const Spreadsheet = (props) => {
     }
 
     let directory = createDirectory();
-
-    const getRegion = (_id) => {
-        return allRegions.find(x => x._id == _id);
-    }
 
     const makeComparator = (criteria) => {
 		//let multi = invert? -1:1;
@@ -185,6 +231,9 @@ const Spreadsheet = (props) => {
     }
 
     const updateRegionField = async (_id, field, prev, update) => {
+        if(prev == update){
+            return;
+        }
         let transaction = new UpdateRegionField_Transaction(_id, field, prev, update, UpdateRegionField);
         props.tps.addTransaction(transaction);
         tpsRedo();
@@ -252,7 +301,7 @@ const Spreadsheet = (props) => {
                         {activeRegion && <SpreadsheetTable children={activeRegion.children} 
                         allRegions={allRegions} setShowDelete={setShowDelete}
                         redirect={redirect} updateRegionField={updateRegionField}
-                        sortRegion={sortRegion}
+                        sortRegion={sortRegion} editing={editing} setEditField={setEditField}
                         />}
                     </WLMain>
                 </WLayout>

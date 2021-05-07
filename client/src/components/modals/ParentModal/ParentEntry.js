@@ -11,7 +11,9 @@ const ParentEntry = (props) => {
 
     console.log(name);
     return (<div className='Parent-entry' onClick={() => handleClick(_id)}>
-        {name};
+        <div>
+        {name}
+        </div>
     </div>
     );
 }

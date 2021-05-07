@@ -4,6 +4,8 @@ import SpreadsheetEntry from './SpreadsheetEntry';
 const SpreadsheetContents = (props) => {
     let regionIds = props.children;
     let allRegions = props.allRegions;
+    let _id = props.editing._id;
+    let field = props.editing.field;
 
     return (
         regionIds ? <div className='table-entries container-primary ss-height-lock'>
@@ -14,6 +16,8 @@ const SpreadsheetContents = (props) => {
                         setShowDelete={props.setShowDelete}
                         redirect={props.redirect}
                         updateRegionField={props.updateRegionField}
+                        field={(entry == _id)? field: ''}
+                        setEditField={props.setEditField}
                     />
                 ))
             }
