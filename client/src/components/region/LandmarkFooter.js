@@ -3,16 +3,16 @@ import { WButton, WInput } from 'wt-frontend';
 
 const LandmarkFooter = (props) => {
 
-    const [value, setValue] = useState('the default');
-    let value2 = '';
+    const [value, setValue] = useState('');
 
     const handleValue = (e) => {
-        setValue(e.target.value);
+        console.log(e.target.value);
+        props.setLandmark(e.target.value);
     }
 
     const handleAdd = () => {
-        if (value != ''){
-            props.addLandmark(value);
+        if (props.landmark != ''){
+            props.addLandmark(props.landmark);
         }
     }
 
@@ -21,9 +21,9 @@ const LandmarkFooter = (props) => {
             <WButton className='button-settings' onClick={handleAdd}>
                 <i className='landmark-add-button material-icons'>add</i>
             </WButton>
-            <WInput
-                className='table-input' onBlur={handleValue}
-                defaultValue={value2} type='text'
+            <WInput id='addLandmark'
+                className='table-input' onChange={handleValue}
+                defaultValue={props.landmark} type='text'
                 wType="outlined" barAnimation="solid" inputClass="landmark-input-class"
             />
         </div>

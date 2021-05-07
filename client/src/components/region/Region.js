@@ -25,6 +25,7 @@ const Region = (props) => {
     let { id } = useParams();
     let activeId = id;
 
+    const [landmark, setLandmark] = useState('');
     const [showUpdate, toggleShowUpdate]    = useState(false);
     const [changeParent, toggleChangeParent] = useState(false);
 
@@ -78,6 +79,15 @@ const Region = (props) => {
         if(event.ctrlKey && event.code == 'KeyY'){
         console.log("Redo: triggered");
         tpsRedo();
+        }
+        if(event.code == 'Enter'){
+            let active = document.activeElement;
+            if(active.id == 'addLandmark'){
+                addLandmark(landmark);
+            }
+            else{
+                active.blur();
+            }
         }
     }
 
@@ -192,6 +202,7 @@ const Region = (props) => {
 
 //---------Resolver-Callers-----------------------------------------
     const addLandmark = (landmark) => {
+        if (landmark == ''){return;}
         let landmarkSet = myLandmarks.map(x => x);
         let newLandmarkSet = myLandmarks.map(x => x);
         if (newLandmarkSet.find(x => x == landmark)){
@@ -222,6 +233,7 @@ const Region = (props) => {
     }
 
     const updateLandmark = (oldValue, newValue) => {
+        if(oldValue == newValue){return;}
         let landmarkSet = myLandmarks.map(x => x);
         let newLandmarkSet = myLandmarks.map(x => x);
         let index = newLandmarkSet.findIndex(x => x == oldValue);
@@ -281,6 +293,7 @@ const Region = (props) => {
 					<Landmarks region={activeRegion} landmarks={allLandmarks}
                     addLandmark={addLandmark} deleteLandmark={deleteLandmark}
                     updateLandmark={updateLandmark}
+                    landmark={landmark} setLandmark={setLandmark}
                     />
 				</div>
 			</WLMain>

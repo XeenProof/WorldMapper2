@@ -57,7 +57,7 @@ const Spreadsheet = (props) => {
 //-----Temp-Sealed-------------------------------------------------------
 
     let shortcuts = (event) => {
-        console.log(event.code);
+        //console.log(event.code);
         if(showUpdate || showDelete){
             return;
         }
@@ -109,11 +109,8 @@ const Spreadsheet = (props) => {
     }
 
     const blurFocus = () => {
-        let elementId = editing._id.concat(' ', editing.field);
-        let element = document.getElementById(elementId);
-        if(element){
-            element.blur();
-        }
+        let focus = (document.activeElement);
+        if (focus) {focus.blur()};
     }
 
 

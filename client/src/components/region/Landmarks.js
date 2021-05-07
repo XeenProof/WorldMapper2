@@ -22,6 +22,8 @@ const Landmarks = (props) => {
             <WLFooter className='landmark-footer-settings'>
                 <LandmarkFooter
                 addLandmark={props.addLandmark}
+                landmark={props.landmark}
+                setLandmark={props.setLandmark}
                 />
             </WLFooter>
         </WLayout>
