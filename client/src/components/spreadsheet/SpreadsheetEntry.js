@@ -12,8 +12,6 @@ const SpreadsheetEntry = (props) => {
     info['capital'] = region.capital;
     info['leader'] = region.leader;
 
-    let flag = 'temp';
-
     let landmarkSet = region.landmarks;
     let landmarks = "...";
     if(landmarkSet){

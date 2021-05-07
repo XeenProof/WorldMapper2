@@ -1,15 +1,12 @@
 import React, { useState, useEffect } 	from 'react';
 import Navbar 							from '../navbar/Navbar';
-import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { useHistory, useParams } from "react-router-dom";
-import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import * as mutations 					from '../../cache/mutations';
 import SpreadsheetOptions from './SpreadsheetOptions';
 import SpreadsheetTable from './SpreadsheetTable'
-import SpreadsheetTableHeader from './SpreadsheetTableHeader';
 import Delete 							from '../modals/Delete';
 import UpdateAccount from '../modals/UpdateAccount';
 import { AddRegion_Transaction,
@@ -43,8 +40,6 @@ const Spreadsheet = (props) => {
     const [showDelete, toggleShowDelete]    = useState(false);
 
 	const setEditField = (_id, field) => {
-        console.log(_id);
-        console.log(field);
         setEditing({_id: _id, field: field});
     }
 
