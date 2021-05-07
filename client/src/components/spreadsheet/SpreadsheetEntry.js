@@ -92,7 +92,7 @@ const SpreadsheetEntry = (props) => {
         </WCol>
         <WCol size="1" className='flexlr ss-rborder'>
             <div className='spreadsheet-image'>
-                <img src='../Logo2.JPG' width="70" height="40"/>
+                <img src='../The World/United States Flag.png' width="70" height="40"/>
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>
