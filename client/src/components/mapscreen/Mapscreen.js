@@ -73,17 +73,6 @@ const Mapscreen = (props) => {
     console.log(rootRegions);
 //-----Temp-Sealed-------------------------------------------------------
 
-    //-------Bug-Unstable-Fix--------------------------------------
-    // if(!auth){//makes sure that the list is loaded
-    //     console.log("reloaded");
-    //     refetch();
-    // }
-    //-------------------------------------------------------------
-
-    // if(id){
-    //     refetch();
-    // }
-
     let history = useHistory();
     console.log((history.location.state)? history.location.state.reload: 'no');
     let reload = (history.location.state)? history.location.state.reload: false;

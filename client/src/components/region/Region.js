@@ -288,6 +288,7 @@ const Region = (props) => {
 					redirect={redirect} allRegions={allRegions}
                     left={left} right={right}
                     undo={tpsUndo} redo={tpsRedo}
+                    canUndo={props.tps.hasTransactionToUndo()} canRedo={props.tps.hasTransactionToRedo()}
                     setChangeParent={setChangeParent}
 					/>
 					<Landmarks region={activeRegion} landmarks={allLandmarks}

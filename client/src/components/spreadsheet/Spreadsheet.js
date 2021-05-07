@@ -113,8 +113,6 @@ const Spreadsheet = (props) => {
         if (focus) {focus.blur()};
     }
 
-
-
     const tpsUndo = async () => {
 		if (props.tps.hasTransactionToUndo()){
 			const retVal = await props.tps.undoTransaction();
@@ -283,6 +281,7 @@ const Spreadsheet = (props) => {
                         addSubregion={addSubregion} redirect={redirect}
                         region={activeRegion} user={props.user}
                         undo={tpsUndo} redo={tpsRedo}
+                        canUndo={props.tps.hasTransactionToUndo()} canRedo={props.tps.hasTransactionToRedo()}
                         />
                         <div className='spreadsheet-text flexlr title-card'>
                             <div>{"Region Name: "}</div>

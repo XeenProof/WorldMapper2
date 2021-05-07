@@ -27,19 +27,22 @@ const SpreadsheetOptions = (props) => {
         }
     };
 
+    let undoClass = props.canUndo? 'spreadsheet-entry-button': 'spreadsheet-entry-button-disabled';
+    let redoClass = props.canRedo? 'spreadsheet-entry-button': 'spreadsheet-entry-button-disabled';
+
     return(
         <div className='button-set'>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button2 material-icons' onClick={handleAdd}>add</i>
+            <WButton className='spreadsheet-entry-button' onClick={handleAdd}>
+                <i className='spreadsheet-entry-button2 material-icons'>add</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={handleBack}>close</i>
+            <WButton className='spreadsheet-entry-button' onClick={handleBack}>
+                <i className='material-icons'>close</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={props.undo}>undo</i>
+            <WButton className={undoClass} onClick={props.undo}>
+                <i className='material-icons'>undo</i>
             </WButton>
-            <WButton className='spreadsheet-entry-button'>
-                <i className='spreadsheet-entry-button material-icons' onClick={props.redo}>redo</i>
+            <WButton className={redoClass} onClick={props.redo}>
+                <i className='material-icons'>redo</i>
             </WButton>
         </div>
     );

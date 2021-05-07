@@ -352,6 +352,14 @@ html {
     align-self: flex-end;
 }
 
+.ss-header-button-disabled{
+    min-width: 100%;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+}
+
 .ss-text {
     white-space: nowrap;
     overflow: hidden;

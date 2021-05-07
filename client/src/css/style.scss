@@ -313,9 +313,27 @@ html, body {
     color: white;
 }
 
+.spreadsheet-entry-button:hover{
+    background-color: transparent;
+    color: yellow;
+}
+
+.spreadsheet-entry-button-disabled{
+    background-color: transparent;
+    color: var(--darkblue-gray);
+    cursor: default;
+}
+
 .spreadsheet-entry-button2{
     background-color: transparent;
     color: green;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.spreadsheet-entry-button2:hover{
+    background-color: transparent;
+    color: yellowgreen;
     font-weight: bold;
     font-size: 30px;
 }
@@ -336,6 +354,12 @@ html, body {
 .ss-header-button:hover{
     color: black;
     font-weight: bold;
+}
+
+.ss-header-button-disabled{
+    color: var(--darkblue-gray);
+    font-weight: bold;
+    cursor: default;
 }
 
 .dark-red-background{
@@ -394,6 +418,17 @@ html, body {
 .viewer-entry-button{
     background-color: transparent;
     color: white;
+}
+
+.viewer-entry-button:hover{
+    background-color: transparent;
+    color: yellow;
+}
+
+.viewer-entry-button-disabled{
+    background-color: transparent;
+    color: var(--warm-black);
+    cursor: default;
 }
 
 .viewer-entry-button2{
