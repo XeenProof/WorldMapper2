@@ -24,7 +24,7 @@ const Navbar = (props) => {
 				<NavbarOptions
 					fetchUser={props.fetchUser} auth={props.auth} 
 					setShowCreate={props.setShowCreate} setShowLogin={props.setShowLogin}
-					refetchTodos={props.refetchTodos} setActiveList={props.setActiveList}
+					refetchTodos={props.refetchTodos}
 					redirect={props.redirect} user={props.user} setShowUpdate={props.setShowUpdate}
 				/>
 			</ul>

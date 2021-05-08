@@ -2,7 +2,6 @@ import React from 'react';
 import { WButton, WRow, WCol } from 'wt-frontend';
 
 const SpreadsheetTableHeader = (props) => {
-    const wip = () => {};
 
     const handleSort = (field) => {
         props.sortRegion(field);

@@ -2,7 +2,6 @@ import React 	from 'react';
 import { WButton } from 'wt-frontend';
 
 const SpreadsheetOptions = (props) => {
-    const wip = () => {};
 
     let region = props.region;
     let user = props.user;

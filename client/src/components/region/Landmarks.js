@@ -1,5 +1,5 @@
 import React from 'react'
-import { WLayout, WLHeader, WLMain, WLFooter, WLSide } from 'wt-frontend';
+import { WLayout, WLHeader, WLMain, WLFooter } from 'wt-frontend';
 import LandmarkFooter from './LandmarkFooter';
 import LandmarkTable from './LandmarkTable';
 
@@ -22,8 +22,6 @@ const Landmarks = (props) => {
             <WLFooter className='landmark-footer-settings'>
                 <LandmarkFooter
                 addLandmark={props.addLandmark}
-                landmark={props.landmark}
-                setLandmark={props.setLandmark}
                 />
             </WLFooter>
         </WLayout>

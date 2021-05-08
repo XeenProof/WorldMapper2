@@ -53,6 +53,10 @@ html {
     overflow-y: scroll;
 }
 
+.table-entries-auto {
+    overflow-y: auto;
+}
+
 .table-header {
     width: calc(100% - 56px);
     box-sizing: border-box;

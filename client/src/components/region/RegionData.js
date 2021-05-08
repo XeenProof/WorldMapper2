@@ -1,8 +1,6 @@
 import React from 'react';
-import { WButton } from 'wt-frontend';
 
 const RegionData = (props) => {
-    const wip = () => {};
 
     let region = props.region;//the region itself
     let allRegions = props.allRegions;

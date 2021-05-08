@@ -23,7 +23,10 @@ const RenameMap = (props) => {
 
 			{
                     <WMMain className="main-login-modal">
-						<WInput className="modal-input" onChange={updateInput} name='Map Name' labelAnimation="up" barAnimation="solid" labelText="Name" wType="outlined" inputType='text' value={input}/>
+						<WInput 
+						className="modal-input" onChange={updateInput} name='Map Name' labelAnimation="up" 
+						barAnimation="solid" labelText="Name" wType="outlined" inputType='text' value={input}
+						autoFocus={true}/>
 
 					</WMMain>
 			}

@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 
 const SpreadsheetEntry = (props) => {
-    const [editing, setEditing] = useState('');
 
     let region = props.region;
 

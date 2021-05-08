@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { WButton, WInput } from 'wt-frontend';
 
 const LandmarkFooter = (props) => {
+    useEffect(() => {
+		document.addEventListener('keydown', shortcuts);
+		return () => {document.removeEventListener('keydown', shortcuts)}
+	});
+
+    let shortcuts = (event) => {
+        if(event.code == 'Enter'){
+            handleAdd();
+        }
+    }
 
     const [value, setValue] = useState('');
 
     const handleValue = (e) => {
-        console.log(e.target.value);
-        props.setLandmark(e.target.value);
+        setValue(e.target.value);
     }
 
     const handleAdd = () => {
-        if (props.landmark != ''){
-            props.addLandmark(props.landmark);
-        }
+        props.addLandmark(value);
     }
 
     return(
@@ -23,7 +30,7 @@ const LandmarkFooter = (props) => {
             </WButton>
             <WInput id='addLandmark'
                 className='table-input' onChange={handleValue}
-                defaultValue={props.landmark} type='text'
+                defaultValue={value} type='text'
                 wType="outlined" barAnimation="solid" inputClass="landmark-input-class"
             />
         </div>

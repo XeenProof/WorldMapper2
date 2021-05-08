@@ -1,7 +1,6 @@
 import React, { useState, useEffect } 	from 'react';
 import Navbar 							from '../navbar/Navbar';
-import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
-import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
+import { WLayout, WLHeader, WLMain } from 'wt-frontend';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { GET_DB_REGIONS } 				from '../../cache/queries';
 import { useHistory, useParams } from "react-router-dom";
@@ -25,7 +24,6 @@ const Region = (props) => {
     let { id } = useParams();
     let activeId = id;
 
-    const [landmark, setLandmark] = useState('');
     const [showUpdate, toggleShowUpdate]    = useState(false);
     const [changeParent, toggleChangeParent] = useState(false);
 
@@ -82,10 +80,7 @@ const Region = (props) => {
         }
         if(event.code == 'Enter'){
             let active = document.activeElement;
-            if(active.id == 'addLandmark'){
-                addLandmark(landmark);
-            }
-            else{
+            if(active.id != 'addLandmark'){
                 active.blur();
             }
         }
@@ -278,7 +273,7 @@ const Region = (props) => {
                 <Navbar 
                     fetchUser={props.fetchUser} auth={auth} 
                     setShowCreate={() => {}} setShowLogin={() => {}}
-                    refetchTodos={refetch} setActiveList={() => {}}
+                    refetchTodos={refetch}
                     directory={directory} redirect={redirect} user={props.user}
                     setShowUpdate={setShowUpdate}/>
             </WLHeader>
@@ -294,7 +289,6 @@ const Region = (props) => {
 					<Landmarks region={activeRegion} landmarks={allLandmarks}
                     addLandmark={addLandmark} deleteLandmark={deleteLandmark}
                     updateLandmark={updateLandmark}
-                    landmark={landmark} setLandmark={setLandmark}
                     />
 				</div>
 			</WLMain>
