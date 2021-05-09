@@ -25,23 +25,3 @@ export const GET_DB_REGIONS = gql`
 		}
 	}
 `;
-
-export const GET_DB_TODOS = gql`
-	query GetDBTodos {
-		getAllTodos {
-			_id
-			id
-			name
-			owner
-			last_opened
-			items {
-				_id
-				id
-				description
-				due_date
-				assigned_to
-				completed
-			}
-		}
-	}
-`;

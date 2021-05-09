@@ -36,7 +36,6 @@ const Region = (props) => {
 	}
 
     const auth = props.user === null ? false : true;
-    let reload = false;
     let allRegions = [];
     let parent = {};
     let siblings = [];
@@ -60,10 +59,6 @@ const Region = (props) => {
             right = (index+1 < siblings.length)? siblings[index+1]: '';
         }
 	}
-    if(!auth && !reload){//makes sure that the list is loaded
-        refetch();
-        reload = true;
-    }
 //-----Temp-Sealed-------------------------------------------------------
     let shortcuts = (event) => {
         //console.log(event);

@@ -27,14 +27,9 @@ const Homescreen = (props) => {
 	};
 
 	let history = useHistory();
-	console.log(history);
-	//console.log(history);
 	const redirect = async(route) => {
 		history.push(route, {reload: true});
 	}
-
-	
-
 	
 	return (//This attaches to the root
 		<WLayout id="fullpage" wLayout="header">
@@ -62,70 +57,3 @@ const Homescreen = (props) => {
 };
 
 export default Homescreen;
-
-{/* <WNavbar color="colored">
-<ul>
-	<WNavItem>
-		<Logo className='logo' />
-	</WNavItem>
-</ul>
-<ul>
-	<NavbarOptions
-		fetchUser={props.fetchUser} auth={auth} 
-		setShowCreate={setShowCreate} setShowLogin={setShowLogin}
-		refetchTodos={refetch} setActiveList={setActiveList}
-	/>
-</ul>
-</WNavbar> */}
-
-//--------------------------------World Data Mapper
-{/* <WLMain>
-                <div className='image center'>
-                    Globe
-                </div>
-                <div className='homescreen-text'>Welcome to the World Data Mapper</div>
-            </WLMain> */}
-//--------------------------------World Data Mapper End
-
-//--------------------------------In a but not in b
-// let a = [1,2,3,4,5];
-// let b = [1,2,6,];
-// let c = a.filter(x => !b.find(y => y == x));
-//---------------------------------------------------------------------------
-
-
-{/* <WLSide id='left-sidebar' side="left">
-				<WSidebar>
-					{
-						activeList ?
-							<SidebarContents
-								todolists={todolists} activeid={activeList.id} auth={auth} listorder={todolistsIdsSorted}
-								handleSetActive={handleSetActive} createNewList={createNewList}
-								updateListField={updateListField}
-								listActive={listActive}
-							/>
-							:
-							<></>
-					}
-				</WSidebar>
-			</WLSide>
-			<WLMain id='mainlist'>
-				{
-					activeList ? 
-							<div id='workspace' className="container-secondary">
-								<MainContents
-									addItem={addItem} deleteItem={deleteItem}
-									editItem={editItem} reorderItem={reorderItem}
-									setShowDelete={setShowDelete}
-									activeList={activeList} closeList={closeList}
-									undo={tpsUndo} redo={tpsRedo}
-									canUndo={props.tps.hasTransactionToUndo()}
-									canRedo={props.tps.hasTransactionToRedo()}
-									sortList={updateSortedList}
-								/>
-							</div>
-						:
-							<div id='workspace' className="container-secondary" />
-				}
-
-			</WLMain> */}
