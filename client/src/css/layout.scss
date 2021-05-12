@@ -455,6 +455,7 @@ html {
 
 .directory-container{
     width: 80%;
+    max-width: 1189.75px;
     display: flex;
     flex-direction: row;
 }
@@ -464,6 +465,8 @@ html {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    overflow: hidden;
+    max-height: 38.4px;
 }
 
 .directory-margin{

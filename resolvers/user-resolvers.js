@@ -84,12 +84,14 @@ module.exports = {
 			const { _id, email, password, name } = args
 			const alreadyRegistered = await User.findOne({email: email});
 			if(alreadyRegistered) {
+				if(alreadyRegistered._id != _id){
 				console.log('User with that email already registered.');
 				return(new User({
 					_id: '',
 					name: '',
 					email: 'already exists', 
 					password: ''}));
+				}
 			}
 
 			const objectId = new ObjectId(_id);
