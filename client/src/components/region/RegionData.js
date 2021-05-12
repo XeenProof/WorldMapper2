@@ -27,10 +27,7 @@ const RegionData = (props) => {
             for(let i = 0; i < children.length; i++){
                 let subRegionId = children[i];
                 let subRegion = allRegions.find(x => x._id == subRegionId);
-                if(!subRegion){
-                    continue;
-                }
-                let newChildren = subRegion.children;
+                let newChildren = (subRegion)? subRegion.children:[];
                 children = children.concat(newChildren);
             }
         }
