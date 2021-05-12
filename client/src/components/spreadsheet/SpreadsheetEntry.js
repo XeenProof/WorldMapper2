@@ -95,7 +95,7 @@ const SpreadsheetEntry = (props) => {
             </div>
         </WCol>
         <WCol size="4" className='flexlr ss-rborder'>
-            <div className="ss-text ss-text-centered ss-color" onClick={handleViewer}>
+            <div className="ss-text ss-text-landmarks ss-text-centered ss-color" onClick={handleViewer}>
                 {landmarks}
             </div>
         </WCol>

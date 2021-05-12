@@ -1,10 +1,22 @@
-import React, { useState } 	from 'react';
+import React, { useState, useEffect } 	from 'react';
 
 import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput } from 'wt-frontend';
 
 const RenameMap = (props) => {
-    const [input, setInput] = useState(props.activeRegion.name);
+
+	useEffect(() => {
+		document.addEventListener('keydown', shortcuts);
+		return () => {document.removeEventListener('keydown', shortcuts)}
+	});
+
+    const [input, setInput] = useState((props.activeRegion)? props.activeRegion.name: '');
     const [isVisible, setVisible] = useState(true);
+
+	let shortcuts = (event) => {
+        if(event.code == 'Enter'){
+            handleRename();
+        }
+    }
 
     const updateInput = (e) => {
 		const { value } = e.target;
