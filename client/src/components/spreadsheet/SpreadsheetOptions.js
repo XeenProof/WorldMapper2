@@ -35,7 +35,7 @@ const SpreadsheetOptions = (props) => {
                 <i className='spreadsheet-entry-button2 material-icons'>add</i>
             </WButton>
             <WButton className='spreadsheet-entry-button' onClick={handleBack}>
-                <i className='material-icons'>close</i>
+                <i className='material-icons'>arrow_back</i>
             </WButton>
             <WButton className={undoClass} onClick={props.undo}>
                 <i className='material-icons'>undo</i>
