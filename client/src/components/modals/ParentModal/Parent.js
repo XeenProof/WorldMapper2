@@ -12,13 +12,13 @@ const Parent = (props) => {
 	const [selectedId, setSelectedId] = useState(region? region.parent: 'root');
     const [isVisible, setVisible] = useState(true);
 
-	console.log(selectedId);
+	console.log(allRegions.find(x => x._id == regionId));
 
 	const parent = allRegions.find(x => x._id == selectedId);
 
 	const createDisplayList = (id) => {
 		let regions = allRegions.filter(x => x.parent == id);
-		let filtered = regions.filter(x => x.id != regionId);
+		let filtered = regions.filter(x => x._id != regionId);
 		let displaySet = filtered.map(x => ({_id: x._id, name:x.name}));
 		if(parent){
 			displaySet.unshift({_id: parent.parent, name: '...'});
